@@ -9,3 +9,6 @@ But before you can *upload* new data files, please follow these instructions to 
 
 https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage
 
+## Spectral Fit
+
+The spectral fit jupyter notebook is contained in /spectral-fit and will walk you through using the cosipy tools to extract the spectrum of the Crab and Cyg-X1 from the simulated data set. 
