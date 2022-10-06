@@ -22,4 +22,15 @@ Individual files: <br />
 - **Al26_10xFlux with Ling BG**: DC1_Al26_10xFlux_and_Ling.inc1.id1.extracted.tra.gz
 - **511_10xFlux with no background**: GC_511_10xFlux_only.inc1.id1.extracted.tra.gz
 - **511_10xFlux with Ling BG**: GC511_10xFlux_and_Ling.inc1.id1.extracted.tra.gz
+- DC1_combined_10x.tra.gz: 4 point sources with 10x flux (Crab, Cyg X1, Cen A, Vela), 511 kev & Al26 lines, 1x Ling background
+- Point_sources_10x.tra.gz: 4 point sources with 10x flux (Crab, Cyg X1, Cen A, Vela)
+- Crab_only_10x.tra.gz: Crab with 10x flux
+- CygX1_only_10x.tra.gz: Cyg X1 with 10x flux
+- CenA_only_10x.tra.gz: Cen A with 10x flux
+- Vela_only_10x.tra.gz: Vela with 10x flux
+- Crab_BG_10x.tra.gz: Crab with 10x flux and 1x Ling background
+- CenA_BG_10x.tra.gz: Cen A with 10x flux and 1x Ling background
+- Scaled_Ling_BG_1x.tra.gz: C. Karwin's scaled 1x Ling background simulation
+- Scaled_Ling_BG_3x.npz: background model generated from C. Karwin's scaled 3x Ling BG simulation
+
 
