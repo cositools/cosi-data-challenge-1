@@ -127,7 +127,7 @@ To see what the spectrum looks like, use the following commands:
 You should see a spectrum that looks exactly like the one shown in Figure 1.
 ![Figure 1](Figures/source_and_background_spectrum.png) 
 
-Now, you can leave pgplot by typing `exit or `quit`.   And for future reference, to end an XSPEC session and return to a regular command line, the command `exit` is used.
+Now, you can leave pgplot by typing `exit` or `quit`.   And for future reference, to end an XSPEC session and return to a regular command line, the command `exit` is used.
 
 The next step is to bin the spectrum and to remove the channels outside the spectral range.  Here, we will use a standard set of bins (provided in groups8ch.dat).  Other techniques for binning are described in an Appendix. We bin the spectra and mark the bad channels using the FTOOL grppha (once again, this can be done from within XSPEC or from a regular command line):
 
@@ -165,22 +165,35 @@ Please enter output filename[] source_and_background_grp8ch.pha
   --------------------------------------------------------------------
   --------------------------------------------------------------------
 ```
+And now adding the channels to be removed:
 `GRPPHA[] bad 0-180` (these channels will not change as long as you are using groups8ch.dat)
+
 `GRPPHA[] bad 377-501` (these channels will not change as long as you are using groups8ch.dat)
-`GRPPHA[] group groups8ch.dat` 
-`GRPPHA[] exit`
+
+And reading in the pre-defined binning:
+```
+GRPPHA[] group groups8ch.dat
+GRPPHA[] exit
+```
 (Note that you will see text in the square brackets.  The text comes from the grppha parameter file. If the text in the square brackets is the command that you want, then you can press return instead of typing in the command.)
 
 Now, read in the file that was created after grouping
+
 `XSPEC12> data source_and_background_grp8ch.pha`
+
 Remove the bins outside the spectral range with
+
 `XSPEC12> ignore bad`
+
 We also convert the x-axis to energy using
+
 `XSPEC12> setplot energy`
 
 We plot the spectrum using
-`XSPEC12> plot ldata`
-`XSPEC12> iplot`
+```
+XSPEC12> plot ldata
+XSPEC12> iplot
+```
 (and the other commands in pgplot above) and Figure 2 shows the result.
 
 ![Figure 2](Figures/source_and_background_grp8ch_spectrum.png)
