@@ -115,4 +115,74 @@ Net count rate (cts/s) for Spectrum:1  1.590e+01 +/- 9.214e-01 (49.8 % total)
  Using Response (RMF) File            response.rmf for Source 1
  Using Auxiliary Response (ARF) File  area.arf
 ```
+To see what the spectrum looks like, use the following commands:
+`XSPEC12>iplot` (with this command, the use enters “pgplot”)
+`PLT>device /xs` (this makes plots go to the computer screen; note that d /xs also works)
+`PLT>time off` (turns off the timestamp at the bottom of the window)
+`PLT>lw 5` (makes line widths five times thicker)
+`PLT>lw 5 on 1` (makes the data group 1 point five times thicker)
+`PLT>font roman` (uses times roman fonts rather than the default)
+`PLT>plot`
+
+You should see a spectrum that looks exactly like the one shown in Figure 1.
+![Figure 1](Figures/source_and_background_spectrum.png) 
+
+Now, you can leave pgplot by typing `exit or `quit`.   And for future reference, to end an XSPEC session and return to a regular command line, the command `exit` is used.
+
+The next step is to bin the spectrum and to remove the channels outside the spectral range.  Here, we will use a standard set of bins (provided in groups8ch.dat).  Other techniques for binning are described in an Appendix. We bin the spectra and mark the bad channels using the FTOOL grppha (once again, this can be done from within XSPEC or from a regular command line):
+
+```
+XSPEC12>grppha source_and_background.pha
+Please enter output filename[] source_and_background_grp8ch.pha
+
+-------------------------
+  MANDATORY KEYWORDS/VALUES
+  -------------------------
+  --------------------------------------------------------------------
+  --------------------------------------------------------------------
+  EXTNAME   - SPECTRUM        Name of this BINTABLE
+  TELESCOP  - COSI            Mission/Satellite name
+  INSTRUME  - COSI            Instrument/Detector
+  FILTER    - NONE            Instrument filter in use
+  EXPOSURE  - 38.912          Integration time (in secs) of PHA data
+  AREASCAL  - 1.0000          Area scaling factor
+  BACKSCAL  - 1.0000          Background scaling factor
+  BACKFILE  - background.pha  Associated background file
+  CORRSCAL  - 1.0000          Correlation scaling factor
+  CORRFILE  - NONE            Associated correlation file
+  RESPFILE  - response.rmf    Associated redistribution matrix file
+  ANCRFILE  - area.arf        Associated ancillary response file
+  POISSERR  - TRUE            Whether Poissonian errors apply
+  CHANTYPE  - PI              Whether channels have been corrected
+  TLMIN1    - 0               First legal Detector channel
+  DETCHANS  - 502             No. of legal detector channels
+  NCHAN     - 502             No. of detector channels in dataset
+  PHAVERSN  - 1.2.1           OGIP FITS version number
+  STAT_ERR  - FALSE           Statistical Error
+  SYS_ERR   - FALSE           Fractional Systematic Error
+  QUALITY   - TRUE            Quality Flag
+  GROUPING  - FALSE           Grouping Flag
+  --------------------------------------------------------------------
+  --------------------------------------------------------------------
+```
+`GRPPHA[] bad 0-180` (these channels will not change as long as you are using groups8ch.dat)
+`GRPPHA[] bad 377-501` (these channels will not change as long as you are using groups8ch.dat)
+`GRPPHA[] group groups8ch.dat` 
+`GRPPHA[] exit`
+(Note that you will see text in the square brackets.  The text comes from the grppha parameter file. If the text in the square brackets is the command that you want, then you can press return instead of typing in the command.)
+
+Now, read in the file that was created after grouping
+`XSPEC12> data source_and_background_grp8ch.pha`
+Remove the bins outside the spectral range with
+`XSPEC12> ignore bad`
+We also convert the x-axis to energy using
+`XSPEC12> setplot energy`
+
+We plot the spectrum using
+`XSPEC12> plot ldata`
+`XSPEC12> iplot`
+(and the other commands in pgplot above) and Figure 2 shows the result.
+
+![Figure 2](Figures/source_and_background_grp8ch_spectrum.png)
+
 
