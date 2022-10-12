@@ -429,6 +429,7 @@ XSPEC12>error 2.7 1
 XSPEC can be quite useful for troubleshooting issues with energy spectra.  If something looks suspicious when loading a file for spectral fitting or performing a simulation, it is very easy to see what XSPEC is using for the effective area and for the background.  The following command shows the effective area, which can be seen in Figure 5.
 ```
 XSPEC12>plot eff
+```
 ![Figure 5](Figures/effective_area.png)
 
 Also, when plotting the spectrum, the command
