@@ -30,7 +30,9 @@ Individual files: <br />
 - Vela_only_10x.tra.gz: Vela with 10x flux
 - Crab_BG_10x.tra.gz: Crab with 10x flux and 1x Ling background
 - CenA_BG_10x.tra.gz: Cen A with 10x flux and 1x Ling background
+- Point_sources_10x_BG.tra.gz: 4 point sources with 10x flux (Crab, Cyg X1, Cen A, Vela) and 1x Ling background
 - Scaled_Ling_BG_1x.tra.gz: C. Karwin's scaled 1x Ling background simulation
 - Scaled_Ling_BG_3x.npz: background model generated from C. Karwin's scaled 3x Ling BG simulation
+- Continuum_Response.npz: 6deg response used for spectral analysis
 
 
