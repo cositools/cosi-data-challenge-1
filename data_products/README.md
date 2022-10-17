@@ -1,3 +1,5 @@
+# Data Challenge Simulations
+
 For the first Data Challenge, we wanted to give the users a basic look at COSI data analysis, so we chose 3 straightforward examples based on the COSI science goals:
 - Extracting the spectra from the Crab, Cen A, Cyg X-1, and Vela
 - Imaging bright point sources, such as the Crab and Cyg X-1
@@ -55,49 +57,50 @@ As described in the main cosi-data-challenge-1 README, these files are stored on
 
 There are four bright point sources that are included in these simulations: the Crab nebula, Cygnus X-1, Centaurus A, and Vela. The spectra and flux for each of these sources was determined from the literature. We have used 10x the flux values for these sources since the COSI Balloon flight had limited observation times, and the effective area was limited due to detector failures. The COSI SMEX mission is expected to be 50x more sensitive than the balloon-borne mission, so please keep that in mind when you see the detections in this Data Challenge.
 
-Crab:
-	(l,b) = (184.56, -5.78)
-	Spectral shape: Band function from [Jourdain et al. 2020](https://ui.adsabs.harvard.edu/abs/2020ApJ...899..131J/abstract)
-	Flux = 0.48977 ph/cm2/s between 100 keV and 10 MeV
-Cen A:
-	(l,b) = (309.52, 19.42) 
-	Spectral shape: SED from [HESS+LAT collaboration 2018](https://ui.adsabs.harvard.edu/abs/2018A%26A...619A..71H/abstract)
-	Flux: 0.03609 ph/cm2/s between 100 keV and 10 MeV
-Cyg X1:
-	(l,b) = (71.33, 3.07)
-	Spectral shape: SED from [Kantzas+21](https://ui.adsabs.harvard.edu/abs/2021MNRAS.500.2112K/abstract)
-	Flux = 0.40644 ph/cm2/s between 100 keV - 10 MeV
-Vela:
-	(l,b) = (263.55, -2.79)
-	Spectral shape: SED from [Mattana+11](https://ui.adsabs.harvard.edu/abs/2011ApJ...743L..18M/abstract)
-	Flux = 0.00120 ph/cm2/s between 100 keV - 10 MeV
+Crab:   
+&emsp; (l,b) = (184.56, -5.78)  
+&emsp; Spectral shape: Band function from [Jourdain et al. 2020](https://ui.adsabs.harvard.edu/abs/2020ApJ...899..131J/abstract)  
+&emsp; Flux = 0.48977 ph/cm2/s between 100 keV and 10 MeV  
+Cen A:   
+&emsp; (l,b) = (309.52, 19.42)   
+&emsp; Spectral shape: SED from [HESS+LAT collaboration 2018](https://ui.adsabs.harvard.edu/abs/2018A%26A...619A..71H/abstract)  
+&emsp; Flux: 0.03609 ph/cm2/s between 100 keV and 10 MeV  
+Cyg X1:  
+&emsp; (l,b) = (71.33, 3.07)  
+&emsp; Spectral shape: SED from [Kantzas+21](https://ui.adsabs.harvard.edu/abs/2021MNRAS.500.2112K/abstract)  
+&emsp; Flux = 0.40644 ph/cm2/s between 100 keV - 10 MeV  
+Vela:  
+&emsp; (l,b) = (263.55, -2.79)  
+&emsp; Spectral shape: SED from [Mattana+11](https://ui.adsabs.harvard.edu/abs/2011ApJ...743L..18M/abstract)  
+&emsp; Flux = 0.00120 ph/cm2/s between 100 keV - 10 MeV  
 
 The input spectrum for these point sources is shown below.
 
-[PT SOURCE SPECTRUM]
+<img width="760" alt="Screen Shot 2022-10-17 at 2 17 37 AM" src="https://user-images.githubusercontent.com/33991471/196102631-06aca78d-31da-4363-9f43-b59a6c515786.png">
 
 The simulations are run in MEGAlib’s cosima tool, and then a list-mode image is created in mimrec to confirm the correct point source locations:
 
-[PT SOURCE MIMREC IMAGE]
+![Screen Shot 2022-10-17 at 2 18 30 AM](https://user-images.githubusercontent.com/33991471/196102769-1ac5ffb5-b3e5-45e0-afe1-952c068bf693.png)
 
 ### Positron Annihilation at 511 keV
 
 The morphology of the 511 keV emission from positron annihilation is not well constrained. For this first Data Challenge, we have used the model defined in [Knödlseder et al. 2005](https://ui.adsabs.harvard.edu/abs/2005A%26A...441..513K/abstract), where the emission was fit with a 2-D asymmetric Gaussian spatial model with the following parameters:
-[KNODLSEDER MODEL]
+
+<img width="350" alt="Screen Shot 2022-10-17 at 2 21 06 AM" src="https://user-images.githubusercontent.com/33991471/196103180-3b25375b-3153-44bb-8c1a-a0c68e56585d.png">
 
 The emission was simulated as a 511 keV mono-energetic source, and the image from mimrec confirms the extended emission in the Galactic Center.
 
-[511 MIMREC IMAGE]
+![Screen Shot 2022-10-17 at 12 49 54 AM](https://user-images.githubusercontent.com/33991471/196103404-b4f7d089-88bf-4560-be8b-94f0cebb23e8.png)
 
 ### Aluminum-26 Decay at 1.8 MeV
 
 The Diffuse Infrared Background Experiment (DIRBE) 240 um map has been shown to be a good tracer for the Al-26 emission, as measured by COMPTEL and INTEGRAL/SPI. We use that distribution as the spatial model for the Al-26 emission, and the inner Galaxy flux was normalized to 3.3×10−4 ph/cm2/s ([Diehl et al. 2006](https://ui.adsabs.harvard.edu/abs/2006Natur.439...45D/abstract)). This model is described further in [Beechert et al. 2022](https://ui.adsabs.harvard.edu/abs/2022ApJ...928..119B/abstract).
 
-[DIRBE MODEL]
+![Screen Shot 2022-10-17 at 2 23 44 AM](https://user-images.githubusercontent.com/33991471/196103586-bccf5846-c66f-4a40-bd1c-942e8cfbe672.png)
 
 The emission was simulated with a 1.8 MeV mono-energetic source, and the image from mimrec confirms the extended emission along the Galactic disk.
 
-[MIMREC AL26 IMAGE]
+![Screen Shot 2022-10-17 at 12 49 46 AM](https://user-images.githubusercontent.com/33991471/196103634-818c032e-cae0-40f8-9bc0-b4c997799a9b.png)
 
 Note that the list-mode imaging method employed in MEGAlib is not optimized for diffuse sources, and the extra structure out of the Galactic plane is an imaging artifact.
 
@@ -107,21 +110,21 @@ The background radiation model used for the Data Challenge is based on the semi-
 
 The amplitude of the Ling background was scaled so the total integrated background spectrum from simulation matched closely to what was measured during flight, as can been seen in the figure below. The flight data (“All Data” label) shows a time-variable background count rate that was influenced by the geomagnetic cutoff, and balloon altitude drops. The cyan line shows the scaled Ling background model. As a reference, the count rate from the 1x flux point sources are shown, and the signal is at most a few percent of the background count rate. 
 
-[BKG RATE FIGURE]
+![Screen Shot 2022-10-17 at 2 04 27 AM](https://user-images.githubusercontent.com/33991471/196103711-13981256-8577-4b1f-9ce8-701874ba10c2.png)
 
 An image of the background simulation traces the exposure map, since the orientation of the COSI Balloon in Galactic coordinates was included in the simulation:
 
-[BKG MIMREC IMAGE]
+![Screen Shot 2022-10-17 at 2 04 44 AM](https://user-images.githubusercontent.com/33991471/196103767-dcd05934-5b73-48a2-9cbf-74c57520b982.png)
 
 ## Flight path and transmission
 
 The source simulations include the real flight aspect information so that the balloon path and source exposure time is accurate. This can be seen in the below plot showing the Galactic longitude and latitude of the zenith direction of the COSI balloon as a function of time.
 
-[ORIENTATION]
+![Screen Shot 2022-10-17 at 1 55 33 AM](https://user-images.githubusercontent.com/33991471/196103809-2eef45e3-f889-4049-81ec-2a83db5865fb.png)
 
 Furthermore, the transmission probability of the source photons in the atmosphere are calculated for each instance of the simulation. The probability of transmission is taken at a constant altitude of 33 km, and is shown as a function of zenith angle and energy in the below figure.
 
-[TRANSMISSION PROB]
+<image width="500" alt="Screen Shot 2022-10-17 at 1 56 10 AM" src="https://user-images.githubusercontent.com/33991471/196103855-2e805235-c4a1-4d82-a568-edf7bca6727e.png">
 
 
  
