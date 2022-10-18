@@ -1,9 +1,0 @@
-*.sim filter=lfs diff=lfs merge=lfs -text
-*.sim.gz filter=lfs diff=lfs merge=lfs -text
-*.tra.gz filter=lfs diff=lfs merge=lfs -text
-*.evta.gz filter=lfs diff=lfs merge=lfs -text
-*.rsp.gz filter=lfs diff=lfs merge=lfs -text
-*.h5 filter=lfs diff=lfs merge=lfs -text
-*.rsp filter=lfs diff=lfs merge=lfs -text
-*.evta filter=lfs diff=lfs merge=lfs -text
-*.tra filter=lfs diff=lfs merge=lfs -text
