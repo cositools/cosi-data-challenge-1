@@ -16,8 +16,8 @@ from shapely.geometry import Polygon
 import pickle
 
 # spectral fits
-from priors import *
-from spectral_shapes import *
+from priors_dc1 import *
+from spectral_shapes_dc1 import *
 import time
 import emcee
 import corner
@@ -196,7 +196,7 @@ class fit():
             self.diff_rate_err[i,0] = self.fit_pars[i][0,3]/norm_tmp - self.diff_rate[i] # lower boundary uncertainty
 
 
-    def plot_extracted_spectrum(self,ul=None,with_systematics=False,col1='black',col2='gray'):
+    def plot_extracted_spectrum(self,save_file,ul=None,with_systematics=False,col1='black',col2='gray'):
 
         if with_systematics == True:
             syst_scl = self.systematics
@@ -205,6 +205,7 @@ class fit():
         
         plt.figure(figsize=(10.24,7.68))
 
+        snr = self.diff_rate/np.nanmax(np.abs(self.diff_rate_err.T)*syst_scl,axis=0)
         if ul == None:
             plt.errorbar(self.dataset.energies.energy_bin_cen,
                          self.diff_rate,
@@ -214,7 +215,7 @@ class fit():
                          label=r'COSI Data Fit ($1\sigma$)')
         else:
             # mark data points which have SNR < ul with downward arrows
-            snr = self.diff_rate/np.nanmax(np.abs(self.diff_rate_err.T)*syst_scl,axis=0)
+            # snr = self.diff_rate/np.nanmax(np.abs(self.diff_rate_err.T)*syst_scl,axis=0)
             ul_idx = np.where(snr < ul)[0]
             gl_idx = np.where(snr >= ul)[0]
             plt.errorbar(self.dataset.energies.energy_bin_cen[gl_idx],
@@ -237,6 +238,19 @@ class fit():
         plt.xlim(150,5000)
         plt.legend()
 
+        # Write data:
+        save_path = os.getcwd()
+        save_file = os.path.join(save_path,save_file)
+        d = {"ebin_center[keV]":self.dataset.energies.energy_bin_cen,\
+                        "xerr[keV]":self.dataset.energies.energy_bin_wid,\
+                        "rate[ct/keV]":self.diff_rate,\
+                        "rate_err_low[ct/keV]":np.abs(self.diff_rate_err.T)[0],\
+                        "rate_err_high[ct/keV]":np.abs(self.diff_rate_err.T)[1],\
+                        "SNR":snr}
+        df = pd.DataFrame(data=d)
+        df.to_csv(save_file,float_format='%10.5e',index=False,sep="\t",\
+                columns=["ebin_center[keV]","xerr[keV]","rate[ct/keV]",\
+                "rate_err_low[ct/keV]","rate_err_high[ct/keV]","SNR"])
 
 def COSImodfit(theta, data, sky_model, background_model, eval=False):
     """
