@@ -12,11 +12,11 @@ warnings.filterwarnings('ignore')
 
 import pandas as pd
 from shapely.geometry import Polygon
-from COSIpy import FISBEL
-from COSIpy import dataset
-from COSIpy import GreatCircle
-from COSIpy import angular_distance
-from COSIpy import find_nearest
+from COSIpy_dc1 import FISBEL
+from COSIpy_dc1 import dataset
+from COSIpy_dc1 import GreatCircle
+from COSIpy_dc1 import angular_distance
+from COSIpy_dc1 import find_nearest
 
 #import logging as log
 
