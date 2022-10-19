@@ -8,7 +8,7 @@ Welcome to the first COSI Data Challenge! This is the first of many COSI Data Ch
 If you already have the COSItools installed on your computer, type `cosi` to navigate to the COSItools directory and activate the cosi python environment. Clone the cosi-data-challenge-1 repository. The file requirements.txt lists all of the dependencies for running the data challenge, and they can all be installed using pip. 
 
 ### New to COSItools:
-Head to the feature/initialsetup branch of the cosi-setup Git repository and follow the readme guide: https://github.com/cositools/cosi-setup/tree/feature/initialsetup.
+Head to the feature/initialsetup branch of the cosi-setup Git repository and follow the readme guide: https://github.com/cositools/cosi-setup/tree/feature/initialsetup. Note that when making the installation you must include the option --extras=cosi-data-challenge-1. 
 
 ### Using LFS to get the data: 
 Some of the data products are large, and we are using the Git Large File Server. You will need to first install git-lfs: https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage
