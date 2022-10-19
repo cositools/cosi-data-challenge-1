@@ -79,7 +79,7 @@ The 511 keV image from the INTEGRAL SPI satellite ([Bouchet et al. 2010](https:/
 
 Imaging with fine angular resolution can help disentangle this dichotomy. The detection of an individual point source, for example, could revolutionize our understanding of the morphology. High-resolution spectroscopy is also critical to understanding the transport and eventual annihilation sites of these positrons: a significant ortho-Positronum (o-Ps; $\leq 511$ keV) component of the spectrum would suggest annihilation in colder regions of the interstellar medium (ISM). A stronger signature at the line energy of 511 keV (para-Positronium, p-Ps) indicates annhilation in warmer regions of the ISM. Data from SPI currently favor the latter scenario, though additional measurements of this o-Ps to p-Ps fraction are necessary.
 
-![SPI 511 keV image (Bouchet et al. 2010)](plots/Bouchet_2010_SPI_511keV.png)
+<img width="619" alt="Bouchet_2010_SPI_511keV" src="https://user-images.githubusercontent.com/33991471/196822990-8698d761-bce7-4b5e-8ae7-3aca6163380f.png">
 
 
 2. Where are all of these positrons coming from?
@@ -99,8 +99,7 @@ As MeV gamma-ray instruments, COSI-balloon and the COSI satellite are uniquely e
 
 In the 1980s, NASA's High Energy Astrophysical Observatory (HEAO-3) satellite mission detected 1.809 MeV emission emanating from the direction of the Galactic Center [Mahoney et al. 1984](https://adsabs.harvard.edu/pdf/1984ApJ...286..578M). This marked the discovery of Galactic $^{26}$Al. The spectrum is shown below.
 
-![HEAO-3 26Al spectrum (Mahoney et al. 1984)](plots/Mahoney_1984_HEAO-3_1809keV.png)
-
+<img width="289" alt="Mahoney_1984_HEAO-3_1809keV" src="https://user-images.githubusercontent.com/33991471/196823369-33d78bd1-b84e-49a1-af73-fc0e2168a5ab.png">
 
 Subsequent observations by the Compton telescope (COMPTEL) on-board NASA's Compton Gamma Ray Observatory (CGRO) yielded the first image of $^{26}$Al emission ([Oberlack et al. 1996](https://ui.adsabs.harvard.edu/abs/1996A%26AS..120C.311O/abstract), [Oberlack 1997](https://ui.adsabs.harvard.edu/abs/1997PhDT.........8O/abstract), [Pluschke et al. 2001](https://ui.adsabs.harvard.edu/abs/2001ESASP.459...55P/abstract)). Emission is concentrated in the Inner Galaxy ($|\ell| \leq 30^{\circ}, |b| \leq 10^{\circ}$) with enhanced emission in regions of massive star activity, including Cygnus, Carina, and Vela. 
 
@@ -110,6 +109,10 @@ The SPectrometer on INTEGRAL (SPI) largely corroborated the features seen in the
 COMPTEL 1.8 MeV image (Pluschke et al. 2001) | SPI 1.8 MeV image (Bouchet et al. 2015)
 - | -
 ![COMPTEL 1.8 MeV image](plots/COMPTEL_1.8MeV_image.png) | ![SPI 1.8 MeV image](plots/SPI_1.8MeV_image.png)
+
+<img width="381" alt="COMPTEL_1 8MeV_image" src="https://user-images.githubusercontent.com/33991471/196823447-6373d7da-1ddd-4a72-bfa6-465bebf1013c.png">
+
+<img width="616" alt="SPI_1 8MeV_image" src="https://user-images.githubusercontent.com/33991471/196823463-61772883-35ed-4151-8cab-c69872f75a7c.png">
 
 The COSI-balloon flight in 2016 measure the 1.809 MeV signature of $^{26}$Al with $3.7\sigma$ significance, corresponding to about 106 $^{26}$Al photons [(Beechert et al. 2022)](https://iopscience.iop.org/article/10.3847/1538-4357/ac56dc/meta). The reported Inner Galaxy flux of $(8.6 \pm 2.5) \times 10^{-4}$ ph cm$^{-2}$ s$^{-1}$ and line centroid of $1811.2 \pm 1.8$ keV are consistent with results from SPI and COMPTEL within 2$\sigma$ uncertainties. Future observations with the COSI satellite (significantly increased observation time, greater effective area at 1.8 MeV, better constraints on high-latitude emission, and finer angular resolution) will comprise an important comparison to the balloon measurement, which was the first measurement of $^{26}$Al on a compact Compton telescope.
 
