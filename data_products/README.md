@@ -59,9 +59,9 @@ There are four bright point sources that are included in these simulations: the 
 
 The Crab nebula is considered both a pulsar wind nebula (PWN) and supernova remnant. The PWN surrounds the Crab Pulsar, a rapidly rotating and magnetized neutron star in the Milky Way constellation Taurus. The supernova remnant was produced by SN 1054.
 
-The Crab entered COSI-balloon's field of view for only $\sim$12 of the 46 days of the 2016 flight ([Sleator 2019](https://www.proquest.com/docview/2313733159?pq-origsite=gscholar&fromopenview=true)); the balloon remained largely in Earth's Southern Hemisphere and the Crab is more easily viewed from the Northern Hemisphere. Nevertheless, as the brightest persistent $\gamma$-ray source in the sky, the Crab is detectable in the balloon data and is imaged in this notebook with 10x its true flux of 0.049 ph cm$^{-2}$ s$^{-1}$ (100 keV-50 MeV).
+The Crab entered COSI-balloon's field of view for only $\sim$12 of the 46 days of the 2016 flight ([Sleator 2019](https://www.proquest.com/docview/2313733159?pq-origsite=gscholar&fromopenview=true)); the balloon remained largely in Earth's Southern Hemisphere and the Crab is more easily viewed from the Northern Hemisphere. Nevertheless, as the brightest persistent $\gamma$-ray source in the sky, the Crab is detectable in the balloon data and is imaged in this notebook with 10x its true flux of 0.049 ph cm $^{-2}$ s $^{-1}$ (100 keV-50 MeV).
 
-Cygnus X-1 is a bright hard X-ray source in the Cygnus constellation of the Milky Way. It is believed to be a black hole in an X-ray binary system. Cygnus X-1 emits in COSI's bandpass as well, and like the Crab is simulated here at 10x its true flux of 0.041 ph cm$^{-2}$ s$^{-1}$ (100 keV-50 MeV). This data challenge thus helps establish expectations for COSI-balloon observations of Cygnus X-1 during the 2016 flight.
+Cygnus X-1 is a bright hard X-ray source in the Cygnus constellation of the Milky Way. It is believed to be a black hole in an X-ray binary system. Cygnus X-1 emits in COSI's bandpass as well, and like the Crab is simulated here at 10x its true flux of 0.041 ph cm $^{-2}$ s $^{-1}$ (100 keV-50 MeV). This data challenge thus helps establish expectations for COSI-balloon observations of Cygnus X-1 during the 2016 flight.
 
 Centaurus A is a galaxy in the constellation of Centaurus. Also called NGC 5128, Centaurus A has a supermassive black hole which emits X-rays and radio waves. This notebook attempts to image Centaurus A as seen with 10x its true flux of 0.0036 ph cm$^{-2}$ s$^{-1}$ (100 keV-50 MeV) during the 2016 balloon flight.
 
@@ -105,12 +105,8 @@ Subsequent observations by the Compton telescope (COMPTEL) on-board NASA's Compt
 
 The SPectrometer on INTEGRAL (SPI) largely corroborated the features seen in the COMPTEL image with over a decade of observation time from ESA's INTEGRAL satellite ([Bouchet et al. 2015](https://iopscience.iop.org/article/10.1088/0004-637X/801/2/142/meta)). Emission is concentrated in the Inner Galaxy with a reported flux of $\sim 3.3 \times 10^{-4}$ ph cm$^{-2}$ s$^{-1}$. As in the COMPTEL image, there is enhanced emission in regions of massive star activity, including Perseus/Taurus, Cygnus/Cepheus, Carina, Vela, and Scorpius-Centaurus. 
 
-
+<img width="400" alt="COMPTEL_1 8MeV_image" src="https://user-images.githubusercontent.com/33991471/196823447-6373d7da-1ddd-4a72-bfa6-465bebf1013c.png"> | <img width="400" alt="SPI_1 8MeV_image" src="https://user-images.githubusercontent.com/33991471/196823463-61772883-35ed-4151-8cab-c69872f75a7c.png">
 COMPTEL 1.8 MeV image (Pluschke et al. 2001) | SPI 1.8 MeV image (Bouchet et al. 2015)
-- | -
-![COMPTEL 1.8 MeV image](plots/COMPTEL_1.8MeV_image.png) | ![SPI 1.8 MeV image](plots/SPI_1.8MeV_image.png)
-
-<img width="350" alt="COMPTEL_1 8MeV_image" src="https://user-images.githubusercontent.com/33991471/196823447-6373d7da-1ddd-4a72-bfa6-465bebf1013c.png"> | <img width="350" alt="SPI_1 8MeV_image" src="https://user-images.githubusercontent.com/33991471/196823463-61772883-35ed-4151-8cab-c69872f75a7c.png">
 
 The COSI-balloon flight in 2016 measure the 1.809 MeV signature of $^{26}$Al with $3.7\sigma$ significance, corresponding to about 106 $^{26}$Al photons [(Beechert et al. 2022)](https://iopscience.iop.org/article/10.3847/1538-4357/ac56dc/meta). The reported Inner Galaxy flux of $(8.6 \pm 2.5) \times 10^{-4}$ ph cm$^{-2}$ s$^{-1}$ and line centroid of $1811.2 \pm 1.8$ keV are consistent with results from SPI and COMPTEL within 2$\sigma$ uncertainties. Future observations with the COSI satellite (significantly increased observation time, greater effective area at 1.8 MeV, better constraints on high-latitude emission, and finer angular resolution) will comprise an important comparison to the balloon measurement, which was the first measurement of $^{26}$Al on a compact Compton telescope.
 
