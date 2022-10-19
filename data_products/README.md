@@ -79,7 +79,7 @@ The 511 keV image from the INTEGRAL SPI satellite ([Bouchet et al. 2010](https:/
 
 Imaging with fine angular resolution can help disentangle this dichotomy. The detection of an individual point source, for example, could revolutionize our understanding of the morphology. High-resolution spectroscopy is also critical to understanding the transport and eventual annihilation sites of these positrons: a significant ortho-Positronum (o-Ps; $\leq 511$ keV) component of the spectrum would suggest annihilation in colder regions of the interstellar medium (ISM). A stronger signature at the line energy of 511 keV (para-Positronium, p-Ps) indicates annhilation in warmer regions of the ISM. Data from SPI currently favor the latter scenario, though additional measurements of this o-Ps to p-Ps fraction are necessary.
 
-![SPI 511 keV image (Bouchet et al. 2010)](Bouchet_2010_SPI_511keV.png)
+![SPI 511 keV image (Bouchet et al. 2010)](plots/Bouchet_2010_SPI_511keV.png)
 
 
 2. Where are all of these positrons coming from?
@@ -99,7 +99,7 @@ As MeV gamma-ray instruments, COSI-balloon and the COSI satellite are uniquely e
 
 In the 1980s, NASA's High Energy Astrophysical Observatory (HEAO-3) satellite mission detected 1.809 MeV emission emanating from the direction of the Galactic Center [Mahoney et al. 1984](https://adsabs.harvard.edu/pdf/1984ApJ...286..578M). This marked the discovery of Galactic $^{26}$Al. The spectrum is shown below.
 
-![HEAO-3 26Al spectrum (Mahoney et al. 1984)](Mahoney_1984_HEAO-3_1809keV.png)
+![HEAO-3 26Al spectrum (Mahoney et al. 1984)](plots/Mahoney_1984_HEAO-3_1809keV.png)
 
 
 Subsequent observations by the Compton telescope (COMPTEL) on-board NASA's Compton Gamma Ray Observatory (CGRO) yielded the first image of $^{26}$Al emission ([Oberlack et al. 1996](https://ui.adsabs.harvard.edu/abs/1996A%26AS..120C.311O/abstract), [Oberlack 1997](https://ui.adsabs.harvard.edu/abs/1997PhDT.........8O/abstract), [Pluschke et al. 2001](https://ui.adsabs.harvard.edu/abs/2001ESASP.459...55P/abstract)). Emission is concentrated in the Inner Galaxy ($|\ell| \leq 30^{\circ}, |b| \leq 10^{\circ}$) with enhanced emission in regions of massive star activity, including Cygnus, Carina, and Vela. 
