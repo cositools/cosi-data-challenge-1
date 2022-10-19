@@ -27,7 +27,7 @@ COSIpy was first developed by Thomas Siegert in 2019 to perform 511 keV image an
 ## The Simulated Data
 
 For the first Data Challenge, we wanted to give the users a basic look at COSI data analysis, so we chose 3 straightforward examples based on the COSI science goals: </br>
-1. Extracting the spectra from the Crab nebula and other bright point sources. </br>
+1. Extracting the spectra from the Crab, Cen A, Cyg X-1, and Vela. </br>
 2. Imaging bright point sources, such as the Crab and Cyg-X1. </br>
 3. Imaging diffuse emission from 511 keV and the Al-26 1.8 MeV gamma-ray line. </br>
 
