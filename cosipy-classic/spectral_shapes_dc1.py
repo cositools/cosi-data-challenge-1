@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 from scipy.integrate import trapz
+import os
+import spectral_shapes_dc1
 
 def powerlaw(energy, p):
     """
@@ -984,9 +986,8 @@ def ann_spec_with_norm(x, p):
 
     return val
 
-
-
-lecr = pd.read_csv('gam_lecr_pdcompatible.spc',skiprows=3,sep=',')
+path_prefix = os.path.split(spectral_shapes_dc1.__file__)[0]
+lecr = pd.read_csv(os.path.join(path_prefix,'gam_lecr_pdcompatible.spc'),skiprows=3,sep=',')
 e_cr = lecr['Eg(MeV)']
 f_cr = lecr['Fg(10^-5 ph/cm^2/s/sr/MeV)']
 sr_norm = (np.sin(np.deg2rad(25))-np.sin(np.deg2rad(-25)))*np.deg2rad(50)

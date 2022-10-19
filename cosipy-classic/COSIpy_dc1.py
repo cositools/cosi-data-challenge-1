@@ -878,8 +878,9 @@ class dataset(COSIpy):
 
                 # sum over angles to get only time and energy array
                 self.lc_all = np.sum(self.binned_data,axis=(2,3))
-                self.lc_all = self.lc_all/self.times.total_time
-            
+                #self.lc_all = self.lc_all/self.times.total_time
+                self.lc_all = self.lc_all/self.init_time_bin_size # normalize by bin time
+                
                 if mode == 'total':
                     self.light_curve = np.sum(self.lc_all,axis=1)
                 elif mode == 'all':
