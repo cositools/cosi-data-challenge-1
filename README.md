@@ -51,7 +51,7 @@ The three scattering angles $(\phi, \chi, \psi)$ make up 3 orthogonal axes of th
 
 All analyses with COSIpy start with reconstructed events defined in a photon list (MEGAlib’s .tra files). After reading in the data from the .tra file, the first step of any analysis is to bin the data into the CDS. For this Data Challenge, we are using 6º bin sizes for each of the scattering angles. This is because the angular resolution of the COSI Balloon instrument is ~6º at best, and smaller bins would be more computationally demanding. We are also using 10 energy bins for the continuum analyses, and 2 hour time bins. For the narrow-line sources, such as 511 keV or Al-26, we use only 1 energy bin centered on the gamma-ray line of interest.
 
-As a visual representation of the data (D) in the CDS, see the figure below. The three axes are the 3 scatter angles, and each bin contains the number of events, or counts, with that $(\phi, \chi, \psi)$, shown with the red color fill (this is just a random distribution and not representative of what real data looks like in the CDS). The CDS is filled for each energy and time bin, represented by the subscript $E,t$ in the figure. In cosipy-classic, $\chi$ and $\psi$ are binned into in 1145 FISBEL bins, where FISBEL is MEGAlib’s spherical axis binnings that has approximately equal solid angle for each pixel.
+As a visual representation of the data (D) in the CDS, see the figure below. The three axes are the 3 scatter angles, and each bin contains the number of events, or counts, with that $(\phi, \chi, \psi)$, shown with the red color fill (this is just a random distribution and not representative of what real data looks like in the CDS). The CDS is filled for each energy and time bin, represented by the subscript $E,t$ in the figure. In COSIpy-classic, $\chi$ and $\psi$ are binned into in 1145 FISBEL bins, where FISBEL is MEGAlib’s spherical axis binnings that has approximately equal solid angle for each pixel.
 
 <img width="400" alt="Screen Shot 2022-10-16 at 11 03 38 PM" src="https://user-images.githubusercontent.com/33991471/196080461-6e97c2c2-4d36-4cfb-b13c-935f438616c1.png">
 
@@ -70,15 +70,15 @@ The response matrix (R) for Compton telescopes represents the probability that a
 
 ### Sky Model
 
-For forward-folding analysis methods, we assume a source sky distribution, referred to as the sky model (S). The sky model in image space can be simply a point source or it can be a complicated diffuse model. This model is convolved with the instrument response matrix, and includes knowledge of the instrument aspect during observations, to determine the representation of the sky model in the CDS. For example, here we are showing this for a simple point source, and we regain the expected cone-shape in the CDS.
+For forward-folding analyses methods, we assume a source sky distribution, referred to as the sky model (S). The sky model in image space can be simply a point source or it can be a complicated diffuse model. This model is convolved with the instrument response matrix, and includes knowledge of the instrument aspect during observations, to determine the representation of the sky model in the CDS. For example, here we are showing this for a simple point source, and we regain the expected cone-shape in the CDS.
 
 <img width="1065" alt="Screen Shot 2022-10-16 at 11 06 10 PM" src="https://user-images.githubusercontent.com/33991471/196080720-dc1db3c5-0bee-4843-b8d5-ddb936745bb1.png">
 
 ### Background Model
 
-We require an accurate estimate of the backgrounds during observations. This background model (B) can be achieved in a number of ways, for example by using the measured flight data from source-starved regions. Alternatively, one can perform full bottoms-up simulations of the gamma-ray background at balloon-flight altitudes, including activation. For this first Data Challenge, we are using this approach, and the simulation is further described in [data_products](data_products); however, for future Data Challenges, we will be employing multiple background-model approaches.
+We require an accurate estimate of the backgrounds during observations. This background model (B) can be achieved in a number of ways, for example by using the measured flight data from source-starved regions. Alternatively, one can perform full bottom-up simulations of the gamma-ray background at balloon-flight altitudes, including activation. For this first Data Challenge, we are using this approach, and the simulation is further described in [data_products](data_products); however, for future Data Challenges, we will be employing multiple background-model approaches.
 
-With the background model generated from simulations, then we first have to bin it in the same CDS that we have used for the data and the source model. We have already performed this step for you, and have provided an .npz file, which is a zipped numpy array of the background simulation in the CDS.
+With the background model generated from simulations, then we first have to bin it in the same CDS that we have used for the data and the source model. We have already performed this step for you, and have provided a .npz file, which is a zipped numpy array of the background simulation in the CDS.
 
 <img width="1053" alt="Screen Shot 2022-10-16 at 11 06 45 PM" src="https://user-images.githubusercontent.com/33991471/196080812-bb591627-3127-454d-af92-1d859313774b.png">
 
@@ -92,7 +92,7 @@ If we don’t know what the source should look like, instead of providing a sky 
 
 <img width="482" alt="Screen Shot 2022-10-16 at 11 08 00 PM" src="https://user-images.githubusercontent.com/33991471/196080950-0a042af0-0bd8-4360-9f7f-898edcd81ee1.png">
 
-Since the response is non-invertible, we must use iterative deconvolutions to arrive at the sky distribution. In cosipy-classic, we will introduce you to a modified Richardson-Lucy algorithm, which is a special case of the expectation maximization algorithm developed for COMPTEL’s images of diffuse gamma-ray emission ([Knödlseder et al. 1999](https://ui.adsabs.harvard.edu/abs/1999A%26A...345..813K/abstract)). The Richardson-Lucy algorithm starts from an initial image, and iteratively compares the data in the CDS to the sky distribution convolved with the transpose of the response matrix R:
+Since the response is non-invertible, we must use iterative deconvolutions to arrive at the sky distribution. In COSIpy-classic, we will introduce you to a modified Richardson-Lucy algorithm, which is a special case of the expectation maximization algorithm developed for COMPTEL’s images of diffuse gamma-ray emission ([Knödlseder et al. 1999](https://ui.adsabs.harvard.edu/abs/1999A%26A...345..813K/abstract)). The Richardson-Lucy algorithm starts from an initial image, and iteratively compares the data in the CDS to the sky distribution convolved with the transpose of the response matrix R:
 
 <img width="257" alt="Screen Shot 2022-10-16 at 11 08 28 PM" src="https://user-images.githubusercontent.com/33991471/196080993-a258bd27-9df9-4996-924c-ec3bc7222aa8.png">
 
