@@ -20,9 +20,9 @@ The COSI pipeline tools, COSItools, are divided into two programs (see figure be
 
 <img width="800" alt="Screen Shot 2022-10-16 at 10 19 29 PM" src="https://user-images.githubusercontent.com/33991471/196075227-8d1fe6c8-eb4b-40aa-905e-549e15ecabe8.png">
 
-This Data Challenge will serve to introduce the community to cosipy and general Compton telescope analysis. We have prepared Jupyter Notebooks to walk the user through the analysis which are provided under [spectral-fit](spectral-fit) and [imaging](imaging); however, we suggest reading through the below description before attempting the notebooks.
+This Data Challenge will serve to introduce the community to COSIpy and general Compton telescope analysis. We have prepared Jupyter Notebooks to walk the user through the analyses which are provided under [spectral-fit](spectral-fit) and [imaging](imaging); however, we suggest reading through the below description before attempting the notebooks.
 
-cosipy was first developed by Thomas Siegert in 2019 to perform 511 keV image analysis from the 2016 COSI balloon flight ([Siegert et al. 2020](https://ui.adsabs.harvard.edu/abs/2020ApJ...897...45S/abstract)). Since then, it has been used for point source imaging and spectral extraction (e.g. [Zoglauer et al. 2021](https://ui.adsabs.harvard.edu/abs/2021arXiv210213158Z/abstract)), aluminum-26 spectral fitting ([Beechert et al. 2022](https://ui.adsabs.harvard.edu/abs/2022ApJ...928..119B/abstract)) and Al-26 imaging (in prep?), all using data from the COSI Balloon 2016 flight data. These analyses and the current Data Challenge use what we refer to as “cosipy-classic.” The team is currently working on improved response handling and streamline tools built from the bottom up, and the new and improved cosipy will be the focus of next years’ Data Challenge! With that in mind, there are still known issues and limitations with cosipy-classic that we will call out throughout this work.
+COSIpy was first developed by Thomas Siegert in 2019 to perform 511 keV image analysis from the 2016 COSI balloon flight ([Siegert et al. 2020](https://ui.adsabs.harvard.edu/abs/2020ApJ...897...45S/abstract)). Since then, it has been used for point source imaging and spectral extraction (e.g. [Zoglauer et al. 2021](https://ui.adsabs.harvard.edu/abs/2021arXiv210213158Z/abstract)), aluminum-26 spectral fitting ([Beechert et al. 2022](https://ui.adsabs.harvard.edu/abs/2022ApJ...928..119B/abstract)) and Al-26 imaging (in prep?), all using data from the COSI Balloon 2016 flight. These analyses and the current Data Challenge use what we refer to as “COSIpy-classic.” The team is currently working on improved response handling and streamline tools built from the bottom up, and the new and improved COSIpy will be the focus of next years’ Data Challenge! With that in mind, there are still known issues and limitations with COSIpy-classic that we will call out throughout this work.
 
 ## The Simulated Data
 
@@ -30,7 +30,7 @@ For the first Data Challenge, we wanted to give the users a basic look at COSI d
 Extracting the spectra from the Crab nebula, and other bright point sources
 Imaging bright point sources, such as the Crab and Cyg-X1
 Imaging diffuse emission from 511 keV and the Al-26 1.8 MeV gamma-ray line
-For each of these examples, we have provided a detailed description of the simulated sources and data products in the [data_products](data_products) directory. Each of the sources was simulated at x10 the astrophysical flux since the balloon flight had limited observation time, and because there were multiple detector failures during the balloon flight which reduced the effective area significantly. 
+For each of these examples, we have provided a detailed description of the simulated sources and data products in the [data_products](data_products) directory. Each of the sources was simulated at 10x the astrophysical flux since the balloon flight had limited observation time, and because there were multiple detector failures during the balloon flight which reduced the effective area significantly. 
 
 ## General Compton Telescope Analysis Procedure
 
