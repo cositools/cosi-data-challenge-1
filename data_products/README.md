@@ -5,7 +5,7 @@ For the first Data Challenge, we wanted to give the users a basic look at COSI d
 - Imaging bright point sources, such as the Crab and Cyg X-1
 - Imaging diffuse emission from 511 keV and the 26Al 1.8 MeV gamma-ray line
 
-For each of these examples, we have provided a detailed description of the simulated sources and data products here in the data_products directory. Each of the sources was simulated at x10 the astrophysical flux since the balloon flight had limited observation time, and because there were multiple detector failures during the balloon flight which reduced the effective area significantly. 
+For each of these examples, we have provided a detailed description of the simulated sources and data products here in the data_products directory. Each of the sources was simulated at 10x the astrophysical flux since the balloon flight had limited observation time, and because there were multiple detector failures during the balloon flight which reduced the effective area significantly. 
 
 The simulations were all performed in MEGAlib, with an accurate mass model of the COSI Balloon instrument. The [COSIBalloon.9Detector.geo.setup](https://github.com/cositools/massmodel-cosi-balloon/blob/main/COSIBalloon.9Detector.geo.setup)  model, which includes the detector failures, was used for all of the simulations. Each of the continuum simulations was performed for 100 keV – 10 MeV, and an energy range selection of <5 MeV was used in MEGAlib’s mimrec event selection tool. 
 
@@ -47,7 +47,7 @@ start time: 1463443400.0 s
 stop time: 1467475400.0 s
 total time: 4032000.0 s = 46.67 days
 
-Which corresponds to May 17 2016 00:03:20 GMT to Jul 02 2016 16:03:20 GMT, covering the full COSI Balloon flight in 2016.
+This corresponds to May 17 2016 00:03:20 GMT to Jul 02 2016 16:03:20 GMT, covering the full COSI Balloon flight in 2016.
 
 As described in the main cosi-data-challenge-1 README, these files are stored on Git’s Large File Server, and one needs to install git-lfs to access them.
 
@@ -74,7 +74,7 @@ Vela:
 &emsp; Spectral shape: SED from [Mattana+11](https://ui.adsabs.harvard.edu/abs/2011ApJ...743L..18M/abstract)  
 &emsp; Flux = 0.00120 ph/cm2/s between 100 keV - 10 MeV  
 
-The input spectrum for these point sources is shown below.
+The input spectra for these point sources is shown below. Note that the plot shows the true spectra, whereas the flux values reported above are for the 10x simulations. 
 
 <img width="760" alt="Screen Shot 2022-10-17 at 2 17 37 AM" src="https://user-images.githubusercontent.com/33991471/196102631-06aca78d-31da-4363-9f43-b59a6c515786.png">
 
@@ -84,7 +84,7 @@ The simulations are run in MEGAlib’s cosima tool, and then a list-mode image i
 
 ### Positron Annihilation at 511 keV
 
-The morphology of the 511 keV emission from positron annihilation is not well constrained. For this first Data Challenge, we have used the model defined in [Knödlseder et al. 2005](https://ui.adsabs.harvard.edu/abs/2005A%26A...441..513K/abstract), where the emission was fit with a 2-D asymmetric Gaussian spatial model with the following parameters:
+The morphology of the 511 keV emission from positron annihilation is not well constrained. For this first Data Challenge, we have used the model defined in [Knödlseder et al. 2005](https://ui.adsabs.harvard.edu/abs/2005A%26A...441..513K/abstract), where the emission was fit with a 2-D asymmetric Gaussian spatial model with the following parameters (the reported flux is the true value and not the 10x value):
 
 <img width="350" alt="Screen Shot 2022-10-17 at 2 21 06 AM" src="https://user-images.githubusercontent.com/33991471/196103180-3b25375b-3153-44bb-8c1a-a0c68e56585d.png">
 
