@@ -5,7 +5,7 @@ Welcome to the first COSI Data Challenge! This is the first of many COSI Data Ch
 ## Download and Install
 
 ### Already have COSItools installed:
-If you already have the COSItools installed on your computer, type `cosi` to navigate to the COSItools directory and activate the cosi python environment. Clone the cosi-data-challenge-1 repository.
+If you already have the COSItools installed on your computer, type `cosi` to navigate to the COSItools directory and activate the cosi python environment. Clone the cosi-data-challenge-1 repository. The file requirements.txt lists all of the dependencies for running the data challenge, and they can all be installed using pip. 
 
 ### New to COSItools:
 Head to the feature/initialsetup branch of the cosi-setup Git repository and follow the readme guide: https://github.com/cositools/cosi-setup/tree/feature/initialsetup.
