@@ -16,12 +16,6 @@ def uniform_prior(par,p):
 
 
 def truncated_normal_prior(par,p):
-    """
-    mu = p[0]
-    sigma = p[1]
-    lo = p[2]
-    hi = p[3]
-    """
     mu = p[0]
     sigma = p[1]
     lo = p[2]

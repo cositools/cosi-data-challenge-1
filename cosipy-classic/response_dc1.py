@@ -18,8 +18,6 @@ from COSIpy_dc1 import GreatCircle
 from COSIpy_dc1 import angular_distance
 from COSIpy_dc1 import find_nearest
 
-#import logging as log
-
 deg2rad = np.pi/180
 
 class SkyResponse:
@@ -31,12 +29,6 @@ class SkyResponse:
                  energy_bin_edges=np.array([506,516]),
                  keep_everything=False,
                  verbose=False): # energy bin edges not used right now (read in through MEGAlib file)
-
-        #if verbose:
-        #    log.basicConfig(format="%(levelname)s: %(message)s", level=log.INFO)
-        #    log.info("Verbose output.")
-        #else:
-        #    log.basicConfig(format="%(levelname)s: %(message)s", level=log.WARNING)
         
         self.filename = filename
         self.pixel_size = pixel_size
@@ -48,16 +40,15 @@ class SkyResponse:
         self.rsp.init_binning(pixel_size=self.pixel_size,energy_bin_edges=self.energy_bin_edges)
 
         if from_saved_file:
-            #log.info('Reading complete response. This might take a while.')
             # read everything in (very large in many cases)
-            print('Reading complete continuum response. This might take a while...')
+            print('Reading complete continuum response.')
             self.LoadRegularBinnedMEGAlibResponse()
             print('Done.\n')
 
             # reduced energy matrix
             self.CDS_Summed_Response()
 
-            # remove full matrix after it is read in and built for IRF and RMF (default: do that because it is a huge thing...)
+            # remove full matrix after it is read in and built for IRF and RMF (default: do that because it is huge)
             if not keep_everything:
                 self.ReduceToImportantParts()
 
@@ -69,12 +60,11 @@ class SkyResponse:
         if self.n_e == 1:
 
             print('You probably used a line response, there is no RMF.')
-            print('If not, think again.')
 
         elif self.n_e > 1:
             
         #log.info('Creating general RMF matrices, stay tuned.')
-            print('Creating general RMF matrices, stay tuned...')
+            print('Creating general RMF matrices.')
             # sum over CDS (phi and psi/chi) axis 2 and 3 of matrix:
             # this allows quicker weightings for the RMF later
 
@@ -82,7 +72,7 @@ class SkyResponse:
                 self.rsp.ZA_energy_response += np.sum(self.rsp.response_grid_normed[:,:,i,:,:,:],2)
 
         else:
-            print('This should not happen?!')
+            print('This should not happen.')
                 
         print('Done.\n')
 
@@ -90,18 +80,15 @@ class SkyResponse:
     def ReduceToImportantParts(self):
 
         # for IRF, sum over initial energies (axis 4 if not reduced data space)
-        # self.rsp.response_grid_normed_efinal
-        print('Creating general IRF. Wait for it...')
+        print('Creating general IRF.')
         
         if self.n_e == 1:
             self.rsp.response_grid_normed_efinal = np.copy(self.rsp.response_grid_normed)
 
         # multiple energy bins:
-        # TS (Dec. 9 2020): until now only allowed for specific energy bins, interpolation (weighting) will come later
         elif self.n_e > 1:
             self.rsp.response_grid_normed_efinal = np.sum(self.rsp.response_grid_normed,axis=4)
 
-        # weird
         else:
             print('This should not happen, did you read in a response file?')
 
@@ -112,280 +99,9 @@ class SkyResponse:
         #@log.info('Deleting full matrix.')
         print('Deleting full matrix.')
         del self.rsp.response_grid_normed
-        print('Done. Now have fun.')
+        print('Done.')
             
 
-#     def ReadMEGAlibResponse(self):
-        
-#         # reading in the response file, create with MEGAlib as pandas data frame:
-#         self.MEGAlib_rsp = pd.read_csv(self.filename,skiprows=67,sep=' ',header=None,
-#                                names=['MEGAlib identifier','E_in','Nu/Lambda','E_out','Phi','Psi/Chi','Sigma/Tau','Dist','Val'])
-#         # skipped the first 67 rows by counting (even though there is information that we will need in the future)
-
-#         # TS: have no better way in the moment to deal with that, so I skip the number of rows until the corrent entry is there
-#         df = pd.read_csv(self.filename,
-#                          skiprows=10,nrows=1,header=None,
-#                          names=['MEGAlib identifier','total counts'],sep=' ')
-#         self.total_simulated_counts = df['total counts'].values
-
-#         # same here
-#         df = pd.read_csv(self.filename,
-#                          skiprows=13,nrows=1,header=None,
-#                          names=['MEGAlib identifier','start area'],sep=' ')
-#         self.simulation_start_area = df['start area'].values
-
-
-#         # energy arrays (of rsp file)
-#         df = pd.read_csv(self.filename,
-#                          skiprows=39,nrows=1,header=None,
-#                          sep=' ')
-
-#         # for later check of this is really an energy array
-#         self.all_energy_info = []
-#         for key in df.keys():
-#             self.all_energy_info.append(df[key].values[0])
-#         # define energy boundaries
-#         self.energy_boundaries = []
-#         for i in range(1,len(self.all_energy_info)):
-#             val = self.all_energy_info[i]
-#             if not np.isnan(val):
-#                 self.energy_boundaries.append(val)
-#         self.e_edges = np.array(self.energy_boundaries)
-#         # define energy representative values (and thus number of energy bins)
-#         self.e_min = self.e_edges[0:-1]
-#         self.e_max = self.e_edges[1:]
-#         self.e_cen = (self.e_max+self.e_min)/2
-#         self.e_wid = (self.e_max-self.e_min)
-#         self.n_e   = len(self.e_cen)
-#         # and rsp file indices for initial and measured energies
-#         E_in_idx  = self.MEGAlib_rsp.values[:,1].astype(int)
-#         E_out_idx = self.MEGAlib_rsp.values[:,3].astype(int)
-        
-#         # temporary array to choose FISBEL bins from
-#         tmp = np.array(self.rsp.fisbels.fisbelbins[0])
-
-#         # define nu-lambda (sky) entries in degree
-#         nu_lambda_indx = self.MEGAlib_rsp.values[:,2].astype(int)
-#         nu_lambda_vals = np.rad2deg(tmp[self.MEGAlib_rsp.values[:,2].astype(int),:])
-
-#         # define psi-chi (scatter angles) in degrees
-#         psi_chi_indx = self.MEGAlib_rsp.values[:,5].astype(int)
-#         psi_chi_vals = np.rad2deg(tmp[self.MEGAlib_rsp.values[:,5].astype(int),:])
-
-#         # define phi bins in degrees
-#         phi_indx = self.MEGAlib_rsp.values[:,4].astype(int)
-#         phi_vals = self.MEGAlib_rsp.values[:,4].astype(float)*self.pixel_size + self.pixel_size/2
-
-#         # get values (last column) at non-zero entries
-#         rsp_vals = self.MEGAlib_rsp.values[:,8].astype(float)
-#         # Note that E_in (column 1), E_out (3), sigma/tau (6), and dist (7) are always 0 for a line response,
-#         # because we only deal with one energy bin and COSI cannot track electron recoils. So, still a lot of zeros there.
-#         # TS: Once we have an energy dependent response, this will change here (changed Nov. 4th 2020)
-
-#         # define response array to fill and fill
-#         if self.n_e == 1:
-#             print('Number of energy bins is 1, using reduced line response shape / omitting energy information ...')
-#             self.rsp.response = np.zeros((self.rsp.fisbels.n_fisbel_bins,  # sky coordinates / zenith&azimuth angles
-#                                           self.rsp.phis.n_phi_bins,        # Compton scattering angle
-#                                           self.rsp.fisbels.n_fisbel_bins)) # Psi&Chi scattering angles in CDS
-                                  
-#             # fill
-#             for i in tqdm(range(len(rsp_vals))):
-#                 self.rsp.response[nu_lambda_indx[i],phi_indx[i],psi_chi_indx[i]] = rsp_vals[i]
-#             # TS: again, once we have an energy dependent response, we add another dimension here
-#             # TS: changed below on Nev. 4th 2020
-        
-#         elif self.n_e > 1:
-#             print('Number of energy bins is '+str(self.n_e)+'; the last two entries of the response matrix will be initial and final energy, respectively ...')
-#             print('Interpolationg between data set energy binning and response energy bining happens at a later step!')
-#             self.rsp.response = np.zeros((self.rsp.fisbels.n_fisbel_bins,  # sky coordinates / zenith&azimuth angles
-#                                           self.rsp.phis.n_phi_bins,        # Compton scattering angle
-#                                           self.rsp.fisbels.n_fisbel_bins,  # Psi&Chi scattering angles in CDS
-#                                           self.n_e,                        # Initial energy
-#                                           self.n_e))                       # Measured energy
-                                  
-#             # fill
-#             for i in tqdm(range(len(rsp_vals))):
-#                 self.rsp.response[nu_lambda_indx[i],phi_indx[i],psi_chi_indx[i],E_in_idx[i],E_out_idx[i]] = rsp_vals[i]
-#             # TS: changed here for energy re-distribution
-
-#         else:
-#             print('Seomthing went wrong and this should not happen. Call your provier.')
-            
-        
-#     def RebinToSquarePixelGrid(self,RegularPixelSize=5.):
-
-#         # Define rectangular pixel grid
-#         self.RegularPixelSize = RegularPixelSize
-
-#         # longitudes / azimuths
-#         self.l_edges = np.linspace(0,2*np.pi,np.int(360/self.RegularPixelSize+1))
-#         self.l_min = self.l_edges[0:-1]
-#         self.l_max = self.l_edges[1:]
-#         self.l_cen = (self.l_max+self.l_min)/2
-#         self.l_wid = (self.l_max-self.l_min)
-#         self.n_l   = len(self.l_cen)
-
-#         # latitudes / zeniths
-#         self.b_edges = np.linspace(0,np.pi,np.int(180/self.RegularPixelSize+1))
-#         self.b_min = self.b_edges[0:-1]
-#         self.b_max = self.b_edges[1:]
-#         self.b_cen = (self.b_max+self.b_min)/2
-#         self.b_wid = (self.b_max-self.b_min)
-#         self.n_b   = len(self.b_cen)
-        
-#         self.L_ARR,self.B_ARR = np.meshgrid(self.l_cen,self.b_cen)
-#         self.dL_ARR,self.dB_ARR = np.meshgrid(self.l_wid,self.b_wid)
-
-#         self.L_ARR_edges, self.B_ARR_edges = np.meshgrid(self.l_edges,self.b_edges)
-#         self.dL_ARR_edges, self.dB_ARR_edges = np.diff(self.L_ARR_edges), np.diff(self.B_ARR_edges)
-
-#         # define response grid in sky dimension (for interpolation and inter-pixel finding later,
-#         # taking source position as input for the response to fit for)
-
-#         # for single energy bin
-#         if self.n_e == 1:
-#             self.rsp.response_grid_normed = np.zeros((self.B_ARR.shape[0],              # latitude / zenith
-#                                                       self.L_ARR.shape[1],              # longitude / azimuth
-#                                                       self.rsp.phis.n_phi_bins,         # Compton Scattering angle
-#                                                       self.rsp.fisbels.n_fisbel_bins))  # Psi/Chi
-#         # for multiple energy bins
-#         # TS: the data analysis will take the >>>measured<<< energy bins in the response to construct
-#         # the expected counts per pointing, etc.
-#         # in a second step the energy redistribution will be constructed in the point source calculation
-#         # routine as this depends on the position (and aspect, time, ...) or the source in the data set
-#         elif self.n_e > 1:
-#             self.rsp.response_grid_normed = np.zeros((self.B_ARR.shape[0],              # latitude / zenith
-#                                                       self.L_ARR.shape[1],              # longitude / azimuth
-#                                                       self.rsp.phis.n_phi_bins,         # Compton Scattering angle
-#                                                       self.rsp.fisbels.n_fisbel_bins,   # Psi/Chi
-#                                                       self.n_e,                         # Initial energy
-#                                                       self.n_e))                        # Measured energy
-#         else:
-#             print('This should not happen. Something went badly wrong.')
-            
-#         # Mapping of FISBEL to Rectangular is somewhat not straightforward and can some time
-#         # Here, we define the polygons of FISBEL and rectangular pixels, and check for all
-#         # polygons the partial overlap with all others and add the corresponding fractional
-#         # entry in the response array divided by the pixel area
-#         # I use the package shapely to do this, as it include the sectioin of polygons, and treats
-#         # them as objects that include area, circumfence, etc.
-
-#         # Definition of all FISBEL polygons
-#         # need to include the cosine of the latitudinal values because shapely lives in euclidean space
-#         self.fisbel_polygons = []
-#         self.fisbel_area = []
-#         for i in range(self.rsp.fisbels.n_fisbel_bins):
-#             self.fisbel_polygons.append(Polygon([(self.rsp.fisbels.lon_min[i], np.cos(self.rsp.fisbels.lat_min[i])),
-#                                                  (self.rsp.fisbels.lon_min[i], np.cos(self.rsp.fisbels.lat_max[i])),
-#                                                  (self.rsp.fisbels.lon_max[i], np.cos(self.rsp.fisbels.lat_max[i])),
-#                                                  (self.rsp.fisbels.lon_max[i], np.cos(self.rsp.fisbels.lat_min[i]))]))
-            
-#             self.fisbel_area.append(self.fisbel_polygons[i].area)
-#             #print(fisbel_polygons[i].area)
-
-#         # Definition of all rectangular polygons
-#         self.regular_polygons = []
-#         self.regular_area = []
-
-#         for i in range(self.l_cen.shape[0]):
-#             for j in range(self.b_cen.shape[0]):
-#                 self.regular_polygons.append(Polygon([(self.l_min[i], np.cos(self.b_min[j])),
-#                                                       (self.l_min[i], np.cos(self.b_max[j])),
-#                                                       (self.l_max[i], np.cos(self.b_max[j])),
-#                                                       (self.l_max[i], np.cos(self.b_min[j]))]))
-
-#                 self.regular_area.append(self.regular_polygons[i*self.b_cen.shape[0]+j].area)
-#         #print(regular_polygons[i*b_arr.shape[0]+j].area)
-
-        
-#         # calculate intersections between all polygons and save mapping function
-#         self.rsp.mapping_function = np.zeros((self.rsp.fisbels.n_fisbel_bins,
-#                                               self.b_cen.shape[0],
-#                                               self.l_cen.shape[0]))
-#         print('Now calculating mapping function ...')
-#         for k in tqdm(range(self.b_cen.shape[0])):
-#             for r in range(self.l_cen.shape[0]):
-#                 for i in range(self.rsp.fisbels.n_fisbel_bins):
-#                     self.rsp.mapping_function[i,k,r] += self.regular_polygons[r*self.b_cen.shape[0]+k].intersection(self.fisbel_polygons[i]).area/self.fisbel_area[i]#*self.rsp.response[i,0,0]/
-
-#         print('Applying mapping function to all response entries, '+str(self.rsp.phis.n_phi_bins)+
-#               ' phi bins times '+str(self.rsp.fisbels.n_fisbel_bins)+
-#               ' FISBEL bins, i.e. '+str(self.rsp.phis.n_phi_bins*self.rsp.fisbels.n_fisbel_bins)+' bins in total ...')
-
-#         # because I am used to start with L (row, IDL) and not with B (column, python), I have to reshape the pixel area:
-#         self.regular_pixel_area = np.array(self.regular_area).reshape(self.l_cen.shape[0],self.b_cen.shape[0]).T
-#         self.dOmega = np.copy(self.regular_pixel_area)
-#         # then the normalisation per each data space entry is
-#         self.CDS_norm = self.regular_pixel_area*(self.total_simulated_counts/(4*np.pi))/self.simulation_start_area
-
-#         # loop over all CDS response entries
-#         # count how many zero/nonzero entries are there
-#         self.has_counts = 0
-
-#         if self.n_e == 1:
-#             for i in tqdm(range(self.rsp.phis.n_phi_bins)):
-#                 for j in range(self.rsp.fisbels.n_fisbel_bins):
-#                     # speed up the process and check wether there are any photons in the entry i,j
-#                     if (np.sum(self.rsp.response[:,i,j]) > 0):
-#                         self.rsp.response_grid_normed[:,:,i,j] = np.sum(self.rsp.mapping_function[:,:,:]*(self.rsp.response[:,i,j])[:,None,None],axis=0)/self.CDS_norm
-#                         self.has_counts += 1
-#         elif self.n_e > 1:
-#             for i in tqdm(range(self.rsp.phis.n_phi_bins)):
-#                 for j in range(self.rsp.fisbels.n_fisbel_bins):
-#                     for k in range(self.n_e):
-#                         for l in range(self.n_e):
-#                             # speed up the process and check wether there are any photons in the entry i,j
-#                             if (np.sum(self.rsp.response[:,i,j,k,l]) > 0):
-#                                 self.rsp.response_grid_normed[:,:,i,j,k,l] = np.sum(self.rsp.mapping_function[:,:,:]*(self.rsp.response[:,i,j,k,l])[:,None,None],axis=0)/self.CDS_norm
-#                                 self.has_counts += 1
-#             # sum over initial energies (re-distributed later)
-#             # TS: the summation will only be done in the response calculation process to save RAM
-#             #self.rsp.response_grid_normed = np.sum(self.rsp.response_grid_norm_maxtrix,axis=4) # fourth dimension is initial energy
-#         else:
-#             print('This should not happend, something went badly wrong !@#$')
-
-            
-#         print('Binned sky response contains '+str(self.has_counts)+
-#               ' ('+str(self.has_counts/(self.rsp.phis.n_phi_bins*self.rsp.fisbels.n_fisbel_bins)*100)+
-#               '%) non-zero entries: use reduced data space to save fit in fits!')
-
-
-#     def SaveRegularBinnedMEGAlibResponse(self,filename):
-
-#         try:
-#             np.savez_compressed(filename,
-#                                 ResponseGrid = self.rsp.response_grid_normed,
-#                                 e_cen = self.e_cen,
-#                                 e_wid = self.e_wid,
-#                                 e_edges = self.e_edges,
-#                                 e_max = self.e_max,
-#                                 e_min = self.e_min,
-#                                 n_e   = self.n_e,
-#                                 l_cen = self.l_cen,
-#                                 l_wid = self.l_wid,
-#                                 l_edges = self.l_edges,
-#                                 l_max = self.l_max,
-#                                 l_min = self.l_min,
-#                                 n_l   = self.n_l,
-#                                 b_cen = self.b_cen,
-#                                 b_wid = self.b_wid,
-#                                 b_edges = self.b_edges,
-#                                 b_max = self.b_max,
-#                                 b_min = self.b_min,
-#                                 n_b   = self.n_b,
-#                                 L_ARR = self.L_ARR,
-#                                 B_ARR = self.B_ARR,
-#                                 L_ARR_edges = self.L_ARR_edges,
-#                                 B_ARR_edges = self.B_ARR_edges,
-#                                 dL_ARR = self.dL_ARR,
-#                                 dB_ARR = self.dB_ARR,
-#                                 dL_ARR_edges = self.dL_ARR_edges,
-#                                 dB_ARR_edges = self.dB_ARR_edges,
-#                                 dOmega = self.regular_pixel_area)
-
-#         except AttributeError:
-#             print('No Response loaded to be saved?')
 
 
 
@@ -490,8 +206,6 @@ class SkyResponse:
 
                 # sky response per pointing (weighted by (small) time interval in pointings to get counts
                 # zenith pixel size at time:
-                #zenith_pixel_size = (np.sin((zens+dataset.pixel_size/2)*deg2rad)-np.sin((zens-dataset.pixel_size/2)*deg2rad))*dataset.pixel_size*deg2rad
-                #zenith_pixel_size[np.isnan(zenith_pixel_size)] = 0.
                 # conversion from fisbel to regular includes a factor sin(zenith): otherwise nrow of fisbel will get lost in the conversion (???)
                 sky_response_pp = get_response_with_weights(rsp_tmp,zens,azis,cut=cut,binsize=pixel_size,lookup=lookup)*pointings.dtpoins[:,None]#/np.sin(zens*deg2rad)[:,None]#*zenith_pixel_size[:,None]
                 sky_response_pp[np.isnan(sky_response_pp)] = 0.
@@ -749,77 +463,15 @@ def get_response_with_weights(Response,zenith,azimuth,deg=True,binsize=5,cut=60.
             rsp2 = Response[widx[0][2,1,:],widx[0][2,0,:],:,:,:]*widx[1][2,:][:, None, None, None]
             rsp3 = Response[widx[0][3,1,:],widx[0][3,0,:],:,:,:]*widx[1][3,:][:, None, None, None]
         else:
-            print('How this should really not happen ...')
+            print('Something went wrong; this should not happen.')
         
         rsp_mean = rsp0 + rsp1 + rsp2 + rsp3
 
     # return response
     return rsp_mean
 
+         
 
-
-# def get_response_from_pixelhit_vector(Response,zenith,azimuth,binsize=5,cut=60):
-#     """
-#     Get Compton response from hit pixel for each zenith/azimuth vector(!) input.
-#     Binsize determines regular(!!!) sky coordinate grid in degrees.
-
-#     :param: zenith        Zenith positions of the source with respect to the instrument (in deg)
-#     :param: azimuth       Azimuth positions of the source with respect to the instrument (in deg)
-#     :option: binsize      Default 5 deg (matching the sky dimension of the response). If set
-#                           differently, make sure it matches the sky dimension as otherwise,
-#                           false results may be returned
-#     :option: cut          Threshold to cut the response calculation after a certain zenith angle.
-#                           Default 57.4 deg (0.1 deg before last pixel reaching beyon 60 deg)
-#     """
-
-#     # assuming useful input:
-#     # azimuthal angle is periodic in the range [0,360[
-#     # zenith ranges from [0,180[
-
-#     # checking azimuth range (can be exactly 360?)
-#     azimuth[azimuth == 360] -= 0.01
-    
-#     # check which pixel (index) was hit on regular grid
-#     hit_pixel_zi = np.floor(zenith/binsize).astype(int)
-#     hit_pixel_ai = np.floor(azimuth/binsize).astype(int)
-
-#     #print('hit_pixel_zi',hit_pixel_zi)
-#     #print('hit_pixel_ai',hit_pixel_ai)
-        
-#     # and which pixel centre
-#     hit_pixel_z = (hit_pixel_zi+0.5)*binsize
-#     hit_pixel_a = (hit_pixel_ai+0.5)*binsize
-
-#     #print('hit_pixel_z',hit_pixel_z)
-#     #print('hit_pixel_a',hit_pixel_a)
-    
-    
-#     # check which zeniths are beyond threshold
-#     bad_idx = np.where(hit_pixel_z > cut)
-
-#     # set hit pixels to output array
-#     za_idx = np.array([hit_pixel_zi,hit_pixel_ai]).astype(int)
-
-#     #print(za_idx)
-#     # weight array includes ones and zeros only (no neighbouring pixels included)
-#     # bad_idx get zeros (outside range)
-#     weights = np.ones(len(zenith))
-#     weights[bad_idx] = 0
-
-#     # check for negative weights and indices and remove
-#     weights[za_idx[0,:] < 0] = 0.
-#     weights[za_idx[1,:] < 0] = 0.
-#     za_idx[0,za_idx[0,:] < 0] = 0.
-#     za_idx[1,za_idx[1,:] < 0] = 0.
-    
-#     # get responses at pixels
-#     rsp = Response[za_idx[0,:],za_idx[1,:],:]*weights[:,None]
-
-#     return rsp
-
-
-
-           
 
 def get_response_weights_vector(zenith,azimuth,binsize=5,cut=57.4):
     """
@@ -921,13 +573,12 @@ def zenazi(scx_l, scx_b, scy_l, scy_b, scz_l, scz_b, src_l, src_b):
     # theta = zenith
     theta = np.rad2deg(np.arccos(costheta))
     # phi = azimuth
-    phi = np.rad2deg(np.arctan2(cosy,cosx)) # TS January 14: you sure about that? changed y and x
+    phi = np.rad2deg(np.arctan2(cosy,cosx))
     
     # make azimuth going from 0 to 360 deg
     if phi.size == 1:
         if (phi < 0):
             phi += 360
-#     else:
         phi[phi < 0] += 360
     
     return theta,phi   
