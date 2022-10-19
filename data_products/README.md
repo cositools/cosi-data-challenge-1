@@ -71,7 +71,7 @@ Cyg X1:
 &emsp; Flux = 0.40644 ph/cm2/s between 100 keV - 10 MeV  
 Vela:  
 &emsp; (l,b) = (263.55, -2.79)  
-&emsp; Spectral shape: SED from [Mattana+11](https://ui.adsabs.harvard.edu/abs/2011ApJ...743L..18M/abstract)  
+&emsp; Spectral shape: Power law extrapolation of the Fermi-LAT Vela pulsar (4FGL J0835.3-4510), see [Abdollahi+20](https://iopscience.iop.org/article/10.3847/1538-4365/ab6bcb) </br>
 &emsp; Flux = 0.00120 ph/cm2/s between 100 keV - 10 MeV  
 
 The input spectra for these point sources is shown below. Note that the plot shows the true spectra, whereas the flux values reported above are for the 10x simulations. 
