@@ -315,63 +315,7 @@ class COSIpy:
             print('not working here ...')
 
 
-            
-    # def simulate_dataset(self,
-        #                  rsp,
-        #                  pointing,
-        #                  background,
-        #                  source_type='point source',
-        #                  source_position=[0.,0.],
-        #                  source_spectrum='powerlaw',
-        #                  source_parameters=[6.65e-4,-2.23],
-        #                  background_scaling=1.,
-        #                  pixel_size=6.,
-        #                  lookup=True):
-
-        # # copy analysis dataset and just overwrite entries
-        # self.sim_dataset = self.dataset
-
-        # # simulated source values
-        # self.source_type       = source_type
-        # self.source_position   = source_position
-        # self.source_spectrum   = source_spectrum
-        # self.source_parameters = source_parameters
-
-        # # simulated background scaling
-        # self.background_scaling = background_scaling
-        
-        # # calculate response for given input position (IRF)
-        # rsp.calculate_PS_response(self.sim_dataset,
-        #                           pointing,
-        #                           self.source_position[0],self.source_position[1],1,
-        #                           background=background,
-        #                           pixel_size=pixel_size,
-        #                           reduced=False,
-        #                           lookup=lookup)
-
-        # sky_model_IRF = rsp.sky_response
-        
-        # # calculate response for given input spectrum (RMF)
-        # sky_model_RMF = COSI_model_fit(self.source_parameters,
-        #                                self.sim_dataset.energies.energy_bin_cen,0,
-        #                                self.sim_dataset.energies.energy_bin_wid*2,0,
-        #                                rsp.rmf.T,rsp.e_min,rsp.e_max,
-        #                                self.source_spectrum,
-        #                                eval=True)
-
-        # # combine sky
-        # self.sky_model_tot = sky_model_IRF*(sky_model_RMF*self.sim_dataset.times.total_time*rsp.e_wid)[None,:,None,None]
-
-        # # background model (scaled to the initial data set
-        # # might want to change later to counts per second and time variability, etc.
-        # self.bg_model_tot = self.background_scaling*background.bg_model
-
-        # # drawing a Poisson sample
-        # self.sim_dataset.binned_data = np.random.poisson(self.bg_model_tot + self.sky_model_tot)
-
-
-        
-        
+  
     @property
     def available_attributes(self):
         """
@@ -468,41 +412,14 @@ class dataset(COSIpy):
                                 Default: 3600 (in units of seconds)
         """
 
-        #print(isinstance(time_bin_size, (list, tuple, np.ndarray))
-        
-        # general time bin size
-        # TS: January 25: can be set to one number or general shape
-        #if not isinstance(time_bin_size, (list, tuple, np.ndarray)):
         self.init_time_bin_size = time_bin_size
-        #print('hut')
-        #break
-        #else:
-        #    self.init_time_bin_size = np.array(time_bin_size)
 
-        #print(self.init_time_bin_size)
-        
-        # number of time bins in data set
-        # last time bin will probably show less counts as data set might not be equally-spaced; TS 25 January: this is taken care of
-        # TS 25 January: need to check if one time bin size for all or different sizes
-        #if not isinstance(self.init_time_bin_size, (list, tuple, np.ndarray)):
         self.n_time_bins = int(np.ceil(np.diff(minmax(self.data['TimeTags']))/self.init_time_bin_size))
-        #else:
-        #    self.n_time_bins = len(self.init_time_bin_size)
 
-        # time conversions seconds to bin-size
-        #if not isinstance(self.init_time_bin_size, (list, tuple, np.ndarray)):
-        #s2b = np.repeat(1./self.init_time_bin_size,self.n_time_bins)
-        #else:
         s2b = 1./self.init_time_bin_size
 
-        # calculate last time bin interval
-        # ( how much is left in the data set inside the last bin )
-        #if not isinstance(self.init_time_bin_size, (list, tuple, np.ndarray)):
         self.last_bin_size = np.diff(minmax(self.data['TimeTags']))[0]-(self.n_time_bins-1)/s2b
-        #else:
-        #    self.last_bin_size = self.init_time_bin_size[-1]
 
-        # fill data (as formatted per time tagged of individual time bins of size time_bin_size)
         self.data_time_tagged = []
 
         for b in range(self.n_time_bins):
@@ -524,9 +441,7 @@ class dataset(COSIpy):
         self.times.times_max   = self.times.times_edges[1:]
         self.times.times_cen   = 0.5*(self.times.times_max+self.times.times_min)
         self.times.times_wid   = 0.5*(self.times.times_max-self.times.times_min)
-        # total time for complete normalisation
-        # self.times.total_time  = np.diff(self.times.times_edges[[0,-1]])[0]
-        # need to take into account empty time bins
+
         self.times.n_ph_t = np.array([len(self.data_time_tagged[i]['Indices']) for i in range(self.times.n_time_bins)])
         self.times.n_ph_dx = np.where(self.times.n_ph_t != 0)[0]
         self.times.n_ph   = len(self.times.n_ph_dx)
@@ -578,20 +493,13 @@ class dataset(COSIpy):
         self.times.times_max   = self.times.times_edges[1:]
         self.times.times_cen   = 0.5*(self.times.times_max+self.times.times_min)
         self.times.times_wid   = 0.5*(self.times.times_max-self.times.times_min)
-        # total time for complete normalisation
-        # self.times.total_time  = np.diff(self.times.times_edges[[0,-1]])[0]
         # need to take into account empty time bins
         self.times.n_ph_t = np.array([len(self.data_time_tagged[i]['Indices']) for i in range(self.times.n_time_bins)])
         #self.times.n_ph_t = np.array([len(self.data_time_tagged[i]['Indices']) for i in range(self.times.n_time_bins-1)])
         self.times.n_ph_dx = np.where(self.times.n_ph_t != 0)[0]
         self.times.n_ph   = len(self.times.n_ph_dx)
-        self.times.total_time  = 2*np.sum(self.times.times_wid)#[self.times.n_ph_dx])
-    #####################################
-
-
-
-
-        
+        self.times.total_time  = 2*np.sum(self.times.times_wid)
+  
             
 
     def init_binning(self,energy_bin_edges=np.linspace(100,1000,10),pixel_size=5.):
@@ -601,9 +509,6 @@ class dataset(COSIpy):
 
         # energy
         self.energies = ENERGY(bin_edges=energy_bin_edges)
-
-        # time
-        #self.times = np.array([self.data_time_tagged[t]['DeltaTime'] for t in range(self.n_time_bins)])
 
         # Comptel data space
         # pixel definitions
@@ -637,8 +542,7 @@ class dataset(COSIpy):
                                          self.fisbels.n_fisbel_bins))
 
             ph_dx = 0
-            # loop over defined time bins
-            #for t in tqdm(range(self.times.n_time_bins),desc='Loop over time bins:'):
+
             for t in range(self.times.n_time_bins):
 
                 if self.times.n_ph_t[t] != 0:
@@ -654,7 +558,6 @@ class dataset(COSIpy):
                     erg_tmp = self.data['Energies'][idx_tmp]
                     
                     # because FISBEL is not monotonic in both dimensions, loop over FISBEL bins
-                    #for f in tqdm(range(self.n_fisbel_bins),leave=False):
                     for f in range(self.n_fisbel_bins):
 
                         # select 2D pixel range where photons fall in
@@ -713,14 +616,6 @@ class dataset(COSIpy):
         for i in range(n_ll):
             ll_idx.append(np.where(ll == uniq_ll[i])[0])
 
-
-        # if reduced for phi
-        """
-        if self.reduced == True:
-            pp_idx = []
-            for i in range(len(pp)):
-                pp_idx.append(np.where(cds_idx[1] == i)[0])
-        """
 
         if np.any(binned_array == None):
         
@@ -871,15 +766,15 @@ class dataset(COSIpy):
         
         try:
 
-            #if (self.binned_data.shape[0] != self.times.n_time_bins):
             if (self.binned_data.shape[0] != self.times.n_ph):
                 print('The binning was updated since the last call! Run time_binning_tags() for your current binning.')
             else:
 
                 # sum over angles to get only time and energy array
                 self.lc_all = np.sum(self.binned_data,axis=(2,3))
-                self.lc_all = self.lc_all/self.times.total_time
-            
+                #self.lc_all = self.lc_all/self.times.total_time
+                self.lc_all = self.lc_all/self.init_time_bin_size # normalize by bin time
+                
                 if mode == 'total':
                     self.light_curve = np.sum(self.lc_all,axis=1)
                 elif mode == 'all':
@@ -906,20 +801,6 @@ class dataset(COSIpy):
         except AttributeError:
             print('Data not yet binned? Use get_binned_data() first.')
             
-            
-            
-# class SPI(object):
-    
-#     @property
-#     def rod(self):
-#         """
-#         Ensure that you know what you are doing.
-#         :return: Roland
-#         """
-#         if np.random.rand(1) < 0.01:
-#             return HTML('https://raw.githubusercontent.com/mpe-heg/pyspi/master/pyspi/data/roland.html')
-#         else:
-#             return 'rod'
 
 
 
@@ -1066,11 +947,6 @@ class FISBEL(dataset):
             else:
                 n_lon_edges = int(nl+1)
                 LongitudeBinEdges.append(np.linspace(0,2*np.pi,n_lon_edges))
-    
-            #verb(verbose,'LatitudeBins: %4i' % n_collars)
-            #verb(verbose,'LatitudeBinEdges: %6.3f' % LatitudeBinEdges)
-            #verb(verbose,'LongitudeBins: %4i' % LongitudeBins)
-            #verb(verbose,'LongitudeBinEdges: %6.3f' % np.array(LongitudeBinEdges))
                 
         CoordinatePairs = []
         Binsizes = []
@@ -1081,79 +957,6 @@ class FISBEL(dataset):
      
         return CoordinatePairs,Binsizes
 
-
-    # def plot_FISBEL_tessellation(self,values=None,colorbar=False,projection=False,tiles=False,deg=False):
-    #     """
-        
-    #     FIXME!!!
-
-    #     Plot FISBEL-binned data given the definition of FISBEL bins and the corresponding 1D array of values
-    #     :param: ll         azimuth,longitude,psi bin centers
-    #     :param: bb_in      zenith,latitude,theta bin centers
-    #     :param: dll        azimuth,longitude,psi bin sizes
-    #     :param: dbb        zenith,latitude,theta bin sizes
-    #     :param: values     array of values to plot as color (3rd dimension)
-    #     :option: colorbar  True = add colorbar to plot
-    #     """
-        
-    #     # change initial FISBEL definition of bb to avoid random graphic issues (mainly in projection)
-    #     bb  = np.copy(self.lat_cen - np.pi)
-    #     bb  = np.abs(bb)
-    #     dbb = np.copy(self.lat_wid)
-        
-    #     ll  = np.copy(self.lon_cen)
-    #     dll = np.copy(self.lon_wid)
-        
-    #     # set up figure
-    #     plt.figure(figsize=(16,9))
-    #     if projection:
-    #         plt.subplot(projection=projection)
-    #         bb -= np.pi/2
-    #         ll[ll > np.pi] -= 2*np.pi
-
-    #     if deg:
-    #         ll  = np.rad2deg(ll)
-    #         bb  = np.rad2deg(bb)
-    #         dll = np.rad2deg(dll)
-    #         dbb = np.rad2deg(dbb)
-
-    #     # make colorbar in viridis according to entry values
-    #     if np.any(values != None):
-    #         tmp_data = values
-    #         cmap = plt.cm.viridis
-    #         norm = mpl.colors.Normalize(vmin=tmp_data.min(), vmax=tmp_data.max())
-
-    #         # plot points only
-    #         fig = plt.scatter(ll,bb,s=0.5,zorder=3000,c=tmp_data)
-    #         if colorbar==True:
-    #             plt.colorbar()
-    #         if deg:
-    #             plt.ylim(180,0)
-    #             plt.xlim(0,360)
-
-    #     plt.scatter(ll,bb,s=0.5,zorder=3001)
-    
-    #     # loop over FISBEL bins to add coloured tile
-    #     if tiles: 
-    #         for i in range(len(bb)):
-    #             # no idea how to makes this more efficient, but takes for ever
-    #             if np.any(values != None):
-    #                 plt.fill_between((ll[i]+np.array([-dll[i],+dll[i],+dll[i],-dll[i],-dll[i]])/2.),
-    #                                  (bb[i]+np.array([-dbb[i],-dbb[i],+dbb[i],+dbb[i],-dbb[i]])/2.),
-    #                                  color=cmap(norm(tmp_data[i])),zorder=i)  
-    #             ## add lines around each tile
-    #             #plt.plot((ll[i]+np.array([-dll[i],+dll[i],+dll[i],-dll[i],-dll[i]])/2.),
-    #             #         (bb[i]+np.array([-dbb[i],-dbb[i],+dbb[i],+dbb[i],-dbb[i]])/2.),
-    #             #         color='black',linewidth=1,zorder=1000+i)
-
-    #     # add standard labels
-    #     plt.xlabel('Azimuth')
-    #     plt.ylabel('Zenith')
-
-    #     # use these limits
-    #     #plt.xlim(-np.pi,np.pi)
-    #     #plt.ylim(0,np.pi)
-    #     # not
 
 
         
@@ -1273,8 +1076,6 @@ class Pointing():
 
                     # append last time segment as delta between time bin edge and 
                     # that was already accounted for
-                    # (last entry can be important)
-                    # TS: is this correct?
                 save_times.append(dataset.data_time_tagged[t]['DeltaTime']-np.sum(save_times)) 
 
                 self.xpoins.extend(save_xpoins)
@@ -1309,43 +1110,11 @@ class BG():
         self.n_time_bins = dataset.times.n_ph#dataset.times.n_time_bins
         self.times_wid = dataset.times.times_wid*2 # half-widths * 2
 
-        # if self.bg_mode == 'default':
-        #     print('Reading in flight-average background response for 5 deg CDS binning ...')
-        #     self.default_bg_response_file = 'flight_bg_all_v1_fine.npz'
-            
-        # elif self.bg_mode == 'default 3deg':
-        #     print('Reading in flight-average background response for 3 deg CDS binning ...')
-        #     self.default_bg_response_file = 'flight_bg_all_v1_fine_3deg.npz'
-            
-        # elif self.bg_mode == 'default 6deg':
-        #     print('Reading in flight-average background response for 6 deg CDS binning ...')
-        #     self.default_bg_response_file = 'flight_bg_all_v1_fine_6deg.npz'
-            
-        # elif self.bg_mode == 'sim 5deg':
-        #     print('Reading in simulated Ling-model (1973) background response for 5 deg CDS binning ...')
-        #     self.default_bg_response_file = 'LingModel_bg_all_v1_fine_old.npz'
-            
-        # elif self.bg_mode == 'sim 6deg':
-        #     print('Reading in simulated Ling-model (1973) background response for 6 deg CDS binning ...')
-        #     self.default_bg_response_file = 'LingModel_bg_all_v1_fine_6deg_old.npz'
-            
-        # elif self.bg_mode == 'sim 5deg despina':
-        #     print('Reading in simulated Ling-model (1973) background response for 5 deg CDS binning from despina only...')
-        #     self.default_bg_response_file = 'LingModel_bg_all_v1_fine_despina_only.npz'
             
         # elif self.bg_mode == 'sim 6deg despina':
         if self.bg_mode == 'sim 6deg despina':
             print('Reading in simulated Ling-model (1973) background response for 6 deg CDS binning from despina only...')
             self.default_bg_response_file = 'LingModel_bg_all_v1_fine_6deg_despina_only.npz'
-
-        # elif self.bg_mode == 'sim 5deg royal':
-        #     print('Reading in simulated Ling-model (1973) background response for 5 deg CDS binning from royal only...')
-        #     self.default_bg_response_file = 'LingModel_bg_all_v1_fine_royal_only.npz'
-            
-        # elif self.bg_mode == 'sim 6deg royal':
-        #     print('Reading in simulated Ling-model (1973) background response for 6 deg CDS binning from royal only...')
-        #     self.default_bg_response_file = 'LingModel_bg_all_v1_fine_6deg_royal_only.npz'
-        
             
         else:
             print('Using background mode: '+self.bg_mode)
@@ -1434,23 +1203,6 @@ class BG():
             self.bg_model_reduced.append(bg_tmp)
             
     
-#     @staticmethod
-#     def construct_bg_response_from_data(dataset):
-#         """
-#         Construct a background response from summing over all times.
-#         :param: dataset  COSIpy.dataset object with binned dataset attribute
-#         """
-
-#         try:
-#             # zeroth axis is time
-#             response =  np.sum(dataset.binned_data,axis=0)
-#             response /= np.sum(response,axis=(1,2))[:,None,None]
-#             return response
-
-#         except:
-#             print('Data not yet binned? Use get_binned_data() first.')
-    
-    # TS: there is probably a more elegant way to do this, but for now it works
     def construct_general_bg_response(self,dataset):
         """
         Construct a standard background response from flight data
@@ -1566,9 +1318,6 @@ class BG():
         return(bg_response_per_bin)
 
         print('######################################')
-
-        #except:
-        #    print('Data not yet binned? Use get_binned_data() first.')
           
         
     def make_bg_cuts(self,
@@ -1596,9 +1345,7 @@ class BG():
         self.idx_arr = self.idx_arr.astype(int)
 
 
-        
 
-            
 # # misc. functions required for the stuff to work
 def minmax(x):
     """
@@ -1723,7 +1470,6 @@ def circle_on_the_sky(ls,bs,th,n_points=100):
     thr = np.deg2rad(th)
     
     # start from the circle centre point at galactic coordiantes 0/0 on that sphere
-    # TS: the difficult thing is just to figure out what angle corresponds to what axis
     vec = np.array([np.cos(thr),0,0])
     # rotate that point to the wanted position
     r = R.from_euler('yz',[bs+180,ls+180],degrees=True)
