@@ -51,7 +51,7 @@ The three scattering angles $(\phi, \chi, \psi)$ make up 3 orthogonal axes of th
 
 All analyses with COSIpy start with reconstructed events defined in a photon list (MEGAlib’s .tra files). After reading in the data from the .tra file, the first step of any analysis is to bin the data into the CDS. For this Data Challenge, we are using 6º bin sizes for each of the scattering angles. This is because the angular resolution of the COSI Balloon instrument is ~6º at best, and smaller bins would be more computationally demanding. We are also using 10 energy bins for the continuum analyses, and 2 hour time bins. For the narrow-line sources, such as 511 keV or Al-26, we use only 1 energy bin centered on the gamma-ray line of interest.
 
-As a visual representation of the data (D) in the CDS, see the figure below. The three axes are the 3 scatter angles, and each bin contains the number of events, or counts, with that $(\phi, \chi, \psi)$, shown with the red color fill (this is just a random distribution and not representative of what real data looks like in the CDS). The CDS is filled for each energy and time bin, represented by the subscript $E,t$ in the figure. In COSIpy-classic, $\chi$ and $\psi$ are binned into in 1145 FISBEL bins, where FISBEL is MEGAlib’s spherical axis binnings that has approximately equal solid angle for each pixel.
+As a visual representation of the data (D) in the CDS, see the figure below. The three axes are the 3 scatter angles, and each bin contains the number of events, or counts, with that $(\phi, \chi, \psi)$, shown with the red color fill (this is just a random distribution and not representative of what real data looks like in the CDS). The CDS is filled for each energy and time bin, represented by the subscript $E,t$ in the figure. In COSIpy-classic, $\chi$ and $\psi$ are binned into in 1145 FISBEL bins. FISBEL stands for Fixed Integral Square Bins in Equi-Longitude, and is MEGAlib’s spherical axis binnings that has approximately equal solid angle for each pixel.
 
 <img width="400" alt="Screen Shot 2022-10-16 at 11 03 38 PM" src="https://user-images.githubusercontent.com/33991471/196080461-6e97c2c2-4d36-4cfb-b13c-935f438616c1.png">
 
@@ -64,13 +64,13 @@ We will describe these components here and explain how they are used for general
 
 ### Response Matrix
 
-The response matrix (R) for Compton telescopes represents the probability that a photon with energy E initiating from Galactic coordinates $(l,b)$ interacts in the detector resulting in an event with measured energy E’ and scattering angles $(\phi,\chi,\psi)$. This is a matrix that is 2 dimensions larger $(l,b)$ than the CDS and describes the transformation between image space and the CDS, taking into account the accurate response of the instrument. We build the response matrix through large MEGAlib simulations of an isotropic source.
+The response matrix (R) for Compton telescopes represents the probability that a photon with energy E initiating from Galactic coordinates $(l,b)$ interacts in the detector resulting in an event with measured energy E’ and scattering angles $(\phi,\chi,\psi)$. The probability distribution is normalized to match the total effective area of the instrument, which allows us to go from counts to physicsal paramters. The matrix that encodes this information is 2 dimensions larger $(l,b)$ than the CDS and describes the transformation between image space and the CDS, taking into account the accurate response of the instrument. We build the response matrix through large MEGAlib simulations of an isotropic source.
 
 <img width="965" alt="Screen Shot 2022-10-16 at 11 05 26 PM" src="https://user-images.githubusercontent.com/33991471/196080645-6f1eecb9-a34a-489f-ae7c-79f43224ae32.png">
 
 ### Sky Model
 
-For forward-folding analyses methods, we assume a source sky distribution, referred to as the sky model (S). The sky model in image space can be simply a point source or it can be a complicated diffuse model. This model is convolved with the instrument response matrix, and includes knowledge of the instrument aspect during observations, to determine the representation of the sky model in the CDS. For example, here we are showing this for a simple point source, and we regain the expected cone-shape in the CDS.
+For forward-folding analyses methods, we assume a source sky distribution, referred to as the sky (or signal) model (S). The sky model in image space can be simply a point source or it can be a complicated diffuse model. The sky model also contains the spectral and polarization assumptions. This model is convolved with the instrument response matrix, and includes knowledge of the instrument aspect during observations, to determine the representation of the sky model in the CDS. For example, here we are showing this for a simple point source, and we regain the expected cone-shape in the CDS.
 
 <img width="1065" alt="Screen Shot 2022-10-16 at 11 06 10 PM" src="https://user-images.githubusercontent.com/33991471/196080720-dc1db3c5-0bee-4843-b8d5-ddb936745bb1.png">
 
@@ -84,7 +84,7 @@ With the background model generated from simulations, then we first have to bin 
 
 ### Fitting General Principle
 
-Finally, we have all of our components, and now we can perform our analysis. When model fitting, we generally fit for the amplitude of the source and background models that describe the data: **D = $\alpha$ S + $\beta$ B**, shown schematically in the figure below, which is done for each energy bin and time bin independently. Through this procedure for spectral fitting and spatial model fitting, one can maximize the likelihood in the CDS.
+Finally, we have all of our components, and now we can perform our analysis. When model fitting, we can free multiple spectral, polarization and location parameters. For simplicity, let's assume we will only fit for the amplitude of the source and background models that describe the data: **D = $\alpha$ S + $\beta$ B**, shown schematically in the figure below, which is done for each energy bin and time bin independently. Through this procedure for spectral fitting and spatial model fitting, one can maximize the likelihood in the CDS.
 
 <img width="1074" alt="Screen Shot 2022-10-16 at 11 07 20 PM" src="https://user-images.githubusercontent.com/33991471/196080880-83937b0d-15b0-4a93-b0dc-09368d3423ae.png">
 
