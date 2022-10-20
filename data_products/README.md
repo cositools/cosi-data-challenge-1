@@ -13,9 +13,8 @@ The simulations were all performed in MEGAlib, with an accurate mass model of th
 
 We have included many combinations of the source simulations and background to allow for flexibility and further testing with these files. All files are either the .npz zipped numpy array format for the CDS-binned response matrix or background model, or the MEGAlib photon list .tra.gz format. MEGAlib was used to perform all of these simulations, and the source models are described in detail below.
 
-Within this directory, there are 2 background models and 3 response matrices. 
+Within this directory, there is 1 background model and 3 response matrices. 
 - **Scaled_Ling_BG_1x.npz**: background model generated from C. Karwin's scaled 1x Ling background simulation 
-- **Scaled_Ling_BG_3x.npz**: background model generated from C. Karwin's scaled 3x Ling background simulation for more statistics
 - **Continuum_Response.npz**: 6º response used for spectral analysis and imaging continuum sources
 - **511keV_imaging_response.npz**: 6º imaging response required for RL imaging of Galactic positron annihilation
 - **1809keV_imaging_response.npz**: 6º imaging response required for RL imaging of Galactic Al-26
@@ -26,7 +25,9 @@ There is the full-sky simulation with background and all of the sources combined
 There is each of the sources individually with the background:
 - **Point_sources_10x_BG.tra.gz**: 4 point sources with 10x flux (Crab, Cyg X1, Cen A, Vela) and 1x Ling background
 - **Crab_BG_10x.tra.gz**: Crab with 10x flux and 1x Ling background
+- **CygX1_BG_10x.tra.gz**: Cyg X1 with 10x flux and 1x Ling background
 - **CenA_BG_10x.tra.gz**: Cen A with 10x flux and 1x Ling background
+- **Vela_BG_10x.tra.gz**: Vela with 10x flux and 1x Ling background
 - **GC511_10xFlux_and_Ling.inc1.id1.extracted.tra.gz**: 511 emission with 10x flux with Ling background
 - **DC1_Al26_10xFlux_and_Ling.inc1.id1.extracted.tra.gz**: Al26 emission with 10x flux with Ling background
 
