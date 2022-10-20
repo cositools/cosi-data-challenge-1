@@ -17,7 +17,6 @@ import pickle
 
 # spectral fits
 from priors_dc1 import *
-from spectral_shapes_dc1 import *
 import time
 import emcee
 import corner
@@ -56,7 +55,6 @@ class fit():
         self.verbose = verbose
 
         self.data_per_energy_bin = self.make_dictionaries_for_stan() # make dictionaries for fit with Stan
-        #self.load_stan_model() # load corresponding Stan model
    
     
     def reduce_dataset_CDS(self):
