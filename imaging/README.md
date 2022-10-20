@@ -1,33 +1,14 @@
-# Welcome to point source imaging with cosipy-classic
+# Welcome to image deconvolution with cosipy-classic
 
-In this notebook, we'll use a Richardson-Lucy deconvolution algorithm to image four point sources. This README should act as a guide offering additional information for each step of the analysis.
-
-## Science Background
-
-- Crab nebula ($184.56^{\circ}$, $-5.78^{\circ}$)
-
-The Crab nebula is considered both a pulsar wind nebula (PWN) and supernova remnant. The PWN surrounds the Crab Pulsar, a rapidly rotating and magnetized neutron star in the Milky Way constellation Taurus. The supernova remnant was produced by SN 1054. 
-
-The Crab entered COSI-balloon's field of view for only $\sim$12 of the 46 days of the 2016 flight ([Sleator 2019](https://www.proquest.com/docview/2313733159?pq-origsite=gscholar&fromopenview=true)); the balloon remained largely in Earth's Southern Hemisphere and the Crab is more easily viewed from the Northern Hemisphere. Nevertheless, as the brightest persistent $\gamma$-ray source in the sky, the Crab is detectable in the balloon data and is imaged in this notebook with 10x its true flux of 0.049 ph cm$^{-2}$ s$^{-1}$ (100 keV-50 MeV).
-
-- Cygnus X-1 ($71.33^{\circ}$, $3.07^{\circ}$)
-
-Cygnus X-1 is a bright hard X-ray source in the Cygnus constellation of the Milky Way. It is believed to be a black hole in an X-ray binary system. Cygnus X-1 emits in COSI's bandpass as well, and like the Crab is simulated here at 10x its true flux of 0.041 ph cm$^{-2}$ s$^{-1}$ (100 keV-50 MeV). This data challenge thus helps establish expectations for COSI-balloon observations of Cygnus X-1 during the 2016 flight.
-
-- Centaurus A ($309.52^{\circ}$, $19.42^{\circ}$)
-
-Centaurus A is a galaxy in the constellation of Centaurus. Also called NGC 5128, Centaurus A has a supermassive black hole which emits X-rays and radio waves. This notebook attempts to image Centaurus A as seen with 10x its true flux of 0.0036 ph cm$^{-2}$ s$^{-1}$ (100 keV-50 MeV) during the 2016 balloon flight.
-
-
-- Vela supernova remnant ($263.55^{\circ}$, $-2.79^{\circ}$)
-
-Finally, this notebook also attempts to image the Vela supernova remnant (Type II supernova in the constellation Vela) at 10x its true flux of 0.00014 ph cm$^{-2}$ s$^{-1}$ (100 keV-50 MeV). It is fainter than the other three sources but is included as a source which could be observed by an instrument like COSI-balloon with more observation time.
-
-The simulations are further defined in [data_products](../data_products).
+In this example, we'll use a Richardson-Lucy deconvolution algorithm to image the full simulated sky as observed during the balloon flight. There are three notebooks in this directory:
+1. [RL-DataChallenge-Point_Sources-10XFlux-Ling.ipynb](RL-DataChallenge-Point_Sources-10XFlux-Ling.ipynb) which images 4 simulated point sources.
+2. [RL-DataChallenge-511keV_10xFlux-Ling.ipynb](RL-DataChallenge-511keV_10xFlux-Ling.ipynb) performs the diffuse imaging of the 511 keV emission.
+3. [RL-DataChallenge-Al26_10xFlux-Ling.ipynb](RL-DataChallenge-Al26_10xFlux-Ling.ipynb) performs the diffuse imaging of the Al-26 1.8 MeV decay line.
+The 3 notebooks are almost identical in their execution, but different data sets will be uploaded, different response matrixes will be used, and slightly different imaging parameters will be required. This README should act as a guide offering additional information for each step of the analysis. Please refer to the [data_products](../data_products) README for more details on the scientific background for these sources, and the simulated source models. The following sections align with the different steps within the notebooks.
 
 ## Intial Setup
 
-Import packages, defining file names, and reading in the data files.
+Import relavent packages, define file names, and read in the data files.
 
 ## Bin the data
 
@@ -46,19 +27,22 @@ You can feel free to play with the time binning. You may choose to decrease the 
 
 For point source imaging, we use a continuum response simulation which spans several energy bins across COSI's 0.2-5 MeV bandpass: [150, 220, 325, 480, 520, 765, 1120, 1650, 2350, 3450, 5000] keV.
 
+For positron-electron annihilation keV, we use a response simulation with only one energy bin around the 511 keV signature: **501-521 keV**.
+
+For Al-26, we use a response simulation with only one energy bin around the 1809 keV photopeak signature: **1803-1817 keV**.
+
 **Sky pixel size:** As with the energy binning, the pixel size here must match that of the response. The responses that have been simulated for COSI-balloon assume $6^{\circ} \times 6^{\circ}$ resolution.
 
 ### Binning
-.get_binned_data()
+Calling `.get_binned_data()` will loop through all of the events in the MEGAlib photon list contained in the .tra.gz file to fill the bins of the Compton data sapce.
 
 ### Examining the shape
 
-The binned data are contained in "analysis1.dataset.binned_data." This is a 4-dimensional object representing the 5 dimensions of the Compton data space: \
-(time, energy, $\phi$, FISBEL)
+The binned data are contained in "analysis1.dataset.binned_data." This is a 4-dimensional object representing the 5 dimensions of the Compton data space: (time, energy, $\phi$, FISBEL).
 
 The number of bins in each dimension are shown by calling "shape."
 
-Per the binning definitions above, there are 2240 time bins, 10 energy bins (as governed by those in the response), 30 $\phi$ bins ($\phi$ is the Compton scattering angle; 30 bins of $6^{\circ}$ spanning the full $0-180^{\circ}$ range of possible Compton scattering angles), and 1145 FISBEL bins. 
+Per the binning definitions above, there are 2240 time bins, 10 energy bins for the continuum analysis or 1 bin for line analysis (as governed by those in the response), 30 $\phi$ bins ($\phi$ is the Compton scattering angle; 30 bins of $6^{\circ}$ spanning the full $0-180^{\circ}$ range of possible Compton scattering angles), and 1145 FISBEL bins. 
 
 FISBEL is a unique index which specifies the $\chi$ and $\psi$ dimensions of the Compton Data Space (CDS), whose third dimension is $\phi$. The $\chi$ and $\psi$ dimensions specify the direction of the scattered photon in a Compton interaction. 
 
@@ -69,19 +53,16 @@ The notebook will show you how to get the shape of the data set, and how to extr
 
 ### Inspecting the data
 
-Since we have the simulated data set read in and binned into the Compton data space, we can now make raw spectra, light curves, and other projections of the data. Two examples of this are shown in the notebook. The first is the total raw spectrum from the simulated data set. This is for the duratino of the balloon flight (total time = 4031996 seconds = 46.6 days), and the majority of photons in this spectrum are from the background simulation. The 511 keV line, which fills the narrow 4th bin, is clearly visible and has contributions from the Ling background and from the Galactic center source simulation. The light curve is ...
+Since we have the simulated data read and binned into the Compton data space, we can now make raw spectra, light curves, and other projections of the data. Two examples of this are shown in the notebook. The first is the total raw spectrum from the simulated data set. This is for the duration of the balloon flight (total time = 4031996 seconds = 46.6 days), and the majority of photons in this spectrum are from the background simulation. The 511 keV line, which fills the narrow 4th bin of the full continuum spectrum, is clearly visible and has contributions from the Ling background and from the Galactic center source simulation. The light curve is ...
 
 ## Pointing Class
 
 The pointing class handles the aspect information of the balloon platform. 
 
+In the point source notebook, 
 Here we see the source move in and out of the field of view. The black dots show when the Crab falls above the horizon, i.e. within COSI's field of view. The Crab is more visible in the latter part of the flight. We notice, too, that the Crab is always somewhat off-axis; it is never directly overhead the instrument at zenith.
 
-# COSI's field of view extends ~60 deg from zenith.
-# Hence, the "horizon" lies at the maximum extent of what COSI can see beyond zenith. 
-# This means that COSI's zenith lies 60 deg above the horizon.
-
-analysis1.horizon = 60
+COSI's field of view extends ~60 deg from zenith. Hence, the "horizon" lies at the maximum extent of what COSI can see beyond zenith. This means that COSI's zenith lies 60 deg above the horizon.
 
 This is also evident in the above plot: the black dots tracing COSI's zenith pointing don't overlap with the Crab's position, marked by a red star.
 
@@ -121,12 +102,25 @@ Many of the comments in the code within the notebook can help shed light on the 
 
 ### Setup for imaging
 
+Defining a grid on the sky to make images, linear 6x6 grid, and convert the grid to zenith and azimuth pairs for each pointing.
+
+Define a function to get the respones of an image for arbitraty time binning. 
+
+We're selecting only one energy bin here for the full analysis 320-480 keV for the continuum since it has the most counts.
+And then reduce the response dimensions to only use non-zero bins. The shape after this shows the reduction and re-shape to latitude x longitude x CDS bins.
+
+Define the function to get the image response for arbitrary time binning. The convolves the pointings and the response, to fill the CDS with the expected
+Calculate the general image response for the current data set - ...
+
+### Exposure map
+
+Here, we plot the explosure map, which we're representing with the response weighted by the time.
 
 ### RL Algorithim
 
 The steps follow the algorithm as outlined in [Knödlseder et al. 1999](https://ui.adsabs.harvard.edu/abs/1999A%26A...345..813K/abstract). Refer to that paper for a mathematical description of the algorithm.
 
-The total memory used during these iterations is about 94 GB!! You might not be able to do much else with your machine while this is running. 
+The total memory used during these iterations is about 94 GB for the continuum response, 75 GB for the 511 keV, and 105 GB for the Al-26!! You might be limited on your personal computer, and at the very least, you might not be able to do much else with your machine while this is running. 
 
 #### Adjustable parameters
 There are three parameters at the beginning of this RL cell which we encourage you to adjust. In fact, it is often necessary to adjust these parameters depending on the data being studied.
@@ -148,5 +142,12 @@ There is a prior in the background fit defined by mu_Abg +/- sigma_Abg. By defau
 - delta_map_tot_old\
 You can change the exponent of the denominator. By default, it is set to 0.25 to help avoid exposure edge effects. All testing has been done with this fourth root. However, you can try setting it to 0, 0.5, etc. to see what happens. You can also try smoothing delta_map_tot_old with a Gaussian filter.
 
+
+### Truncating the response at $90^{\circ}$
+As discussed above, COSI's field of view extends $60^{\circ}$ beyond its zenith. The data/simulations themselves, however, only have hard cut manually applied at $90^{\circ}$: this is the Earth Horizon Cut (EHC). The EHC is applied to the data in order to remove background $\gamma$-ray emanating from the Earth's atmosphere below the instrument. 
+
+To preserve any photons which may scatter in just beyond COSI's nominal $60^{\circ}$ field of view but not beyond the $90^{\circ}$ EHC, we define a "cut" which trucates, i.e. zeroes out, the response at $90^{\circ}$. 
+
+Note that because the EHC has removed all photons beyond $90^{\circ}$, setting the cut to a value greater than $90^{\circ}$ will behave identically to cut = $90^{\circ}$.
 
 
