@@ -5,9 +5,9 @@ For the first Data Challenge, we wanted to give the users a basic look at COSI d
 - Imaging bright point sources, such as the Crab and Cyg X-1
 - Imaging diffuse emission from 511 keV and the 26Al 1.8 MeV gamma-ray line
 
-For each of these examples, we have provided a detailed description of the simulated sources and data products here in the data_products directory. Each of the sources was simulated at 10x the astrophysical flux since the balloon flight had limited observation time, and because there were multiple detector failures during the balloon flight which reduced the effective area significantly. 
+For each of these examples, we have provided a detailed description of the simulated sources and data products here in the data_products directory. Each of the sources was simulated at 10x the astrophysical flux. Having a strong signal simplifies the analysis and allows us to focus on the workflow of the procedures. The COSI SMEX mission is expected to be 50x more sensitive than the balloon-borne mission
 
-The simulations were all performed in MEGAlib, with an accurate mass model of the COSI Balloon instrument. The [COSIBalloon.9Detector.geo.setup](https://github.com/cositools/massmodel-cosi-balloon/blob/main/COSIBalloon.9Detector.geo.setup)  model, which includes the detector failures, was used for all of the simulations. Each of the continuum simulations was performed for 100 keV – 10 MeV, and an energy range selection of <5 MeV was used in MEGAlib’s mimrec event selection tool. 
+The simulations were all performed in MEGAlib, with an accurate mass model of the COSI Balloon instrument. The [COSIBalloon.9Detector.geo.setup](https://github.com/cositools/massmodel-cosi-balloon/blob/main/COSIBalloon.9Detector.geo.setup)  model, which accounts for the failure of three  GeD detectors at different times during flight. Each of the continuum simulations was performed for 100 keV – 10 MeV, and an energy range selection of <5 MeV was used in MEGAlib’s mimrec event selection tool. 
 
 ## Data Products:
 
@@ -55,7 +55,7 @@ As described in the main cosi-data-challenge-1 README, these files are stored on
 
 ### Point Sources 
 
-There are four bright point sources that are included in these simulations: the Crab nebula, Cygnus X-1, Centaurus A, and Vela. The spectra and flux for each of these sources was determined from the literature. We have used 10x the flux values for these sources since the COSI Balloon flight had limited observation times, and the effective area was limited due to detector failures. The COSI SMEX mission is expected to be 50x more sensitive than the balloon-borne mission, so please keep that in mind when you see the detections in this Data Challenge.
+There are four bright point sources that are included in these simulations: the Crab nebula, Cygnus X-1, Centaurus A, and Vela. The spectra and flux for each of these sources was determined from the literature. As explained above, we have used 10x the flux values for these sources in order to simplify the analysis. Please keep that in mind when you see the detections in this Data Challenge.
 
 Crab:   
 &emsp; (l,b) = (184.56, -5.78)  
@@ -124,7 +124,7 @@ The source simulations include the real flight aspect information so that the ba
 
 Furthermore, the transmission probability of the source photons in the atmosphere are calculated for each instance of the simulation. The probability of transmission is taken at a constant altitude of 33 km, and is shown as a function of zenith angle and energy in the below figure.
 
-<image width="500" alt="Screen Shot 2022-10-17 at 1 56 10 AM" src="https://user-images.githubusercontent.com/33991471/196103855-2e805235-c4a1-4d82-a568-edf7bca6727e.png">
+![Screen Shot 2022-10-17 at 1 56 10 AM](https://user-images.githubusercontent.com/33991471/196103855-2e805235-c4a1-4d82-a568-edf7bca6727e.png)
 
 
  
