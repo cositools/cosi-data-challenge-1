@@ -143,8 +143,8 @@ class fit():
 
         self.systematics = np.array([9.61348192, 4.5787978 , 1.15368693, 1.22003529, 1, 1, 1, 1, 1, 1]) # standard systematics (from sky-only fits)
         
-        for i in tqdm(range(self.dataset.energies.n_energy_bins),desc='Loop over energy bins:'):
-
+        for i in range(self.dataset.energies.n_energy_bins):
+            print("working on energy bin " + str(i))
             init = np.array([np.sum(self.data_per_energy_bin[i]['y'])*0.05,0.99]) # initial guess for emcee fitting (1 bg parameter only)
             init_var = init*1e-4
 
