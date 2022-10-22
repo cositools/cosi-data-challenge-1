@@ -7,4 +7,4 @@ corner==2.2.1
 jupyter 
 ipywidgets
 astropy
-pystan==2.2.0.0
+pystan==2.19.1.1
