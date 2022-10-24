@@ -29,7 +29,7 @@ There is each of the sources individually with the background:
 - **CenA_BG_10x.tra.gz**: Cen A with 10x flux and 1x Ling background
 - **Vela_BG_10x.tra.gz**: Vela with 10x flux and 1x Ling background
 - **GC511_10xFlux_and_Ling.inc1.id1.extracted.tra.gz**: 511 emission with 10x flux with Ling background
-- **DC1_Al26_10xFlux_and_Ling.inc1.id1.extracted.tra.gz**: Al26 emission with 10x flux with Ling background
+- **Al26_10xFlux_and_Ling.inc1.id1.extracted.tra.gz**: Al26 emission with 10x flux with Ling background
 
 Each of the sources is also included without background:
 - **Point_sources_10x.tra.gz**: 4 point sources with 10x flux (Crab, Cyg X1, Cen A, Vela)
@@ -58,13 +58,13 @@ As described in the main cosi-data-challenge-1 README, these files are stored on
 
 There are four bright point sources that are included in these simulations: the Crab nebula, Cygnus X-1, Centaurus A, and Vela.
 
-The Crab nebula is considered both a pulsar wind nebula (PWN) and supernova remnant. The PWN surrounds the Crab Pulsar, a rapidly rotating and magnetized neutron star in the Milky Way constellation Taurus. The supernova remnant was produced by SN 1054. The Crab entered COSI-balloon's field of view for only ~12 of the 46 days of the 2016 flight ([Sleator 2019](https://www.proquest.com/docview/2313733159?pq-origsite=gscholar&fromopenview=true)); the balloon remained largely in Earth's Southern Hemisphere and the Crab is more easily viewed from the Northern Hemisphere. Nevertheless, as the brightest persistent $\gamma$-ray source in the sky, the Crab is detectable in the balloon data and is imaged in this notebook with 10x its true flux of 0.049 ph cm $^{-2}$ s $^{-1}$ (100 keV-50 MeV).
+The Crab nebula is considered both a pulsar wind nebula (PWN) and supernova remnant. The PWN surrounds the Crab Pulsar, a rapidly rotating and magnetized neutron star in the Milky Way constellation Taurus. The supernova remnant was produced by SN 1054. The Crab entered COSI-balloon's field of view for only ~12 of the 46 days of the 2016 flight ([Sleator 2019](https://www.proquest.com/docview/2313733159?pq-origsite=gscholar&fromopenview=true)); the balloon remained largely in Earth's Southern Hemisphere and the Crab is more easily viewed from the Northern Hemisphere. Nevertheless, as the brightest persistent $\gamma$-ray source in the sky, the Crab is detectable in the balloon data and is simulated for the data challenge with 10x its true flux of 0.049 ph cm $^{-2}$ s $^{-1}$ (100 keV-50 MeV).
 
 Cygnus X-1 is a bright hard X-ray source in the Cygnus constellation of the Milky Way. It is believed to be a black hole in an X-ray binary system. Cygnus X-1 emits in COSI's bandpass as well, and like the Crab is simulated here at 10x its true flux of 0.041 ph cm $^{-2}$ s $^{-1}$ (100 keV-50 MeV). This data challenge thus helps establish expectations for COSI-balloon observations of Cygnus X-1 during the 2016 flight.
 
-Centaurus A is a galaxy in the constellation of Centaurus. Also called NGC 5128, Centaurus A has a supermassive black hole which emits X-rays and radio waves. This notebook attempts to image Centaurus A as seen with 10x its true flux of 0.0036 ph cm $^{-2}$ s $^{-1}$ (100 keV-50 MeV) during the 2016 balloon flight.
+Centaurus A is a galaxy in the constellation of Centaurus. Also called NGC 5128, Centaurus A has a supermassive black hole which emits radio waves, X-rays, and gamma-rays. It is simulated with 10x its true flux of 0.0036 ph cm $^{-2}$ s $^{-1}$ (100 keV-50 MeV) for the data challenge analyses.
 
-The Vela supernova remnant (Type II supernova in the constellation Vela) is the final point source inlcuded at 10x its true flux of 0.00014 ph cm $^{-2}$ s $^{-1}$ (100 keV-50 MeV). It is fainter than the other three sources but is included as a source which could be observed by an instrument like COSI-balloon with more observation time.
+The Vela pulsar is simulated based on a power law extrapolation of the corresponding Fermi-LAT source (4FGL J0835.3-4510) to lower energy. We have verified that the extrapolation is consistent with the observations from OSSE+COMPTEL+EGRET, e.g. see [Pavlov+01](https://iopscience.iop.org/article/10.1086/320342). It is fainter than the other three sources but is included as a source which could be observed by an instrument like COSI-balloon with more observation time.
 
 ### Positron Annihilation at 511 keV
 
@@ -89,7 +89,7 @@ Ultimately, we can boil the "positron puzzle" down to uncertainty around the *so
 
 The COSI-balloon flight in 2016 detected the 511 keV signature of the positron puzzle with $7.2\sigma$ significance [(Kierans et al. 2020)](https://iopscience.iop.org/article/10.3847/1538-4357/ab89a9/meta). It also clearly imaged the bright bulge emission near the Galactic Center [(Siegert et al. 2020)](https://iopscience.iop.org/article/10.3847/1538-4357/ab9607/meta). Both measurements are consistent with those from SPI and indicate additional extended emission. 
 
-In this notebook, you will image the Galactic 511 keV emission, simulated at 10X its true flux (10X flux = $1.1 \times 10^{-2}$ ph cm $^{-2}$ s $^{-1}$) for robust statistics, as seen during the COSI-balloon flight in 2016. You should expect to see the bright bulge emission near the Galactic Center (but not the disk emission, which is too weak for COSI-balloon to see during its 46-day flight; SPI was able to detect the disk's $\sim 1$ ph/week with over a decade of observation time).
+In this data challenge, you will image the Galactic 511 keV emission, simulated at 10X its true flux (10X flux = $1.1 \times 10^{-2}$ ph cm $^{-2}$ s $^{-1}$) for robust statistics, as seen during the COSI-balloon flight in 2016. You should expect to see the bright bulge emission near the Galactic Center (but not the disk emission, which is too weak for COSI-balloon to see during its 46-day flight; SPI was able to detect the disk's $\sim 1$ ph/week with over a decade of observation time).
 
 
 ### Aluminum-26 Decay at 1.8 MeV
@@ -111,7 +111,7 @@ The COSI-balloon flight in 2016 measure the 1.809 MeV signature of Al-26 with $3
 
 Furthermore, the COSI satellite's full-sky observations with fine angular resolution have potential to more closely study individual regions of massive star activity; in particular, resolving individual sites of emission within Cygnus is a promising goal of the mission. Detailed imaging and spectrosocpic studies of the region may inform better understanding of the dynamics of Al-26 after it is produced and ejected from massive stars. 
 
-In this notebook, you will image the Galactic Al-26 emission (traced by the DIRBE 240 $\mu m$ image) as seen during the COSI-balloon flight in 2016. The flux is simulated at 10X the observed Al-26 flux (10X Inner Galaxy flux = $3.3 \times 10^{-3}$ ph cm $^{-2}$ s $^{-1}$; 10X total map flux = $1.2 \times 10^{-2}$ ph cm $^{-2}$ s $^{-1}$) for robust statistics. You should expect to see extended emission along the Galactic Plane, similar to that revealed by COMPTEL and SPI's 1.8 MeV images. The massive star regions of Cygnus, Carina, and Vela will not be as easily identifiable in this simulation of the balloon flight; for those, be sure to participate in the data challenge (and real data analysis) of the COSI satellite!
+In this data challenge, you will image the Galactic Al-26 emission (traced by the DIRBE 240 $\mu m$ image) as seen during the COSI-balloon flight in 2016. The flux is simulated at 10X the observed Al-26 flux (10X Inner Galaxy flux = $3.3 \times 10^{-3}$ ph cm $^{-2}$ s $^{-1}$; 10X total map flux = $1.2 \times 10^{-2}$ ph cm $^{-2}$ s $^{-1}$) for robust statistics. You should expect to see extended emission along the Galactic Plane, similar to that revealed by COMPTEL and SPI's 1.8 MeV images. The massive star regions of Cygnus, Carina, and Vela will not be as easily identifiable in this simulation of the balloon flight; for those, be sure to participate in the data challenge (and real data analysis) of the COSI satellite!
 
 
 
