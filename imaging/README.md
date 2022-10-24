@@ -162,7 +162,7 @@ Sample final images are included in the "plots" folder.
 
 **Point Source Notebook:** \
 The Crab nebula is the only easily visible source in this combined simulation of 10x flux Crab, 10x flux Cygnus X-1, 10x flux Centaurus A, 10x Vela, and 1x flux Ling background (scaled to the observed 2016 flight background level). A sample final image is shown below:
-<img width="400" alt="PointSources_LingBG_continuumresponse_ebin2_RLimage" src="/plots/PointSources_LingBG_continuumresponse_ebin2_RLimage.png">
+<img width="400" alt="PointSources_LingBG_continuumresponse_ebin2_RLimage" src="plots/PointSources_LingBG_continuumresponse_ebin2_RLimage.png">
 
 You can play with the color scaling to try to enhance the appearance of the other sources. Vela is likely too dim to be seen, however. 
 
@@ -174,7 +174,7 @@ You can try combining these four point sources and Ling BG with the 10x 511 keV 
 
 **Positron Annihilation at 511 keV:** \
 We clearly see the "bulge" emission of positron-electron annihilation at the center of the Milky Way:
-<img width="400" alt="511keV_LingBG_511keVresponse_RLimage" src="/plots/511keV_LingBG_511keVresponse_RLimage.png">
+<img width="400" alt="511keV_LingBG_511keVresponse_RLimage" src="plots/511keV_LingBG_511keVresponse_RLimage.png">
 
 This was also seen in the published image of real COSI-balloon flight data [(Siegert et al. 2020)](https://iopscience.iop.org/article/10.3847/1538-4357/ab9607/meta):
 <img width="400" alt="Siegert_2020_COSI_511keV" src="https://user-images.githubusercontent.com/33991471/196853486-68a90111-245b-442d-841c-756f47c9c14f.png">
@@ -185,7 +185,7 @@ However, we can still probe the emission morphology of the bulge by fitting a 2-
 
 **Al-26:** \
 As expected, we observe extended Al-26 emission along the Galactic Plane. There is concentrated emission in the Inner Galaxy. The RL algorithm therefore behaves as expected.
-<img width="400" alt="26Al_LingBG_1809keVresponse_RLimage" src="/plots/26Al_LingBG_1809keVresponse_RLimage.png">
+<img width="400" alt="26Al_LingBG_1809keVresponse_RLimage" src="plots/26Al_LingBG_1809keVresponse_RLimage.png">
 
 Given that only ~100 Al-26 photons were detected during the COSI-balloon flight $(3.7 \sigma$ significance, [Beechert et al. 2022](https://iopscience.iop.org/article/10.3847/1538-4357/ac56dc/meta)), imaging the emission at its true flux instead of 10x strength would likely result in only imaging artifacts. Consider the following calculation. For $n$ spatial bins each with measurement significance $n_i$, the total significance of a measurement is $$s = (\sum_{i = 1}^{n} s_i^2)^{1/2}.$$
 
