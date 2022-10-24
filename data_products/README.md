@@ -46,7 +46,7 @@ And finally, there is 1 background simulation (this is not required for any anal
 All files have the same start and stop time, in unix time: \
 start time: 1463443400.0 s \
 stop time: 1467475400.0 s \
-total time: 4032000.0 s = 46.67 days \
+total time: 4032000.0 s = 46.67 days 
 
 This corresponds to May 17 2016 00:03:20 GMT to Jul 02 2016 16:03:20 GMT, covering the full COSI Balloon flight in 2016.
 
