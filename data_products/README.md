@@ -138,11 +138,11 @@ Vela:
 
 The input spectra for these point sources is shown below. Note that the plot shows the true spectra, whereas the flux values reported above are for the 10x simulations. 
 
-<img width="500" alt="Screen Shot 2022-10-17 at 2 17 37 AM" src="https://user-images.githubusercontent.com/33991471/196102631-06aca78d-31da-4363-9f43-b59a6c515786.png">
+<img width="600" alt="Screen Shot 2022-10-17 at 2 17 37 AM" src="https://user-images.githubusercontent.com/33991471/196102631-06aca78d-31da-4363-9f43-b59a6c515786.png">
 
 The simulations are run in MEGAlib’s cosima tool, and then a list-mode image is created in mimrec to confirm the correct point source locations:
 
-<img width="350" alt="Screen Shot 2022-10-17 at 2 21 06 AM" src="https://user-images.githubusercontent.com/33991471/196102769-1ac5ffb5-b3e5-45e0-afe1-952c068bf693.png">
+<img width="700" alt="Screen Shot 2022-10-17 at 2 21 06 AM" src="https://user-images.githubusercontent.com/33991471/196102769-1ac5ffb5-b3e5-45e0-afe1-952c068bf693.png">
 
 ### Positron Annihilation at 511 keV
 
@@ -152,7 +152,7 @@ The morphology of the 511 keV emission from positron annihilation is not well co
 
 The emission was simulated as a 511 keV mono-energetic source, and the image from mimrec confirms the extended emission in the Galactic Center.
 
-<img width="550"  src="https://user-images.githubusercontent.com/33991471/196103404-b4f7d089-88bf-4560-be8b-94f0cebb23e8.png">
+<img width="700"  src="https://user-images.githubusercontent.com/33991471/196103404-b4f7d089-88bf-4560-be8b-94f0cebb23e8.png">
 
 ### Aluminum-26 Decay at 1.8 MeV
 
@@ -162,7 +162,7 @@ The Diffuse Infrared Background Experiment (DIRBE) 240 um map has been shown to 
 
 The emission was simulated with a 1.8 MeV mono-energetic source, and the image from mimrec confirms the extended emission along the Galactic disk.
 
-<img width="550"  src="https://user-images.githubusercontent.com/33991471/196103634-818c032e-cae0-40f8-9bc0-b4c997799a9b.png">
+<img width="700"  src="https://user-images.githubusercontent.com/33991471/196103634-818c032e-cae0-40f8-9bc0-b4c997799a9b.png">
 
 Note that the list-mode imaging method employed in MEGAlib is not optimized for diffuse sources, and the extra structure out of the Galactic plane is an imaging artifact.
 
@@ -178,7 +178,7 @@ The amplitude of the Ling background was scaled so the total integrated backgrou
 
 An image of the background simulation traces the exposure map, since the orientation of the COSI Balloon in Galactic coordinates was included in the simulation:
 
-<img width="550"  src="https://user-images.githubusercontent.com/33991471/196103767-dcd05934-5b73-48a2-9cbf-74c57520b982.png">
+<img width="700"  src="https://user-images.githubusercontent.com/33991471/196103767-dcd05934-5b73-48a2-9cbf-74c57520b982.png">
 
 ## Flight path and transmission
 
