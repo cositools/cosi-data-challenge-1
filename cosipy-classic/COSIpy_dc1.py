@@ -1112,6 +1112,10 @@ class BG():
 
             
         # elif self.bg_mode == 'sim 6deg despina':
+        if self.bg_mode == 'default 6deg':
+            print('Reading in flight-average background response for 6 deg CDS binning ...')
+            self.default_bg_response_file = 'flight_bg_all_v1_fine_6deg.npz'
+        
         if self.bg_mode == 'sim 6deg despina':
             print('Reading in simulated Ling-model (1973) background response for 6 deg CDS binning from despina only...')
             self.default_bg_response_file = 'LingModel_bg_all_v1_fine_6deg_despina_only.npz'
