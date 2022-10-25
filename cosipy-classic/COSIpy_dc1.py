@@ -783,7 +783,7 @@ class dataset(COSIpy):
                     self.light_curve = self.lc_all[:,mode]
                 
                 fig, ax = plt.subplots(1,1,figsize=(8,6))
-                ax.step(self.times.times_cen[self.times.n_ph_dx],self.light_curve,where='mid')
+                ax.step(self.times.times_cen[self.times.n_ph_dx],self.light_curve,where='mid',color="black")
                 ax.set_xlabel('Seconds since UNIX second '+str('%.2f' % self.data['TimeTags'][0])+' [s]')
                 ax.set_ylabel('Count rate [cnts/s]')
 
