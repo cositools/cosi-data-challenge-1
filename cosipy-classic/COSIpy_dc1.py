@@ -783,7 +783,7 @@ class dataset(COSIpy):
                     self.light_curve = self.lc_all[:,mode]
                 
                 fig, ax = plt.subplots(1,1,figsize=(8,6))
-                ax.step(self.times.times_cen[self.times.n_ph_dx],self.light_curve,where='mid')
+                ax.step(self.times.times_cen[self.times.n_ph_dx],self.light_curve,where='mid',color="black")
                 ax.set_xlabel('Seconds since UNIX second '+str('%.2f' % self.data['TimeTags'][0])+' [s]')
                 ax.set_ylabel('Count rate [cnts/s]')
 
@@ -1112,6 +1112,10 @@ class BG():
 
             
         # elif self.bg_mode == 'sim 6deg despina':
+        if self.bg_mode == 'default 6deg':
+            print('Reading in flight-average background response for 6 deg CDS binning ...')
+            self.default_bg_response_file = '../../data_products/flight_bg_all_v1_fine_6deg.npz'
+        
         if self.bg_mode == 'sim 6deg despina':
             print('Reading in simulated Ling-model (1973) background response for 6 deg CDS binning from despina only...')
             self.default_bg_response_file = 'LingModel_bg_all_v1_fine_6deg_despina_only.npz'
