@@ -98,6 +98,13 @@ Since the response is non-invertible, we must use iterative deconvolutions to ar
 
 This will evolve into the maximum likelihood solution. There are other image deconvolution techniques that will be used for COSI imaging, and those will be introduced in subsequent Data Challenges.
 
+In order to get an intuition for how this equation is derived and to be understood, consider that we are trying to find the number of photons in an image pixel, given our model expectation $M = R \cdot S + B$. Here, $M$ are the model counts, calculated from a linear combination of the instrumental background $B$ and the sky morphology $S$, to which the image response function $R$ is applied to convert from image space to data space.<br>
+In such a counting experiment, the measured data $D$ given the model expectation $M$ follows a Poisson distribution, so that the likelihood of measuring $D$ photons is given by $P(D|M) = \prod \frac{\exp(-M)M^D}{D!}$. The product would be over all sky pixels in this case.<br>
+Taking the logarithm of the likelihood and plugging in the model expectation results in $L \equiv \ln P(D|S,B) = \sum \left(-(R \cdot S + B) + D \ln(R \cdot B) \right)$.<br>
+Assuming, for the moment, that the background is known, we can optimise the likelihood with respect to the wanted sky signal $S$, such that<br>
+$0 = \nabla_S L = -I \cdot R^T + \frac{D \cdot R^T}{R \cdot S + B} = \left(1 - \frac{D}{R \cdot S + B} \right) \cdot R^T$.<br>
+Finally, this equation can be solved iteratively, (for each pixel simultaneously) by assuming a starting sky distribution (map) for $S$, similar to Newton's method for example, which will result in the RL equation above.
+
 ## Next Steps
 
 Now that you have a better feeling for the Compton telescope analysis process, at least in a general sense, you’re ready to start on the analysis examples. First, we recommend you check out the detailed description of the simulations in the [data_products](data_products) directory. The easiest analysis is the spectral fitting, and we recommend you start there: [spectral_fit](spectral-fit). The Richardson-Lucy imaging is computationally intensive, and still largely hard-coded in this release, and thus we recommend you work through this notebook second: [imaging](imaging). And then finally, we have also included some of the COSI flight data, specifically for analysis of the Crab as seen during the 2016 flight. After you’ve run through the spectral fitting and image deconvolution with the simulated data, you should be ready to analyze this real flight data: [balloon data](cosi_2016_balloon_data)! 
