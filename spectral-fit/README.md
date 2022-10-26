@@ -84,7 +84,7 @@ The counts for the simulated data, the background model, and the Crab point sour
 
 ## Fitting the Crab Spectrum
 
-For each energy, we now fit the coefficients for the sky and background models that best match the data for each time bin (see [README](../README.md) for more information). This currently is done for each energy individually with know consideration for neighboring bins. Given the number of bins in our data space, this can take about an hour to run the full fit.
+For each energy, we now fit the coefficients for the sky and background models that best match the data for each time bin (see [README](../README.md) for more information). This currently is done for each energy individually with no consideration for neighboring bins. Given the number of bins in our data space, this can take about an hour to run the full fit.
 
 The final spectrum you obtain should be identical to this: 
 
