@@ -21,4 +21,7 @@ For the data challenge the simulated background is constant in time. With the ac
 
 <img width="500" alt="" src="https://user-images.githubusercontent.com/54562666/198153505-cfdb30f7-0503-46f1-9e3a-2426a4470d18.png"><img width="500" alt="Screen Shot 2022-10-26 at 6 53 00 PM" src="https://user-images.githubusercontent.com/54562666/198153646-396fb0d5-ea2f-4cf4-890a-755982b10d26.png">
 
+## Results of the Spectral Fit
+
+## Results of the Imaging
 
