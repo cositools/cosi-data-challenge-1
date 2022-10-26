@@ -102,7 +102,7 @@ After recomputing the point source response, you'll see that the extracted Cen A
 
 <img width="500" alt="CenA_DC1_combined_10x_Spectrum" src="plots/CenA_combined_compare.png">
 
-The upper limits indicate when the signal-to-noise ratio (SNR) > 3. The error bars for the Cen A spectrum are very large, and almost all energy bins have upper limits. 
+The upper limits indicate when the signal-to-noise ratio (SNR) < 3. The error bars for the Cen A spectrum are very large, and almost all energy bins have upper limits. 
 
 This poor fit is due to the bright simulated Crab source interfering with the fit. To fix this, we would need to include the Crab in the background model. Because the elevation of the Crab in COSI's field of view is changing over time, our background model would now need to be time-dependent. However, our current fitting algorithm only includes one background parameter, so we cannot handle a time-dependent background at this point. We explore this hypothesis by looking at a data set which includes the simulated Cen A along with background, without the other simulated sources. 
 
@@ -114,4 +114,4 @@ Now that we only have Cen A in our data set, without contamination from the Crab
 
 <img width="500" alt="CenA_BG_10x_Spectrum" src="plots/CenA_compare.png">
 
-This is an important lesson about the importance of having an accurate background model. Not only do we need more sophisticated background models which include bright sources not being analyzed, but we also to be able to account for the complicated time variability in the measured background during flight. This will be a focus for the next Data Challenge.
+This is an important lesson about the need of having an accurate background model. Not only do we need more sophisticated background models which include bright sources not being analyzed, but we also to be able to account for the complicated time variability in the measured background during flight. This will be a focus for the next Data Challenge.
