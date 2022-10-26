@@ -2,7 +2,7 @@
 
 Welcome to the first COSI Data Challenge! This is the first of many COSI Data Challenges to be released on a yearly basis in preparation for the launch of the COSI Small Explorer mission ([Tomsick et al. 2019](https://ui.adsabs.harvard.edu/abs/2019BAAS...51g..98T/abstract)) in 2027. The main goals of the COSI Data Challenges are to facilitate the development of the COSI data pipeline and analysis tools, and to provide resources to the astrophysics community to become familiar with COSI data. This first COSI Data Challenge was funded through NASA’s Astrophysics Research and Analysis (APRA) for the release of high-level analysis tools for the COSI Balloon instrument ([Kierans et al. 2017](https://ui.adsabs.harvard.edu/abs/2017arXiv170105558K/abstract)), and thus the COSI Balloon model and flight data will be the focus this year. Future COSI Data Challenges will be released for the SMEX mission with increasingly more sophisticated tools and a larger range of astrophysical models and simulated sources each year. By the time we’re ready to fly COSI, we will have simulated all of the main science objectives, developed the tools required to analyze each case, and have educated a broader community to perform the analyses.
 
-## Download and Install
+## Installation Instructions 
 
 ### Already have COSItools installed:
 If you already have the COSItools installed on your computer, type `cosi` to navigate to the COSItools directory and activate the cosi python environment. Clone the cosi-data-challenge-1 repository.
@@ -94,7 +94,7 @@ With the background model generated from simulations, then we first have to bin 
 
 ### Fitting General Principle
 
-Finally, we have all of our components, and now we can perform our analysis. When model fitting, we can free multiple spectral, polarization and location parameters. For simplicity, let's assume we will only fit for the amplitude of the source and background models that describe the data: **D = $\alpha$ S + $\beta$ B**, shown schematically in the figure below, which is done for each energy bin and time bin independently. Through this procedure for spectral fitting and spatial model fitting, one can maximize the likelihood in the CDS.
+Finally, we have all of our components, and now we can perform our analysis. When model fitting, we can free multiple spectral, polarization and location parameters. For simplicity, in this data challenge we will only fit for the amplitude of the source and background models that describe the data: **D = $\alpha$ S + $\beta$ B**, shown schematically in the figure below, which is done for each energy bin and time bin independently. Through this procedure for spectral fitting and spatial model fitting, one can maximize the likelihood in the CDS.
 
 <img width="1074" alt="Screen Shot 2022-10-16 at 11 07 20 PM" src="https://user-images.githubusercontent.com/33991471/196080880-83937b0d-15b0-4a93-b0dc-09368d3423ae.png">
 
