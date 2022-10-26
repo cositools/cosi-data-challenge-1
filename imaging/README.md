@@ -120,7 +120,6 @@ This cell reduces our energy dimension to the sole energy bin selected above and
 For each point in time, we calculate the response. This takes into account that within the selected time bin width Delta_T, the instrument moves with respect to the fixed Galactic coordinate system, and applies weighting whenever the change in aspect angle exceeds 5 degrees (defined by the Pointing class).
 
 **Exposure map** \
-
 Here we plot the exposure map, which is the response multiplied by the actual observation time in the field of view within each Delta_T bin. For a more complete understanding of COSI-balloon's observations, we divide by the pixel size on the sky. This allows for estimates of the effective area (exposure) of extended sources versus point sources.
 
 ## Set up for RL Algorithim
