@@ -1,12 +1,12 @@
 # Using XSPEC for COSI spectral analysis and simulations
 
-This tutorial is meant to serve as a starting point for using the X-ray spectral fitting package with COSI data. The main XSPEC website is https://heasarc.gsfc.nasa.gov/xanadu/xspec/ and a more extensive manual can be found there. XSPEC is installed by default as part of the HEASOFT tools. Thus, it is installed as part of the COSItools.  
+This tutorial is meant to serve as a starting point for using the X-ray spectral fitting package with COSI data. The main XSPEC website is https://heasarc.gsfc.nasa.gov/xanadu/xspec/ and a more extensive manual can be found there. XSPEC is installed by default as part of the HEASoft tools. Thus, it is installed as part of the COSItools.  
 
 XSPEC is an extremely mature software package that a large portion of the high-energy community uses. It has a huge number of models and flexibility for adding custom models as needed. Once the basic commands are known, it is easy to use, and spectral analysis can be performed efficiently. It has a very convenient spectral simulation tool that will be helpful to the COSI science team and will broaden the COSI community. Although not discussed in this tutorial, there is a pyXSPEC package that allows for automated scripts to be written.
 
-Here, we assume that the user has extracted a spectral file (source_and_background.pha), a background file (background.pha), a response matrix (response.rmf), and an ancillary response file (area.arf) - these are provided in the above download. **Command#1** below gives an example of using the FTOOL `fdump` to see what is inside the file. The useful information is in the binary table extension. For example, there are two fields in each row of data (CHANNEL and COUNTS), and there are 502 rows in the table.  
+Here, we assume that the user has extracted a spectral file (source_and_background.pha), a background file (background.pha), a response matrix (response.rmf), and an ancillary response file (area.arf) - these are provided in the above download. **Command#1** below gives an example of using the FTOOL `fdump` to see what is inside the file. The useful information is in the FITS file binary table extension (see more details about FITS files [here](https://fits.gsfc.nasa.gov/fits_documentation.html)). For example, there are two fields in each row of data (CHANNEL and COUNTS), and there are 502 rows in the table.  
 
-The other thing that is important to check is that you have specified the names of the background file, the response matrix, and the ancillary response file in the header under the keywords BACKFILE, RESPFILE, and ANCRFILE.  When you load the file into XSPEC, these files will be read in automatically.  The easiest way to put the file names in the header is to use the FTOOL `fv`, search for the keywords, and type or copy the filenames in.
+The other thing that is important to check is that you have specified the names of the background file, the response matrix, and the ancillary response file in the header under the keywords BACKFILE, RESPFILE, and ANCRFILE.  When you load the file into XSPEC, these files will be read in automatically from the same directory.  The easiest way to put the file names in the header is to use the FTOOL `fv`, search for the keywords, and type or copy the filenames in.
 
 Both the `fdump` and `fv` commands are apart of FTOOLS and can be used in the regular command line or from inside XSPEC.
 
@@ -80,11 +80,17 @@ END
 
 ## Part 1: Standard spectral fitting with XSPEC
 
-Add the following lines to your login file (.cshrc or similar).
+You will need to add the path to HEASoft to your login file. For csh, tsh shells:
 ```
-setenv HEADAS /path/to/your/installation/heasoft-6.29/x86_64-apple-darwin19.6.0
+setenv HEADAS /path/to/your/COSItools/external/heasoft_v6.30.1/x86_64-apple-darwin21.5.0
 alias heasoft "source $HEADAS/headas-init.csh"
 ```
+For sh, ash, ksh, bash, and zsh:
+```
+export HEADAS="/path/to/your/COSItools/external/heasoft_v6.30.1/x86_64-apple-darwin21.5.0"
+alias heasoft="source $HEADAS/headas-init.csh"
+```
+
 Then, type `heasoft` to initialize HEASOFT and `xspec` to start an XSPEC session.
 ```
 [MacBook-Pro-4:cosi/2022/tutorial] jat% xspec
@@ -223,7 +229,7 @@ Chi-Squared  |beta|/N    Lvl    1:PhoIndex        2:norm
 35.3644      2.63735      -1       1.26089       2.32124
 Number of trials exceeded: continue fitting? 
 ```
-If the fit doesn’t converge in 10 iterations, then you need to type “y” to continue with the fit.  You can also use the command “query yes” to override the 10 iteration limit, or type “fit 100” to change the number of iterations before continuing from 10 to 100.  After the fit does converge, XSPEC will show you the best-fit parameter values and minimum Chi-Squared value (we'll address these below).
+If the fit doesn’t converge in 10 iterations, then you need to type “y” or press the return key to continue with the fit.  You can also use the command “query yes” to override the 10 iteration limit, or type “fit 100” to change the number of iterations before continuing from 10 to 100.  After the fit does converge, XSPEC will show you the best-fit parameter values and minimum Chi-Squared value (we'll address these below).
 
 You can see the model on the data and the residuals using
 ```
@@ -282,7 +288,7 @@ XSPEC12>error 2.7 1
      1      1.62291      2.00488    (-0.181687,0.200285)
 ```
 
-In the error command above, the 2.7 refers to the value by which the fit statistic changes at the extremes of the confidence range, and 2.7 corresponds to 90% confidence errors.  Also, note that the Chi-Squared value is 8.55 for 6 degrees of freedom.  With such a small number of degrees of freedom, a reduced Chi-Squared of 1.43 would be considered to be an acceptable fit (using the Chi-Squared distribution, there is a probability of 20% that the true model would have a Chi-Squared of 1.43).
+In the error command above, the 2.7 refers to the value by which the fit statistic changes at the extremes of the confidence range, and 2.7 corresponds to 90% confidence errors. The "1" after 2.7 refers to the parameter number, in this case we are interested in the error on the photon index. Also, note that the Chi-Squared value is 8.55 for 6 degrees of freedom.  With such a small number of degrees of freedom, a reduced Chi-Squared of 1.43 would be considered to be an acceptable fit (using the Chi-Squared distribution, there is a probability of 20% that the true model would have a Chi-Squared of 1.43).
 
 Before moving on to another spectrum or a simulation (see Part 2), you should use the following command
 ```
@@ -301,7 +307,7 @@ One of the very nice features of XSPEC is the simplicity for making simulated sp
 ```
 XSPEC12> data source_and_background.pha
 ```
-Now, load the model that you would like to simulate.  Here, we will use the model that Roques et al. (https://ui.adsabs.harvard.edu/abs/2019ApJ...870...92R/abstract) used to fit the Crab.  This model is a Band function (often used for GRBs), and here is how the model is loaded
+Now, load the model that you would like to simulate.  Here, we will use the model that Roques et al. (https://ui.adsabs.harvard.edu/abs/2019ApJ...870...92R/abstract) used to fit the Crab.  This model is a Band function (often used for GRBs). You will have to manually input the parameters for the model as follows:
 ```
 XSPEC12>model grbm
 
