@@ -3,6 +3,10 @@
 Here we will perform a spectral fit and imaging of the Crab using the 2016 COSI balloon data. The analyses will mostly follow the notebooks used for the simulated data. For more details on steps of the spectral analysis see the main spectral-fit README [(here)](../../spectral-fit/README.md), and likewise for the imaging analysis README [(here)](../../imaging/README.md). This README summarizes the key differences that are needed for analyzing the balloon data. 
 
 ## The Balloon Flight
+<img width="450" alt="Screen Shot 2022-10-26 at 7 06 49 PM" src="https://user-images.githubusercontent.com/54562666/198155231-b5653624-41aa-45c6-9e44-d7a1c818a974.png">
+
+
+
 
 ## Data Selection
 The data has been extracted using a $60^\circ$ pointing cut with respect to the position of the Crab. In practice, this means that we only use times for which the location of the Crab was within $60^\circ$ from COSI's zenith. This can be seen in the images below. The plot on the left shows the pointing in Galactic coordinates as a function of time for the simulated data (which doesn't use a pointing cut), and the plot on the right is for the balloon data, with the $60^\circ$ pointing cut. The green star shows the position of the Crab.
