@@ -1,4 +1,4 @@
-# Welcome to image deconvolution with cosipy-classic
+# Welcome to image deconvolution with COSIpy-classic
 
 In this example, we'll use a Richardson-Lucy deconvolution algorithm to image the full simulated sky as observed during the balloon flight. There are three notebooks in this directory:
 1. [RL-DataChallenge-Point_Sources-10XFlux-Ling.ipynb](RL-DataChallenge-Point_Sources-10XFlux-Ling.ipynb) which images 4 simulated point sources.
@@ -7,6 +7,11 @@ In this example, we'll use a Richardson-Lucy deconvolution algorithm to image th
 
 The 3 notebooks are almost identical in their execution, but different data sets will be uploaded, different response matrices will be used, and slightly different imaging parameters will be required. Please refer to the [data_products](../data_products) README for more details on the scientific background for these sources, and the simulated source models. This README should act as a guide offering additional information for each step of the analysis. The following sections align with the different steps within the notebooks.
 
+**Before diving in**, you should be aware that these notebook takes signficant time and computer memory to run, more so than the spectral fitting. Calculating the imaging response takes ~1 hour on a personal computer with 16 GB of memory, but to actually perform the Richardson-Lucy image deconvolution as it currently is written will take >75 GB of memory - this will likely be >6 hours even on powerful workstations. The imaging may not be doable with a personal computer and it is recommended that you complete this analysis on a workstation with more memory, if accessible. 
+
+It's worth noting that the memory intensive nature of this analysis is a consequence of using the original COSIpy-classic code, where there wasn't a significant effort to reduce the computing requirements. Additionally, the Richardson-Lucy imaging is still being developed for COSI analysis, and the code is largely hard-coded in the notebooks. Future versions of Data Challenges will address these issues.
+
+
 ## Intial Setup
 
 These cells import relevant packages, define file names, and read in the data files. 
@@ -14,11 +19,9 @@ These cells import relevant packages, define file names, and read in the data fi
 ## Bin the data
 
 ### Define the bins for the Compton data space
-**Time bins:** The COSI-balloon instrument freely floated on the balloon platform. This means that, unlike a space or ground-based telescope with well-defined pointings and slewing schedule, its orientation was largely dependent on the unconstrained path of the balloon. It was a zenith-pointing instrument, meaning that its vertical orientation pointed straight above the hanging instrument, towards the balloon above it. The exception to this freedom is that during the day time, COSI's azimuthal orientation was fixed such that its solar panels remained oriented facing the Sun. At nighttime, though, the instrument freely rotated about its azimuth. 
+**Time bins:** The balloon environment is background dominated, and the rates depend mainly on the latiude (i.e. geomagnetic cutoff) and the altitude (i.e. atmospheric depth). When analyzing the COSI flight data, this change in background rate needs to be taken into account, and thus we bin the data set into time bins so we can fit each bin with varying backgrounds. For the simulated data in this Data challenge, the background rate is constant with time, and therefore this time binning is less important. We include it here for flexibility.
 
-This is all to say that COSI's orientation (e.g. roll/pitch/yaw) changed rapidly during flight. As such, we might prefer to bin the data into very small (~seconds) time bins to preserve an accurate orientation of the instrument tied to the data. However, this would require massive computational resources. Also, time bins which are too small may contain too few photons for meaningful analysis. 
-
-Through extensive testing, **1800 second** (30 minute) time bins were found to strike a practical balance between a sufficiently precise treatment of instrument orientation and computational means. 
+Through extensive testing, **1800 second** (30 minute) time bins were found to strike a practical balance between a sufficiently precise treatment of background variability and computational means for the imaging analysis. 
 
 You can feel free to play with the time binning. You may choose to decrease the size to 900 s, or increase it to 3600 s, for example, to see if there's an effect on the image (e.g. does it look less/more blurred, respectively, as you lump more data into more/fewer time bins?)
 
@@ -56,7 +59,9 @@ Since we have the simulated data read and binned into the CDS, we can now make r
 
 ## Pointing Class
 
-The pointing class handles the aspect information of the COSI-balloon instrument. We had a differential GPS onboard, which recorded the yaw, pitch, and roll of the balloon payload every second during the flight. In the COSI Balloon calibrations performed in MEGAlib, this is converted to the X, Y and Z pointing of the COSI-balloon in Galactic coordinates. This aspect information is contained in the .tra.gz simulation file and the pointing information for each event is read in during the .read_COSI_DataSet() command. This pointing class bins this aspect information into a list of 'stable' pointings for which the change in the aspect is below a certain angular threshold. By default, this threshold is set to 5 degrees. This information is required when creating the sky model or image response.
+The pointing class handles the aspect information of the COSI-balloon instrument. During flight, COSI freely floated on the balloon platform. This means that, unlike a space or ground-based telescope with well-defined pointings and slewing schedule, its orientation was largely dependent on the unconstrained path of the balloon. It was a zenith-pointing instrument, meaning that its vertical orientation pointed straight above the hanging instrument, towards the balloon above it. The exception to this freedom is that during the day time, COSI's azimuthal orientation was fixed such that its solar panels remained oriented facing the Sun. At nighttime, though, the instrument freely rotated about its azimuth. 
+
+This is all to say that COSI's orientation changed rapidly during flight. We had a differential GPS onboard, which recorded the yaw, pitch, and roll of the balloon payload every second. In the COSI-balloon calibrations performed in MEGAlib, this is converted to the X, Y and Z pointing of the COSI-balloon in Galactic coordinates. This aspect information is contained in the .tra.gz simulation file and the pointing information for each event is read in during the .read_COSI_DataSet() command. This pointing class bins this aspect information into a list of 'stable' pointings for which the change in the aspect is below a certain angular threshold. By default, this threshold is set to 5 degrees. This information is required when creating the sky model or image response.
 
 In the point source imaging [notebook](RL-DataChallenge-Point_Sources-10XFlux-Ling.ipynb), we have some visuals to help you understand the pointings. For example, all of the Z pointings (i.e. COSI's zenith) are plotted in Galactic coordinates, with the Crab nebula position overlaid. From this, you can see the path that COSI traced. This can be compared with the flight path shown in the main [README](../README.md). We also can plot the elevation of any source within COSI's FOV. The elevation for the Crab position is shown, and we can see the source move in and out of the field of view. In this plot, the "horizon" lies at the maximum extent of what COSI can see beyond zenith, which is ~60 deg from zenith; therefore, COSI's zenith lies 60 deg above the horizon. The Crab is more visible in the latter part of the flight when COSI floated further north. We notice, too, that the Crab is always somewhat off-axis; it is never directly overhead the instrument at zenith.
 
@@ -120,7 +125,7 @@ Here we plot the exposure map, which is the response multiplied by the actual ob
 
 ## Set up for RL Algorithim
 
-There is lots of defiitions here, and comments in the notebook which should likely be condensed and included here.
+There are lots of defiitions that need to be included for the RL algorithim, including defining regions of the sky with poor exposure, defining the number of time bins, selecting the energy bin for imaging, defining an intial starting map (here defined to be an isotropic map), etc. See the details in the notebook for more information. Be aware that the stan model that is loaded often will print out a large warning, but the cell does run correctly.
 
 ## Richardson-Lucy Algorithim
 
@@ -162,7 +167,7 @@ Sample final images are included in the "plots" folder.
 
 **Point Source Notebook:** \
 The Crab nebula is the only easily visible source in this combined simulation of 10x flux Crab, 10x flux Cygnus X-1, 10x flux Centaurus A, 10x Vela, and 1x flux Ling background (scaled to the observed 2016 flight background level). A sample final image is shown below:
-<img width="400" alt="PointSources_LingBG_continuumresponse_ebin2_RLimage" src="plots/PointSources_LingBG_continuumresponse_ebin2_RLimage.png">
+<img width="500" alt="PointSources_LingBG_continuumresponse_ebin2_RLimage" src="plots/PointSources_LingBG_continuumresponse_ebin2_RLimage.png">
 
 You can play with the color scaling to try to enhance the appearance of the other sources. Vela is likely too dim to be seen, however. 
 
@@ -174,10 +179,12 @@ You can try combining these four point sources and Ling BG with the 10x 511 keV 
 
 **Positron Annihilation at 511 keV:** \
 We clearly see the "bulge" emission of positron-electron annihilation at the center of the Milky Way:
-<img width="400" alt="511keV_LingBG_511keVresponse_RLimage" src="plots/511keV_LingBG_511keVresponse_RLimage.png">
+
+<img width="500" alt="511keV_LingBG_511keVresponse_RLimage" src="plots/511keV_LingBG_511keVresponse_RLimage.png">
 
 This was also seen in the published image of real COSI-balloon flight data [(Siegert et al. 2020)](https://iopscience.iop.org/article/10.3847/1538-4357/ab9607/meta):
-<img width="400" alt="Siegert_2020_COSI_511keV" src="https://user-images.githubusercontent.com/33991471/196853486-68a90111-245b-442d-841c-756f47c9c14f.png">
+
+<img width="500" alt="Siegert_2020_COSI_511keV" src="https://user-images.githubusercontent.com/33991471/196853486-68a90111-245b-442d-841c-756f47c9c14f.png">
 
 The extended disk emission seen in the SPI image (see [Science Background](../data_products/README.md)) is not visible here. This is expected; SPI saw about 1 photon per week from the disk and has over a decade of observation time. There is not enough data in the 46-day balloon flight to image the disk.
 
@@ -185,7 +192,8 @@ However, we can still probe the emission morphology of the bulge by fitting a 2-
 
 **Al-26:** \
 As expected, we observe extended Al-26 emission along the Galactic Plane. There is concentrated emission in the Inner Galaxy. The RL algorithm therefore behaves as expected.
-<img width="400" alt="26Al_LingBG_1809keVresponse_RLimage" src="plots/26Al_LingBG_1809keVresponse_RLimage.png">
+
+<img width="500" alt="26Al_LingBG_1809keVresponse_RLimage" src="plots/26Al_LingBG_1809keVresponse_RLimage.png">
 
 Given that only ~100 Al-26 photons were detected during the COSI-balloon flight $(3.7 \sigma$ significance, [Beechert et al. 2022](https://iopscience.iop.org/article/10.3847/1538-4357/ac56dc/meta)), imaging the emission at its true flux instead of 10x strength would likely result in only imaging artifacts. Consider the following calculation. For $n$ spatial bins each with measurement significance $n_i$, the total significance of a measurement is $$s = (\sum_{i = 1}^{n} s_i^2)^{1/2}.$$
 
