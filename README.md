@@ -13,16 +13,16 @@ You will also need to add the [cosipy-classic](cosipy-classic) directory to your
 
 Some of the data products are large and we are using the Git Large File Server. You will need to install git-lfs: https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage. After Git LFS has been successfully installed, navigate to your local cosi-data-challenge-1 directory and `git lfs pull` to download all of the data products. If this step is not performed, the file names will appear locally, but they will only be placeholders and the size will be only a few hundred kB. The total size of the data products should be 4.6 GB.
 
-You should now be able to start a python session, or open one of the provided notebooks, and import the COSIpy_dc1 module, i.e. `from COSIpy_dc1.py import *`, without issue. If you have any issues with the initization, please contact Chris Karwin - see **Issues and Feedback** below.
+You should now be able to start a python session, or open one of the provided notebooks, and import the COSIpy_dc1 module, i.e. `from COSIpy_dc1.py import *`, without issue. If you have any issues with the initialization, please see **Getting Help** below.
 
 ### New to COSItools:
-Head to the feature/initialsetup branch of the cosi-setup Git repository and follow the readme guide: https://github.com/cositools/cosi-setup/tree/feature/initialsetup. Note that when making the installation you must include the option "--extras=cosi-data-challenge-1". This installation will include MEGAlib, ROOT, Geant4, Git LFS, and all packages in the [requirements.txt](requirements.txt) file. After succesful installation (this will take time), you will want to activate the cosi python environment by typing `cosi`. 
+Head to the feature/initialsetup branch of the cosi-setup Git repository and follow the readme guide: https://github.com/cositools/cosi-setup/tree/feature/initialsetup. Note that when making the installation you must include the option "--extras=cosi-data-challenge-1". This installation will include MEGAlib, ROOT, Geant4, Git LFS, and all packages in the [requirements.txt](requirements.txt) file. After successful installation (this will take time), you will want to activate the cosi python environment by typing `cosi`. 
 
 You will also need to add the [cosipy-classic](cosipy-classic) directory to your python path, e.g. `export PYTHONPATH=$PYTHONPATH:/path/to/COSItools/cosi-data-challenge-1/cosipy-classic`. 
 
-## Issues and Feedback
+## Getting Help
 
-Since this is the first release for COSIpy there will likely be issues, and we definitely hope to get feedback from the community on what worked well, what didn't, and how can we improve for next time. Please submit a New Issue in git if you have issues with the code. If you have general feedback, or need further assistance, please reach out to the COSI Data Challenge team lead: [Chris Karwin](mailto:christopher.m.karwin@nasa.gov).
+Since this is the first release for COSIpy there will likely be issues, and we definitely hope to get feedback from the community on what worked well, what didn't, and how can we improve for next time. Please submit a New Issue in git if you have issues with the code. If you have general feedback, or need further assistance, please reach out to the COSI Data Challenge team lead: [Chris Karwin: christopher.m.karwin@nasa.gov](mailto:christopher.m.karwin@nasa.gov).
 
 
 ## Getting Started
@@ -32,7 +32,7 @@ The COSI pipeline tools, COSItools, are divided into two programs (see figure be
 
 This Data Challenge will serve to introduce the community to COSIpy and general Compton telescope analysis. We have prepared Jupyter Notebooks to walk the user through the analyses which are provided under [spectral-fit](spectral-fit) and [imaging](imaging); however, we suggest reading through the below description before attempting the notebooks.
 
-COSIpy was first developed by Thomas Siegert in 2019 to perform 511 keV image analysis from the 2016 COSI balloon flight ([Siegert et al. 2020](https://ui.adsabs.harvard.edu/abs/2020ApJ...897...45S/abstract)). Since then, it has been used for point source imaging and spectral extraction (e.g. [Zoglauer et al. 2021](https://ui.adsabs.harvard.edu/abs/2021arXiv210213158Z/abstract)), aluminum-26 spectral fitting ([Beechert et al. 2022](https://ui.adsabs.harvard.edu/abs/2022ApJ...928..119B/abstract)) and Al-26 imaging (in prep?), all using data from the COSI Balloon 2016 flight. These analyses and the current Data Challenge use what we refer to as “COSIpy-classic.” The team is currently working on improved response handling and streamline tools built from the bottom up, and the new and improved COSIpy will be the focus of next years’ Data Challenge! With that in mind, there are still known issues and limitations with COSIpy-classic that we will call out throughout this work.
+COSIpy was first developed by Thomas Siegert in 2019 to perform 511 keV image analysis from the 2016 COSI balloon flight ([Siegert et al. 2020](https://ui.adsabs.harvard.edu/abs/2020ApJ...897...45S/abstract)). Since then, it has been used for point source imaging and spectral extraction (e.g. [Zoglauer et al. 2021](https://ui.adsabs.harvard.edu/abs/2021arXiv210213158Z/abstract)), aluminum-26 spectral fitting ([Beechert et al. 2022](https://ui.adsabs.harvard.edu/abs/2022ApJ...928..119B/abstract)) and Al-26 imaging, all using data from the COSI Balloon 2016 flight. These analyses and the current Data Challenge use what we refer to as “COSIpy-classic.” The team is currently working on improved response handling and streamline tools built from the bottom up, and the new and improved COSIpy will be the focus of next years’ Data Challenge! With that in mind, there are still known issues and limitations with COSIpy-classic that we will call out throughout this work.
 
 ## The Simulated Data
 
@@ -74,7 +74,7 @@ We will describe these components here and explain how they are used for general
 
 ### Response Matrix
 
-The response matrix (R) for Compton telescopes represents the probability that a photon with energy E initiating from Galactic coordinates $(l,b)$ interacts in the detector resulting in an event with measured energy E’ and scattering angles $(\phi,\chi,\psi)$. The probability distribution is normalized to match the total effective area of the instrument, which allows us to go from counts to physicsal paramters. The matrix that encodes this information is 2 dimensions larger $(l,b)$ than the CDS and describes the transformation between image space and the CDS, taking into account the accurate response of the instrument. We build the response matrix through large MEGAlib simulations of an isotropic source.
+The response matrix (R) for Compton telescopes represents the probability that a photon with energy E initiating from Galactic coordinates $(l,b)$ interacts in the detector resulting in an event with measured energy E’ and scattering angles $(\phi,\chi,\psi)$. The probability distribution is normalized to match the total effective area of the instrument, which allows us to go from counts to physical parameters. The matrix that encodes this information is 2 dimensions larger $(l,b)$ than the CDS and describes the transformation between image space and the CDS, taking into account the accurate response of the instrument. We build the response matrix through large MEGAlib simulations of an isotropic source.
 
 <img width="965" alt="Screen Shot 2022-10-16 at 11 05 26 PM" src="https://user-images.githubusercontent.com/33991471/196080645-6f1eecb9-a34a-489f-ae7c-79f43224ae32.png">
 
