@@ -5,9 +5,19 @@ For the first Data Challenge, we wanted to give the users a basic look at COSI d
 - Imaging bright point sources, such as the Crab and Cyg X-1
 - Imaging diffuse emission from 511 keV and the 26Al 1.8 MeV gamma-ray line
 
-For each of these examples, we have provided a detailed description of the simulated sources and data products here in the data_products directory. Each of the sources was simulated at 10x the astrophysical flux. Having a strong signal simplifies the analysis and allows us to focus on the workflow of the procedures. The COSI SMEX mission is expected to be 50x more sensitive than the balloon-borne mission
+For each of these examples, we have provided a detailed description of the simulated sources and data products here in the data_products directory. Each of the sources was simulated at 10x the astrophysical flux. Having a strong signal simplifies the analysis and allows us to focus on the workflow of the procedures. The COSI SMEX mission is expected to be 50x more sensitive than the balloon-borne mission.
 
-The simulations were all performed in MEGAlib, with an accurate mass model of the COSI Balloon instrument. The [COSIBalloon.9Detector.geo.setup](https://github.com/cositools/massmodel-cosi-balloon/blob/main/COSIBalloon.9Detector.geo.setup)  model, which accounts for the failure of three  GeD detectors at different times during flight. Each of the continuum simulations was performed for 100 keV – 10 MeV, and an energy range selection of <5 MeV was used in MEGAlib’s mimrec event selection tool. 
+The simulations were all performed in MEGAlib, with an accurate mass model of the COSI Balloon instrument. The [COSIBalloon.9Detector.geo.setup](https://github.com/cositools/massmodel-cosi-balloon/blob/main/COSIBalloon.9Detector.geo.setup) model was used, which accounts for the failure of three  GeD detectors at different times during flight. Each of the continuum simulations was performed for 100 keV – 10 MeV, and an energy range selection of <5 MeV was used in MEGAlib’s mimrec event selection tool. 
+
+The source simulations include the real flight aspect information so that the balloon path and source exposure time is accurate. This can be seen in the below plot showing the Galactic longitude and latitude of the zenith direction of the COSI balloon as a function of time.
+
+<img width="550"  src="https://user-images.githubusercontent.com/33991471/196103809-2eef45e3-f889-4049-81ec-2a83db5865fb.png">
+
+Furthermore, the transmission probability of the source photons in the atmosphere are calculated for each instance of the simulation. The probability of transmission is taken at a constant altitude of 33 km, and is shown as a function of zenith angle and energy in the below figure.
+
+<img width="550"  src="https://user-images.githubusercontent.com/33991471/196103855-2e805235-c4a1-4d82-a568-edf7bca6727e.png">
+
+The tools that were used for the simulations (including the source library, orientation file, transmission probability file, etc.) are available in the feature/initialsetup branch of cositools/cosi-data-challenges ([link](https://github.com/cositools/cosi-data-challenges/tree/feature/initialsetup)). 
 
 ## Data Products:
 
@@ -15,7 +25,7 @@ We have included many combinations of the source simulations and background to a
 
 Within this directory, there is 1 background model and 3 response matrices. 
 - **Scaled_Ling_BG_1x.npz**: background model generated from C. Karwin's scaled 1x Ling background simulation 
-- **Continuum_Response.npz**: 6º response used for spectral analysis and imaging continuum sources
+- **Continuum_imaging_response.npz**: 6º response used for spectral analysis and imaging continuum sources
 - **511keV_imaging_response.npz**: 6º imaging response required for RL imaging of Galactic positron annihilation
 - **1809keV_imaging_response.npz**: 6º imaging response required for RL imaging of Galactic Al-26
 
@@ -174,19 +184,10 @@ The amplitude of the Ling background was scaled so the total integrated backgrou
 
 <img width="550"  src="https://user-images.githubusercontent.com/33991471/196103711-13981256-8577-4b1f-9ce8-701874ba10c2.png">
 
-An image of the background simulation traces the exposure map, since the orientation of the COSI Balloon in Galactic coordinates was included in the simulation:
+An image of the background simulation traces the exposure map, since the orientation of the COSI Balloon in Galactic coordinates was included in the simulation. Note that a $90^\circ$ Earth limb cut has also been applied to the data. 
 
 <img width="700"  src="https://user-images.githubusercontent.com/33991471/196103767-dcd05934-5b73-48a2-9cbf-74c57520b982.png">
 
-## Flight path and transmission
-
-The source simulations include the real flight aspect information so that the balloon path and source exposure time is accurate. This can be seen in the below plot showing the Galactic longitude and latitude of the zenith direction of the COSI balloon as a function of time.
-
-<img width="550"  src="https://user-images.githubusercontent.com/33991471/196103809-2eef45e3-f889-4049-81ec-2a83db5865fb.png">
-
-Furthermore, the transmission probability of the source photons in the atmosphere are calculated for each instance of the simulation. The probability of transmission is taken at a constant altitude of 33 km, and is shown as a function of zenith angle and energy in the below figure.
-
-<img width="550"  src="https://user-images.githubusercontent.com/33991471/196103855-2e805235-c4a1-4d82-a568-edf7bca6727e.png">
 
  
 
