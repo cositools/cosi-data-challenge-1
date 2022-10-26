@@ -5,7 +5,11 @@ Here we will perform a spectral fit and imaging of the Crab using the 2016 COSI 
 ## The Balloon Flight
 
 ## Data Selection
-The data has been extracted using a $60^\circ$ pointing cut with respect to the position of the Crab. In practice, this means that we only use times for which the location of the Crab was within $60^\circ$ from COSI's zenith. Additionally, we cut the first 21 days of the mission, when the instrument background rate was relatively high and variable. Note that the Crab was mostly outside the field of view during these first 3 weeks. Additionally, we also cut the last day of the mission because of high background rates. Otherwise, the data selection is identical to that of the simulated data. For more details on the 2016 COSI balloon background rates see [Siegert et al. 2020](https://iopscience.iop.org/article/10.3847/1538-4357/ab9607).
+The data has been extracted using a $60^\circ$ pointing cut with respect to the position of the Crab. In practice, this means that we only use times for which the location of the Crab was within $60^\circ$ from COSI's zenith. This can be seen in the images below. The plot on the left shows the pointing in Galactic coordinates as a function of time for the simulated data (which doesn't use a pointing cut), and the plot on the right is for the balloon data, with the $60^\circ$ pointing cut.
+
+<img width="400" alt="Screen Shot 2022-10-26 at 6 29 17 PM" src="https://user-images.githubusercontent.com/54562666/198151093-1e4ca7bd-c5b4-4c2e-8731-78b454eb7d21.png"><img width="400" alt="Screen Shot 2022-10-26 at 6 29 17 PM" src="https://user-images.githubusercontent.com/54562666/198151093-1e4ca7bd-c5b4-4c2e-8731-78b454eb7d21.png">
+
+Additionally, we cut the first 21 days of the mission, when the instrument background rate was relatively high and variable. Note that the Crab was mostly outside the field of view during these first 3 weeks. Additionally, we also cut the last day of the mission because of high background rates. Otherwise, the data selection is identical to that of the simulated data. For more details on the 2016 COSI balloon background rates see [Siegert et al. 2020](https://iopscience.iop.org/article/10.3847/1538-4357/ab9607).
 
 
 ## Background
