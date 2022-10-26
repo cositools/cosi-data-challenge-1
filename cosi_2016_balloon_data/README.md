@@ -18,3 +18,7 @@ Otherwise, the data selection is identical to that of the simulated data. For mo
 
 ## Background
 For the data challenge the simulated background is constant in time. With the actual balloon data, however, the background rate varies significantly, mostly driven by changes in the balloon's altitude and geomagnetic cutoff. To accomodate these variations in the fit we apply a so-called "tracer". The tracer is a factor that is applied to the background response, and it effectively normalizes the background rate to the actual data in each time bin. More specifically, for each time bin, the tracer is calculated by summing the counts over the energy and Compton data space dimensions, and then normalizing by the mean of this sum over all time bins. 
+
+<img width="500" alt="Screen Shot 2022-10-26 at 6 51 31 PM" src="https://user-images.githubusercontent.com/54562666/198153505-cfdb30f7-0503-46f1-9e3a-2426a4470d18.png"><img width="500" alt="Screen Shot 2022-10-26 at 6 44 29 PM" src="https://user-images.githubusercontent.com/54562666/198152633-b61e5bd8-d7e6-4c75-b3df-5649ac868c22.png">
+
+
