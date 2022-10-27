@@ -88,7 +88,7 @@ For each energy, we now fit the coefficients for the sky and background models t
 
 The final spectrum you obtain should be identical to this: 
 
-<img width="800" alt="Crab_DC1_combined_10x_Spectrum" src="plots/Crab_combined.png">
+<img width="500" alt="Screen Shot 2022-10-27 at 9 19 39 AM" src="https://user-images.githubusercontent.com/54562666/198296047-397206c0-cf46-417f-9199-e63a83bdce5d.png">
 
 You will probably notice immediately that the 4th bin, the narrow one that includes the 511 keV line, is too low. This is due to the fact that we do not account for the strong 511 keV Galactic source, which is present in the data set, in the background model.  In the [plots](plots) directory, we have included a direct comparison with the expected spectrum from the Crab simulation itself: [plots/Crab_combined_compare.png](plots/Crab_combined_compare.png). Other than the outlier bin at 511 keV, the fit is generally in good agreement with the expected results. This gives us a proof of concept for our spectral fitting tool in COSIpy-classic.
 
