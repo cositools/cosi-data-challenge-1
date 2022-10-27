@@ -32,25 +32,25 @@ Within this directory, 1 background model and 3 response matrices are provided:
 - **1809keV_imaging_response.npz**: 6º imaging response required for RL imaging of Galactic Al-26
 
 There is a combined simulation of all sources and background:
-- **DC1_combined_10x.tra.gz**: 4 point sources with 10x flux (Crab, Cyg X1, Cen A, Vela), 511 keV & Al-26 lines, 1x Ling background
+- **DC1_combined_10x.tra.gz**: 4 point sources with 10x flux (Crab, Cygnus X-1, Cen A, Vela), 511 keV & Al-26 lines, 1x Ling background
 
 There is each of the sources individually with the background:
-- **Point_sources_10x_BG.tra.gz**: 4 point sources with 10x flux (Crab, Cyg X1, Cen A, Vela) and 1x Ling background
+- **Point_sources_10x_BG.tra.gz**: 4 point sources with 10x flux (Crab, Cygnus X-1, Cen A, Vela) and 1x Ling background
 - **Crab_BG_10x.tra.gz**: Crab with 10x flux and 1x Ling background
-- **CygX1_BG_10x.tra.gz**: Cyg X1 with 10x flux and 1x Ling background
+- **CygX1_BG_10x.tra.gz**: Cygnus X-1 with 10x flux and 1x Ling background
 - **CenA_BG_10x.tra.gz**: Cen A with 10x flux and 1x Ling background
 - **Vela_BG_10x.tra.gz**: Vela with 10x flux and 1x Ling background
-- **GC511_10xFlux_and_Ling.inc1.id1.extracted.tra.gz**: 511 emission with 10x flux with Ling background
-- **Al26_10xFlux_and_Ling.inc1.id1.extracted.tra.gz**: Al26 emission with 10x flux with Ling background
+- **GC511_10xFlux_and_Ling.inc1.id1.extracted.tra.gz**: 511 keV emission with 10x flux with Ling background
+- **Al26_10xFlux_and_Ling.inc1.id1.extracted.tra.gz**: Al-26 emission with 10x flux with Ling background
 
 Each of the sources is also included without background:
-- **Point_sources_10x.tra.gz**: 4 point sources with 10x flux (Crab, Cyg X1, Cen A, Vela)
+- **Point_sources_10x.tra.gz**: 4 point sources with 10x flux (Crab, Cygnus X-1, Cen A, Vela)
 - **Crab_only_10x.tra.gz**: Crab with 10x flux
-- **CygX1_only_10x.tra.gz**: Cyg X1 with 10x flux
+- **CygX1_only_10x.tra.gz**: Cygnus X-1 with 10x flux
 - **CenA_only_10x.tra.gz**: Cen A with 10x flux
 - **Vela_only_10x.tra.gz**: Vela with 10x flux
-- **GC_511_10xFlux_only.inc1.id1.extracted.tra.gz**: 511 emission with 10x flux
-- **Al26_10xFlux_Only.inc1.id1.extracted.tra.gz**: Al26 emission with 10x flux
+- **GC_511_10xFlux_only.inc1.id1.extracted.tra.gz**: 511 keV emission with 10x flux
+- **Al26_10xFlux_Only.inc1.id1.extracted.tra.gz**: Al-26 emission with 10x flux
 
 And finally, there is 1 background simulation corresponding to the .npz background model above (this is not required for any analysis, but is included here for posterity):
 - **Scaled_Ling_BG_1x.tra.gz**: C. Karwin's scaled 1x Ling background simulation
