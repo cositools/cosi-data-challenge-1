@@ -1,8 +1,8 @@
 # Data Challenge Simulations
 
 For the first Data Challenge, we wanted to give users a basic introduction to COSI data analysis through 3 straightforward examples of COSI's science goals:
-- Extracting energy spectra from the Crab, Cen A, Cyg X-1, and Vela
-- Imaging bright point sources, such as the Crab and Cyg X-1
+- Extracting energy spectra from the Crab, Cen A, Cygnus X-1, and Vela
+- Imaging bright point sources, such as the Crab and Cygnus X-1
 - Imaging diffuse emission from the positron-electron annihilation 511 keV and the Al-26 1.8 MeV gamma-ray lines
 
 For each of these examples, we have provided a detailed description of the simulated sources and data products here in the data_products directory. Each of the sources was simulated at 10x the true astrophysical flux. Having a strong signal simplifies the analysis and allows us to focus on the workflow of the procedures. The COSI SMEX mission is expected to be 50x more sensitive than the balloon-borne mission.
@@ -139,7 +139,7 @@ Cen A:
 &emsp; (l,b) = (309.52, 19.42)   
 &emsp; Spectral shape: SED from [HESS+LAT collaboration 2018](https://ui.adsabs.harvard.edu/abs/2018A%26A...619A..71H/abstract)  
 &emsp; Flux: 0.03609 ph cm $^{-2}$ s $^{-1}$ between 100 keV and 10 MeV  
-Cyg X-1:  
+Cygnus X-1:  
 &emsp; (l,b) = (71.33, 3.07)  
 &emsp; Spectral shape: SED from [Kantzas+21](https://ui.adsabs.harvard.edu/abs/2021MNRAS.500.2112K/abstract)  
 &emsp; Flux = 0.40644 ph cm $^{-2}$ s $^{-1}$ between 100 keV - 10 MeV  
