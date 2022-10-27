@@ -39,5 +39,6 @@ The primary outputs of the imaging, after 100 iterations, are shown below. Note 
 
 <img width="700" alt="Screen Shot 2022-10-26 at 8 42 28 PM" src="https://user-images.githubusercontent.com/54562666/198164730-01d29ed7-eb36-4526-9617-0b7ceefca17e.png">
 
+The maximum flux is on the order $\sim 2 \times 10^{-2} \ \mathrm{ph \ cm^{-2} \ s^{-1}}$, compared to $\sim 2 \times 10^{-3} \ \mathrm{ph \ cm^{-2} \ s^{-1}}$ in [Zoglauer et al. 21](https://arxiv.org/abs/2102.13158).
 
 
