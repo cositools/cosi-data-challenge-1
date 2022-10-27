@@ -32,7 +32,9 @@ Results for the Crab fit are shown below. Upper limits are shown for bins with S
 <img width="500" alt="Screen Shot 2022-10-26 at 8 21 03 PM" src="https://user-images.githubusercontent.com/54562666/198162612-3b02b0f7-058b-4c76-8d5a-2a6ca84f8150.png">
 
 ## Results of the Imaging
-<img width="350" alt="Screen Shot 2022-10-26 at 8 44 24 PM" src="https://user-images.githubusercontent.com/54562666/198165010-21b027f3-a6c1-472a-93d4-4966f74db219.png">
+The primary outputs of the imaging, after 100 iterations, are shown below. Note that there is an artifact in the southern pole, where bright emission can be seen. This feature should be surpressed with more iterations. The cyan star in the map shows the position of the Crab, and as can be seen, it corresponds to the brightest pixel in the image (and the dimmer surrounding pixels). 
+
+<img width="450" alt="Screen Shot 2022-10-26 at 8 44 09 PM" src="https://user-images.githubusercontent.com/54562666/198165282-fd87f5c6-bd25-49f5-b559-739dbcebd5c3.png"><img width="450" alt="Screen Shot 2022-10-26 at 8 44 24 PM" src="https://user-images.githubusercontent.com/54562666/198165010-21b027f3-a6c1-472a-93d4-4966f74db219.png">
 
 
 <img width="700" alt="Screen Shot 2022-10-26 at 8 42 28 PM" src="https://user-images.githubusercontent.com/54562666/198164730-01d29ed7-eb36-4526-9617-0b7ceefca17e.png">
