@@ -1,8 +1,8 @@
 # Using XSPEC for COSI spectral analysis and simulations
 
-This tutorial is meant to serve as a starting point for using the X-ray spectral fitting package with COSI data. The main XSPEC website is https://heasarc.gsfc.nasa.gov/xanadu/xspec/ and a more extensive manual can be found there. XSPEC is installed by default as part of the HEASoft tools. Thus, it is installed as part of the COSItools.  
+This tutorial is meant to serve as a starting point for using the X-ray spectral fitting package with COSI data. We will start by using an extracted data set from the 2016 COSI balloon flight for during its observation of GRB 160530A (source_and_background.pha). This tutorial will walk you through the fit of this data set, and then will show an example of how to simulate sources using the provided instrument response and background files. In future Data Challenges, we will release tools for users to be able to make their own response files so one can use XSPEC analysis tools with more flexibility. 
 
-XSPEC is an extremely mature software package that a large portion of the high-energy community uses. It has a huge number of models and flexibility for adding custom models as needed. Once the basic commands are known, it is easy to use, and spectral analysis can be performed efficiently. It has a very convenient spectral simulation tool that will be helpful to the COSI science team and will broaden the COSI community. Although not discussed in this tutorial, there is a pyXSPEC package that allows for automated scripts to be written.
+XSPEC is an extremely mature software package that a large portion of the high-energy community uses. It has a huge number of models and flexibility for adding custom models as needed. Once the basic commands are known, it is easy to use, and spectral analysis can be performed efficiently. It has a very convenient spectral simulation tool that will be helpful to the COSI science team and will broaden the COSI community. Although not discussed in this tutorial, there is a pyXSPEC package that allows for automated scripts to be written. The main XSPEC website is https://heasarc.gsfc.nasa.gov/xanadu/xspec/ and a more extensive manual can be found there. XSPEC is installed by default as part of the HEASoft tools. Thus, it is installed as part of the COSItools. 
 
 Here, we assume that the user has extracted a spectral file (source_and_background.pha), a background file (background.pha), a response matrix (response.rmf), and an ancillary response file (area.arf) - these are provided in the above download. **Command#1** below gives an example of using the FTOOL `fdump` to see what is inside the file. The useful information is in the FITS file binary table extension (see more details about FITS files [here](https://fits.gsfc.nasa.gov/fits_documentation.html)). For example, there are two fields in each row of data (CHANNEL and COUNTS), and there are 502 rows in the table.  
 
@@ -101,7 +101,7 @@ You will see the xspec version returned. In our example, we have XSPEC 12.12.0:
         Build Date/Time: Fri Sep  3 10:58:24 2021
 ```
 
-Then, load the spectral file with the `data` command.
+Then, load the GRB160530A spectral file with the `data` command.
 ```
 XSPEC12>data source_and_background.pha
 ```
@@ -205,7 +205,7 @@ XSPEC12> iplot
 
 ![Figure 2](Figures/source_and_background_grp8ch_spectrum.png)
 
-Now, we are ready to specify the model (we’ll use a power-law here) and fit the spectrum.
+Now, we are ready to specify the model (we’ll use a power-law here) and fit the GRB spectrum.
 ```
 XSPEC12> model powerlaw
 ```
@@ -240,7 +240,7 @@ And you can see the spectrum converted to flux units (sometimes called the “un
 ```
 XSPEC12> plot eeuf del
 ```
-Figure 3 shows the spectrum fitted with a power-law and the residuals.  After typing
+Figure 3 shows the GRB spectrum fitted with a power-law and the residuals.  After typing
 ```
 XSPEC12> iplot
 ```
@@ -289,6 +289,8 @@ XSPEC12>error 2.7 1
 ```
 
 In the error command above, the 2.7 refers to the value by which the fit statistic changes at the extremes of the confidence range, and 2.7 corresponds to 90% confidence errors. The "1" after 2.7 refers to the parameter number, in this case we are interested in the error on the photon index. Also, note that the Chi-Squared value is 8.55 for 6 degrees of freedom.  With such a small number of degrees of freedom, a reduced Chi-Squared of 1.43 would be considered to be an acceptable fit (using the Chi-Squared distribution, there is a probability of 20% that the true model would have a Chi-Squared of 1.43).
+
+That is our final spectrum of GRB 160530A from the 2016 balloon flight. This was published in (Sleator 2019)[https://escholarship.org/uc/item/0zn566rj]. 
 
 Before moving on to another spectrum or a simulation (see Part 2), you should use the following command
 ```
@@ -444,12 +446,6 @@ XSPEC12>setplot back
 ```
 adds the background spectrum to the plot.  In Figure 6, the bottom points are the Crab spectrum after background subtraction (so, that is the source spectrum).  The top points (with the crosses) show the background (for example, you can see the 511 keV line).
  
-Also, when plotting the spectrum, the command
-```
-XSPEC12>setplot back
-```
-adds the background spectrum to the plot.  In Figure 6, the bottom points are the Crab spectrum after background subtraction (so, that is the source spectrum).  The top points (with the crosses) show the background (for example, you can see the 511 keV line).
-
 ![Figure 6](Figures/unfolded_crab_simulation_with_background.png)
 
 The tutorial above describes very basic uses of XSPEC.  Additional instructions can be added for advanced users (hopefully, everyone performing COSI spectral analysis will eventually be an advanced user).  Some ideas for more advanced topics are:
