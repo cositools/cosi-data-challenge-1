@@ -27,5 +27,9 @@ For the data challenge the simulated background is constant in time. With the ac
 
 ## Results of the Spectral Fit
 
+Results for the Crab fit are shown below. Upper limits are shown for bins with SNR < 3. The fit will output a .dat file, where you can examine the numerical results, including the SNR of each bin. We have verified that bins 4, 5, and 6 are consistent with the physical values (based on our simulated Crab spectrum). The other bins (and most notably, bin 3) are within roughly a factor of ~2 of expectations. It is important to note, however, that the extracted spectrum has a significant dependence on the background model being used. Here we are using a highly simplified constant Ling model (with tracer), and we also havn't accounted for activation backgrounds. Thus, the precision of this result should not be over-interpreted at this point. The COSI team is currently working on developing improved analysis tools and background models, which will be part of future Data Challenges.  
+
+<img width="500" alt="Screen Shot 2022-10-26 at 8 21 03 PM" src="https://user-images.githubusercontent.com/54562666/198162612-3b02b0f7-058b-4c76-8d5a-2a6ca84f8150.png">
+
 ## Results of the Imaging
 
