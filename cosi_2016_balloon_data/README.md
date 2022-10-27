@@ -40,7 +40,6 @@ The primary outputs of the imaging, after 100 iterations, are shown below. Note 
 <img width="450" alt="Screen Shot 2022-10-26 at 8 44 09 PM" src="https://user-images.githubusercontent.com/54562666/198165282-fd87f5c6-bd25-49f5-b559-739dbcebd5c3.png"><img width="450" alt="Screen Shot 2022-10-26 at 8 44 24 PM" src="https://user-images.githubusercontent.com/54562666/198165010-21b027f3-a6c1-472a-93d4-4966f74db219.png">
 
 
-<img width="700" alt="Screen Shot 2022-10-26 at 8 42 28 PM" src="https://user-images.githubusercontent.com/54562666/198164730-01d29ed7-eb36-4526-9617-0b7ceefca17e.png">
-
+<img width="700" alt="Screen Shot 2022-10-27 at 1 12 39 PM" src="https://user-images.githubusercontent.com/54562666/198355574-c2dd3766-2ad8-4cf7-8fb8-5647d388bd0f.png">
 
 
