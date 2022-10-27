@@ -121,7 +121,7 @@ The COSI-balloon flight in 2016 measured the 1.809 MeV signature of Al-26 with $
 
 Furthermore, the COSI satellite's full-sky observations with fine angular resolution have potential to more closely study individual regions of massive star activity; in particular, resolving individual sites of emission within Cygnus is a promising goal of the mission. Detailed imaging and spectroscopic studies of the region may inform better understanding of the dynamics of Al-26 after it is produced and ejected from massive stars. 
 
-In this data challenge, you will image the Galactic Al-26 emission (traced by the DIRBE 240 $\mu m$ image) as seen during the COSI-balloon flight in 2016. The flux is simulated at 10x the observed Al-26 flux (10x Inner Galaxy flux = $3.3 \times 10^{-3}$ ph cm $^{-2}$ s $^{-1}$; 10x total map flux = $1.2 \times 10^{-2}$ ph cm $^{-2}$ s $^{-1}$) for robust statistics. You should expect to see extended emission along the Galactic Plane, similar to that revealed by COMPTEL and SPI's 1.8 MeV images. The massive star regions of Cygnus, Carina, and Vela will not be as easily identifiable in this simulation of the balloon flight; for those, be sure to participate in the data challenge (and real data analysis) of the COSI satellite!
+In this data challenge, you will image the Galactic Al-26 emission (traced by the DIRBE 240 um image) as seen during the COSI-balloon flight in 2016. The flux is simulated at 10x the observed Al-26 flux (10x Inner Galaxy flux = $3.3 \times 10^{-3}$ ph cm $^{-2}$ s $^{-1}$; 10x total map flux = $1.2 \times 10^{-2}$ ph cm $^{-2}$ s $^{-1}$) for robust statistics. You should expect to see extended emission along the Galactic Plane, similar to that revealed by COMPTEL and SPI's 1.8 MeV images. The massive star regions of Cygnus, Carina, and Vela will not be as easily identifiable in this simulation of the balloon flight; for those, be sure to participate in the data challenge (and real data analysis) of the COSI satellite!
 
 
 
@@ -134,19 +134,19 @@ There are four bright point sources that are included in these simulations: the 
 Crab:   
 &emsp; (l,b) = (184.56, -5.78)  
 &emsp; Spectral shape: Band function from [Jourdain et al. 2020](https://ui.adsabs.harvard.edu/abs/2020ApJ...899..131J/abstract)  
-&emsp; Flux = 0.48977 ph cm$^{-2}$ s$^{-1}$ between 100 keV and 10 MeV  
+&emsp; Flux = 0.48977 ph cm $^{-2}$ s $^{-1}$ between 100 keV and 10 MeV  
 Cen A:   
 &emsp; (l,b) = (309.52, 19.42)   
 &emsp; Spectral shape: SED from [HESS+LAT collaboration 2018](https://ui.adsabs.harvard.edu/abs/2018A%26A...619A..71H/abstract)  
-&emsp; Flux: 0.03609 ph cm$^{-2}$ s$^{-1}$ between 100 keV and 10 MeV  
+&emsp; Flux: 0.03609 ph cm $^{-2}$ s $^{-1}$ between 100 keV and 10 MeV  
 Cyg X-1:  
 &emsp; (l,b) = (71.33, 3.07)  
 &emsp; Spectral shape: SED from [Kantzas+21](https://ui.adsabs.harvard.edu/abs/2021MNRAS.500.2112K/abstract)  
-&emsp; Flux = 0.40644 ph cm$^{-2}$ s$^{-1}$ between 100 keV - 10 MeV  
+&emsp; Flux = 0.40644 ph cm $^{-2}$ s $^{-1}$ between 100 keV - 10 MeV  
 Vela:  
 &emsp; (l,b) = (263.55, -2.79)  
 &emsp; Spectral shape: Power law extrapolation of the Fermi-LAT Vela pulsar (4FGL J0835.3-4510), see [Abdollahi+20](https://iopscience.iop.org/article/10.3847/1538-4365/ab6bcb) </br>
-&emsp; Flux = 0.00120 ph cm$^{-2}$ s$^{-1}$ between 100 keV - 10 MeV  
+&emsp; Flux = 0.00120 ph cm $^{-2}$ s $^{-1}$ between 100 keV - 10 MeV  
 
 The input spectra for these point sources is shown below. Note that the plot shows the true spectra, whereas the flux values reported above are for the 10x simulations. 
 
@@ -168,7 +168,7 @@ The emission was simulated as a 511 keV mono-energetic source, and the image fro
 
 ### Aluminum-26 Decay at 1.8 MeV
 
-The Diffuse Infrared Background Experiment (DIRBE) 240 $\mu$ m map has been shown to be a good tracer for the Al-26 emission, as measured by COMPTEL and INTEGRAL/SPI. We thus assume the DIRBE 240 $\mu$ m distribution as the spatial sky model for the Al-26 emission and normalize the Inner Galaxy flux of this map to SPI's measured Al-26 flux in this region: $3.3 \times 10^{−4}$ ph cm$^{-2}$ s$^{-1}$ ([Diehl et al. 2006](https://ui.adsabs.harvard.edu/abs/2006Natur.439...45D/abstract)). This model is described further in [Beechert et al. 2022](https://ui.adsabs.harvard.edu/abs/2022ApJ...928..119B/abstract).
+The Diffuse Infrared Background Experiment (DIRBE) 240 um map has been shown to be a good tracer for the Al-26 emission, as measured by COMPTEL and INTEGRAL/SPI. We thus assume the DIRBE 240 um distribution as the spatial sky model for the Al-26 emission and normalize the Inner Galaxy flux of this map to SPI's measured Al-26 flux in this region: $3.3 \times 10^{−4}$ ph cm $^{-2}$ s $^{-1}$ ([Diehl et al. 2006](https://ui.adsabs.harvard.edu/abs/2006Natur.439...45D/abstract)). This model is described further in [Beechert et al. 2022](https://ui.adsabs.harvard.edu/abs/2022ApJ...928..119B/abstract).
 
 <img width="550"  src="https://user-images.githubusercontent.com/33991471/196103586-bccf5846-c66f-4a40-bd1c-942e8cfbe672.png">
 
