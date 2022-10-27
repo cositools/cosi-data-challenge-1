@@ -2,7 +2,7 @@
 
 This tutorial is meant to serve as a starting point for using the X-ray spectral fitting package (XSPEC) with COSI data. We will start with an extracted data set from the 2016 COSI balloon flight during its observation of GRB 160530A (source_and_background.pha). This tutorial will walk you through the fit of this data set, and then will show an example of how to simulate sources using the provided instrument response and background files. In future Data Challenges, we will release tools with which users can make their own response files and conduct XSPEC analyses with more flexibility. 
 
-XSPEC is an extremely mature software package used by a large portion of the high-energy community. It contains a wide range of models and allows users to define custom models as needed. Once the basic commands are known, it is easy to use, and spectral analysis can be performed efficiently. It has a very convenient spectral simulation tool that will be helpful to the COSI science team and will broaden the COSI community. Although not discussed in this tutorial, there is a pyXSPEC package that allows for automated scripts to be written. The main XSPEC website is https://heasarc.gsfc.nasa.gov/xanadu/xspec/ and a more extensive manual can be found there. XSPEC is installed by default as part of the HEASoft tools and in turn as part of the COSItools. 
+XSPEC is an extremely mature software package used by a large portion of the high-energy community. It contains a wide range of models and allows users to define custom models as needed. Once the basic commands are known, it is easy to use, and spectral analysis can be performed efficiently. It has a very convenient spectral simulation tool that will be helpful to the COSI science team and will broaden the COSI community. Although not discussed in this tutorial, there is a pyXSPEC package that allows for automated scripts to be written. The [main XSPEC website](https://heasarc.gsfc.nasa.gov/xanadu/xspec/) provides a more extensive manual. XSPEC is installed by default as part of the HEASoft tools and in turn as part of the COSItools. 
 
 Here, we assume that the user has extracted a spectral file (source_and_background.pha), a background file (background.pha), a response matrix (response.rmf), and an ancillary response file (area.arf) - these are provided in the above download. **Command#1** below gives an example of using the FTOOL `fdump` to see what is inside the file. The useful information is in the FITS file binary table extension (see more details about FITS files [here](https://fits.gsfc.nasa.gov/fits_documentation.html)). For example, there are two fields in each row of data (CHANNEL and COUNTS), and there are 502 rows in the table.  
 
@@ -258,7 +258,7 @@ we invoke other commands, including
 
 `PLT> r y -2.9 2.9` (to set the y-range to be from -2.9 to 2.9)
 
-![Figure 3](Figures/unfolded_spectrum.png))
+![Figure 3](Figures/unfolded_spectrum.png)
 
 The parameters for the fit are below.  Please note that the default uncertainties are approximations.
 
