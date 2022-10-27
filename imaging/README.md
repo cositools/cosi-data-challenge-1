@@ -162,6 +162,8 @@ Note that the flux may increase without bound as the number of iterations increa
 
 ## Final image
 
+**IMPORTANT NOTE:** The color scales for all images are in arbitrary units. The COSI team is currently working on determining the level of the flux. 
+
 Sample final images are included in the "plots" folder.
 
 **Point Source Notebook:** \
