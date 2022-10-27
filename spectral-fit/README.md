@@ -84,13 +84,13 @@ The counts for the simulated data, the background model, and the Crab point sour
 
 ## Fitting the Crab Spectrum
 
-For each energy, we fit the coefficients for the sky and background models that best match the data for each time bin (see [README](../README.md) for more information). This is currently done for each individual energy bin with no consideration for neighboring bins. Given the number of bins in our data space, it can take about an hour to run the full fit.
+For each energy, we fit the coefficients for the sky and background models that best match the data for each time bin (see [README](../README.md) for more information). This is currently done for each individual energy bin with no consideration of neighboring bins. Given the number of bins in our data space, it can take about an hour to run the full fit.
 
 The final spectrum you obtain should appear as below: 
 
 <img width="500" alt="Screen Shot 2022-10-27 at 9 19 39 AM" src="https://user-images.githubusercontent.com/54562666/198296047-397206c0-cf46-417f-9199-e63a83bdce5d.png">
 
-The narrow 4th energy bin containing 511 keV line is too low. This is expected because the background model does not account for the strong 511 keV Galactic source, which is present in the data set. In the [plots](plots) directory, we have included a direct comparison with the expected spectrum from the Crab simulation itself: [plots/Crab_combined_compare.png](plots/Crab_combined_compare.png). Other than the outlier bin at 511 keV, the fit is generally in good agreement with the expected results. This serves as proof-of-concept for our spectral fitting tool in COSIpy-classic.
+The narrow 4th energy bin containing the 511 keV line is too low. This is expected because the background model does not account for the strong 511 keV Galactic source, which is present in the data set. In the [plots](plots) directory, we have included a direct comparison with the expected spectrum from the Crab simulation itself: [plots/Crab_combined_compare.png](plots/Crab_combined_compare.png). Other than the outlier bin at 511 keV, the fit is generally in good agreement with the expected results. This serves as proof-of-concept for our spectral fitting tool in COSIpy-classic.
 
 # Cen A Analysis
 
@@ -104,13 +104,13 @@ After recomputing the point source response, you will see that the extracted Cen
 
 The upper limits indicate where the signal-to-noise ratio (SNR) < 3. The error bars for the Cen A spectrum are very large, and almost all energy bins have upper limits. 
 
-This poor fit is due to the bright simulated Crab source interfering with the fit. To fix this, we would need to include the Crab in the background model. Because the elevation of the Crab in COSI's field of view is changing over time, our background model would now need to be time-dependent. However, our current fitting algorithm only includes one background parameter, so we cannot handle a time-dependent background at this point. We explore this hypothesis by looking at a data set which includes the simulated Cen A with background, but without the other simulated sources. 
+The poor fit is attributed to unwanted contamination from the bright simulated Crab source. To fix this, we would need to include the Crab in the background model. Because the elevation of the Crab in COSI's field of view is changing over time, our background model would also need to be time-dependent. However, the current fitting algorithm only includes one background parameter, so we cannot handle a time-dependent background at this point. We explore this hypothesis by considering a data set which includes the simulated Cen A with background, but without the other simulated sources. 
 
 We repeat the steps used in the Crab analysis: we read in a new data set, define the background model, and redefine the point source response. We're then ready to reattempt the Cen A spectral analysis with this simplified example.
 
 ## Second attempt at fitting the Cen A Spectrum
 
-With only Cen A in our data set and no contamination from the Crab, the extracted spectrum from the fit closely matches expectations from simulations:
+With only Cen A in our data set and no contamination from the Crab, the extracted spectrum from the fit more closely matches expectations from simulations:
 
 <img width="500" alt="CenA_BG_10x_Spectrum" src="plots/CenA_compare.png">
 
