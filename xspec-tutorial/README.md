@@ -1,14 +1,14 @@
 # Using XSPEC for COSI spectral analysis and simulations
 
-This tutorial is meant to serve as a starting point for using the X-ray spectral fitting package with COSI data. We will start by using an extracted data set from the 2016 COSI balloon flight for during its observation of GRB 160530A (source_and_background.pha). This tutorial will walk you through the fit of this data set, and then will show an example of how to simulate sources using the provided instrument response and background files. In future Data Challenges, we will release tools for users to be able to make their own response files so one can use XSPEC analysis tools with more flexibility. 
+This tutorial is meant to serve as a starting point for using the X-ray spectral fitting package (XSPEC) with COSI data. We will start with an extracted data set from the 2016 COSI balloon flight during its observation of GRB 160530A (source_and_background.pha). This tutorial will walk you through the fit of this data set, and then will show an example of how to simulate sources using the provided instrument response and background files. In future Data Challenges, we will release tools with which users can make their own response files and conduct XSPEC analyses with more flexibility. 
 
-XSPEC is an extremely mature software package that a large portion of the high-energy community uses. It has a huge number of models and flexibility for adding custom models as needed. Once the basic commands are known, it is easy to use, and spectral analysis can be performed efficiently. It has a very convenient spectral simulation tool that will be helpful to the COSI science team and will broaden the COSI community. Although not discussed in this tutorial, there is a pyXSPEC package that allows for automated scripts to be written. The main XSPEC website is https://heasarc.gsfc.nasa.gov/xanadu/xspec/ and a more extensive manual can be found there. XSPEC is installed by default as part of the HEASoft tools. Thus, it is installed as part of the COSItools. 
+XSPEC is an extremely mature software package used by a large portion of the high-energy community. It contains a wide range of models and allows users to define custom models as needed. Once the basic commands are known, it is easy to use, and spectral analysis can be performed efficiently. It has a very convenient spectral simulation tool that will be helpful to the COSI science team and will broaden the COSI community. Although not discussed in this tutorial, there is a pyXSPEC package that allows for automated scripts to be written. The [main XSPEC website](https://heasarc.gsfc.nasa.gov/xanadu/xspec/) provides a more extensive manual. XSPEC is installed by default as part of the HEASoft tools and in turn as part of the COSItools. 
 
 Here, we assume that the user has extracted a spectral file (source_and_background.pha), a background file (background.pha), a response matrix (response.rmf), and an ancillary response file (area.arf) - these are provided in the above download. **Command#1** below gives an example of using the FTOOL `fdump` to see what is inside the file. The useful information is in the FITS file binary table extension (see more details about FITS files [here](https://fits.gsfc.nasa.gov/fits_documentation.html)). For example, there are two fields in each row of data (CHANNEL and COUNTS), and there are 502 rows in the table.  
 
-The other thing that is important to check is that you have specified the names of the background file, the response matrix, and the ancillary response file in the header under the keywords BACKFILE, RESPFILE, and ANCRFILE.  When you load the file into XSPEC, these files will be read in automatically from the same directory.  The easiest way to put the file names in the header is to use the FTOOL `fv`, search for the keywords, and type or copy the filenames in.
+It is important to check that you have specified the names of the background file, the response matrix, and the ancillary response file in the header under the keywords BACKFILE, RESPFILE, and ANCRFILE.  When you load the file into XSPEC, these files are read in automatically from the same directory.  The easiest way to put the file names in the header is to use the FTOOL `fv`, search for the keywords, and type or copy the filenames in.
 
-Both the `fdump` and `fv` commands are apart of FTOOLS and can be used in the regular command line or from inside XSPEC.
+Both the `fdump` and `fv` commands are part of FTOOLS and can be used in the regular command line or from inside XSPEC.
 
 **Command#1**
 ```
@@ -130,7 +130,7 @@ To see what the spectrum looks like, use the following commands:
 `PLT>font roman` (uses times roman fonts rather than the default)
 `PLT>plot`
 
-You should see a spectrum that looks exactly like the one shown in Figure 1.
+You should see a spectrum that looks exactly like the one shown below.
 ![Figure 1](Figures/source_and_background_spectrum.png) 
 
 Now, you can leave pgplot by typing `exit` or `quit`.   And for future reference, to end an XSPEC session and return to a regular command line, the command `exit` is used.
@@ -201,7 +201,7 @@ We plot the spectrum using
 XSPEC12> plot ldata
 XSPEC12> iplot
 ```
-(and the other commands in pgplot above) and Figure 2 shows the result.
+(and the other commands in pgplot above) and the figure below shows the result.
 
 ![Figure 2](Figures/source_and_background_grp8ch_spectrum.png)
 
@@ -209,7 +209,7 @@ Now, we are ready to specify the model (we’ll use a power-law here) and fit th
 ```
 XSPEC12> model powerlaw
 ```
-There is an option to choose starting values of parameters, but for such a simple model, it is fine just to accept the default values by pressing “return.”  Even though the starting parameters are not close to the correct values, typing
+There is an option to choose starting values of parameters, but for such a simple model, it is fine just to accept the default values by pressing “return.”  Even though the starting parameters are not close to the correct values, we proceed by typing
 ```
 XSPEC12> fit
 ```
@@ -240,11 +240,11 @@ And you can see the spectrum converted to flux units (sometimes called the “un
 ```
 XSPEC12> plot eeuf del
 ```
-Figure 3 shows the GRB spectrum fitted with a power-law and the residuals.  After typing
+The figure below shows the GRB spectrum fitted with a power-law and the residuals.  After typing
 ```
 XSPEC12> iplot
 ```
-some other commands used are
+we invoke other commands, including
 
 `PLT> lw 5 on 1` (to make the data points thick)
 
@@ -258,7 +258,7 @@ some other commands used are
 
 `PLT> r y -2.9 2.9` (to set the y-range to be from -2.9 to 2.9)
 
-![Figure 3](Figures/unfolded_spectrum.png))
+![Figure 3](Figures/unfolded_spectrum.png)
 
 The parameters for the fit are below.  Please note that the default uncertainties are approximations.
 
@@ -288,9 +288,9 @@ XSPEC12>error 2.7 1
      1      1.62291      2.00488    (-0.181687,0.200285)
 ```
 
-In the error command above, the 2.7 refers to the value by which the fit statistic changes at the extremes of the confidence range, and 2.7 corresponds to 90% confidence errors. The "1" after 2.7 refers to the parameter number, in this case we are interested in the error on the photon index. Also, note that the Chi-Squared value is 8.55 for 6 degrees of freedom.  With such a small number of degrees of freedom, a reduced Chi-Squared of 1.43 would be considered to be an acceptable fit (using the Chi-Squared distribution, there is a probability of 20% that the true model would have a Chi-Squared of 1.43).
+In the error command above, the 2.7 refers to the value by which the fit statistic changes at the extremes of the confidence range, and 2.7 corresponds to 90% confidence errors. The "1" after 2.7 refers to the parameter number; in this case, we are interested in the error on the photon index. Also, note that the Chi-Squared value is 8.55 for 6 degrees of freedom.  With such a small number of degrees of freedom, a reduced Chi-Squared of 1.43 would be considered to be an acceptable fit (using the Chi-Squared distribution, there is a probability of 20% that the true model would have a Chi-Squared of 1.43).
 
-That is our final spectrum of GRB 160530A from the 2016 balloon flight. This was published in (Sleator 2019)[https://escholarship.org/uc/item/0zn566rj]. 
+This is the final spectrum of GRB 160530A from the 2016 COSI balloon flight, as published in [Sleator 2019](https://escholarship.org/uc/item/0zn566rj). 
 
 Before moving on to another spectrum or a simulation (see Part 2), you should use the following command
 ```
@@ -309,7 +309,7 @@ One of the very nice features of XSPEC is the simplicity for making simulated sp
 ```
 XSPEC12> data source_and_background.pha
 ```
-Now, load the model that you would like to simulate.  Here, we will use the model that Roques et al. (https://ui.adsabs.harvard.edu/abs/2019ApJ...870...92R/abstract) used to fit the Crab.  This model is a Band function (often used for GRBs). You will have to manually input the parameters for the model as follows:
+Now, load the model that you would like to simulate.  Here, we will use the model that [Roques et al. 2019](https://ui.adsabs.harvard.edu/abs/2019ApJ...870...92R/abstract) used to fit the Crab.  This model is a Band function (often used for GRBs). You will have to manually input the parameters for the model as follows:
 ```
 XSPEC12>model grbm
 
@@ -405,9 +405,9 @@ We also convert the x-axis to energy using
 XSPEC12> setplot energy
 ```
 
-We first fit it with the Band function (grbm).  The Chi-Squared was 2.95 for 4 degrees of freedom.  Only one of the four grbm parameters are well-constrained, indicating that the statistical quality of the spectrum is not high enough to require all the free parameters in the grbm model.  Thus, I switched to a power-law, and the Chi-Squared is 2.95 for 4 degrees of freedom, indicating that the fit is not improved by the additional free parameters in the Band function.  The conclusion would be that this COSI spectrum would provide a good measurement of the slope of the Crab but that it would not allow us to measure the change in slope that was measured by INTEGRAL/SPI (Roques et al. 2019).  Of course, keep in mind that the files we are using here are for the COSI-APRA instrument with the balloon background, so they should not be used to draw any conclusions about the SMEX.
+We first fit it with the Band function (grbm).  The Chi-Squared was 2.95 for 4 degrees of freedom.  Only one of the four grbm parameters are well-constrained, indicating that the statistical quality of the spectrum is not high enough to require all the free parameters in the grbm model.  Thus, we switch to a power-law, and the Chi-Squared is 2.95 for 4 degrees of freedom, indicating that the fit is not improved by the additional free parameters in the Band function.  The conclusion is that this COSI spectrum would provide a good measurement of the slope of the Crab but that it would not allow us to measure the change in slope that was measured by INTEGRAL/SPI (Roques et al. 2019).  Of course, keep in mind that the files we are using here are for the COSI-Balloon instrument with the balloon background, so they should not be used to draw any conclusions about the SMEX.
 
-The power-law results are below, and the unfolded spectrum is shown in Figure 4.  Your spectrum will not look exactly the same.  Each simulated spectrum will look somewhat different because of the random number generator.
+The power-law results and the unfolded spectrum are shown below. Your spectrum will not look exactly the same. Each simulated spectrum will look somewhat different because of the random number generator.
 ```
 ========================================================================
 Model powerlaw<1> Source No.: 1   Active/On
@@ -444,7 +444,7 @@ Also, when plotting the spectrum, the command
 ```
 XSPEC12>setplot back
 ```
-adds the background spectrum to the plot.  In Figure 6, the bottom points are the Crab spectrum after background subtraction (so, that is the source spectrum).  The top points (with the crosses) show the background (for example, you can see the 511 keV line).
+adds the background spectrum to the plot.  In Figure 6, the bottom points are the Crab spectrum after background subtraction (i.e. the source spectrum).  The top points (with the crosses) show the background (for example, you can see the 511 keV line).
  
 ![Figure 6](Figures/unfolded_crab_simulation_with_background.png)
 

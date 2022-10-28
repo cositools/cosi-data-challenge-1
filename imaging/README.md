@@ -7,9 +7,9 @@ In this example, we'll use a Richardson-Lucy deconvolution algorithm to image th
 
 The three notebooks are almost identical in their execution, but different data sets will be uploaded, different response matrices will be used, and slightly different imaging parameters will be required. Please refer to the [data_products](../data_products) README for more details on the scientific background for these sources, and the simulated source models. This README should act as a guide offering additional information for each step of the analysis. The following sections align with the different steps within the notebooks.
 
-**Before diving in**, you should be aware that these notebook takes signficant time and computer memory to run, more so than the spectral fitting. Calculating the imaging response takes ~1 hour on a personal computer with 16 GB of memory, but to actually perform the Richardson-Lucy image deconvolution as it currently is written will take >75 GB of memory - this will likely be >6 hours even on powerful workstations. The imaging may not be doable with a personal computer and it is recommended that you complete this analysis on a workstation with more memory, if accessible. 
+**Before diving in**, you should be aware that these notebooks take signficant time and computer memory to run, more so than the spectral fitting notebook. Calculating the imaging response takes ~1 hour on a personal computer with 16 GB of memory, and to actually perform the Richardson-Lucy image deconvolution as it currently is written will take >75 GB of memory - this will likely be >6 hours even on powerful workstations. The imaging may not be doable with a personal computer and it is recommended that you complete this analysis on a workstation with more memory, if accessible. 
 
-It's worth noting that the memory intensive nature of this analysis is a consequence of using the original COSIpy-classic code, where there wasn't a significant effort to reduce the computing requirements. Additionally, the Richardson-Lucy imaging is still being developed for COSI analysis, and the code is largely hard-coded in the notebooks. Future versions of Data Challenges will address these issues.
+It's worth noting that the memory-intensive nature of this analysis is a consequence of using the original COSIpy-classic code, for which there wasn't a dedicated effort to reduce the computing requirements. Additionally, the Richardson-Lucy imaging is still being developed for COSI analysis, and the code is largely hard-coded in the notebooks. Future versions of Data Challenges will address these issues.
 
 
 ## Intial Setup
@@ -19,7 +19,7 @@ These cells import relevant packages, define file names, and read in the data fi
 ## Bin the data
 
 ### Define the bins for the Compton data space
-**Time bins:** The balloon environment is background dominated, and the rates depend mainly on the latiude (i.e. geomagnetic cutoff) and the altitude (i.e. atmospheric depth). When analyzing the COSI flight data, this change in background rate needs to be taken into account, and thus we bin the data set into time bins so we can fit each bin with varying backgrounds. For the simulated data in this Data challenge, the background rate is constant with time, and therefore this time binning is less important. We include it here for flexibility.
+**Time bins:** The balloon environment is background-dominated, and the rates depend mainly on the latitude (i.e. geomagnetic cutoff) and the altitude (i.e. atmospheric depth). When analyzing the COSI flight data, we account for this changing background rate by binning the data set into time bins which we can individually fit with varying backgrounds. For the simulated data in this Data challenge, the background rate is constant with time, and therefore this time binning is less important. We include it here for flexibility.
 
 Through extensive testing, **1800 second** (30 minute) time bins were found to strike a practical balance between a sufficiently precise treatment of background variability and computational means for the imaging analysis. 
 
@@ -61,17 +61,17 @@ Since we have the simulated data read and binned into the CDS, we can now make r
 
 The pointing class handles the aspect information of the COSI-balloon instrument. During flight, COSI freely floated on the balloon platform. This means that, unlike a space or ground-based telescope with well-defined pointings and slewing schedule, its orientation was largely dependent on the unconstrained path of the balloon. It was a zenith-pointing instrument, meaning that its vertical orientation pointed straight above the hanging instrument, towards the balloon above it. The exception to this freedom is that during the day time, COSI's azimuthal orientation was fixed such that its solar panels remained oriented facing the Sun. At nighttime, though, the instrument freely rotated about its azimuth. 
 
-This is all to say that COSI's orientation changed rapidly during flight. We had a differential GPS onboard, which recorded the yaw, pitch, and roll of the balloon payload every second. In the COSI-balloon calibrations performed in MEGAlib, this is converted to the X, Y and Z pointing of the COSI-balloon in Galactic coordinates. This aspect information is contained in the .tra.gz simulation file and the pointing information for each event is read in during the .read_COSI_DataSet() command. This pointing class bins this aspect information into a list of 'stable' pointings for which the change in the aspect is below a certain angular threshold. By default, this threshold is set to 5 degrees. This information is required when creating the sky model or image response.
+This is all to say that COSI's orientation changed rapidly during flight. We had a differential GPS onboard, which recorded the yaw, pitch, and roll of the balloon payload every second. In the COSI-balloon calibrations performed in MEGAlib, this is converted to the X, Y and Z pointing of the COSI-balloon in Galactic coordinates. This aspect information is contained in the .tra.gz simulation file and the pointing information for each event is read in during the `.read_COSI_DataSet()` command. This pointing class bins this aspect information into a list of 'stable' pointings for which the change in the aspect is below a certain angular threshold. By default, this threshold is set to 5 degrees. This information is required when creating the sky model or image response.
 
-In the point source imaging [notebook](RL-DataChallenge-Point_Sources-10XFlux-Ling.ipynb), we have some visuals to help you understand the pointings. For example, all of the Z pointings (i.e. COSI's zenith) are plotted in Galactic coordinates, with the Crab nebula position overlaid. From this, you can see the path that COSI traced. This can be compared with the flight path shown in the main [README](../README.md). We also can plot the elevation of any source within COSI's FOV. The elevation for the Crab position is shown, and we can see the source move in and out of the field of view. In this plot, the "horizon" lies at the maximum extent of what COSI can see beyond zenith, which is ~60 deg from zenith; therefore, COSI's zenith lies 60 deg above the horizon. The Crab is more visible in the latter part of the flight when COSI floated further north. We notice, too, that the Crab is always somewhat off-axis; it is never directly overhead the instrument at zenith.
+In the point source imaging [notebook](RL-DataChallenge-Point_Sources-10XFlux-Ling.ipynb), we include some visuals to help you understand the pointings. For example, all of the Z pointings (i.e. COSI's zenith) are plotted in Galactic coordinates, with the Crab nebula position overlaid. From this, you can see the path that COSI traced across the sky. This can be compared with the flight path shown in the main [README](../README.md). We also can plot the elevation of any source within COSI's FOV. The elevation for the Crab position is shown, and we can see the source move in and out of the field of view. In this plot, the "horizon" lies at the maximum extent of what COSI can see beyond zenith, which is ~60 deg from zenith; therefore, COSI's zenith lies 60 deg above the horizon. The Crab is more visible in the latter part of the flight when COSI floated further north. We notice, too, that the Crab is always somewhat off-axis; it is never directly overhead the instrument at zenith.
 
 ## Background Model
 
-As discussed in [data_products](../data_products), we model the background using extensive simulations of Earth's atmospheric $\gamma$-ray background based on the Ling model. The simulations use an accurate mass model of the COSI-balloon instrument during flight and follow the true orientation of the instrument as it traveled along its flight path. The simulations were performed in MEGAlib, and we have provided an .npz background response file which contains the Ling model simulation binned into the Compton Data Space. Defining the BG model here loads this response.
+As discussed in [data_products](../data_products), we model the background using extensive simulations of Earth's atmospheric $\gamma$-ray background based on the Ling model. The simulations use an accurate mass model of the COSI-balloon instrument during flight and follow the true orientation of the instrument as it traveled along its flight path. The simulations were performed in MEGAlib, and we have provided an .npz background response file which contains the Ling model simulation binned into the Compton Data Space. Defining the background model here loads this response.
 
 ## Read in Response Matrix
 
-The instrument response matrix is created through large simulations in MEGAlib's ResponseCreator program. There are different response matrices for the point sources and the diffuse line emission based on the energy binning. The point sources use the continuum response, which spans the full energy range of the COSI-balloon, whereas the 511 keV and Al-26 analysis only have one energy bin around the line of interest.
+The instrument response matrix is created through large simulations in MEGAlib's ResponseCreator program. There are different response matrices for the point sources and the diffuse line emission based on the energy binning. The point sources use the continuum response, which spans the full energy range of the COSI-balloon, whereas the 511 keV and Al-26 analyses only have one energy bin around the line of interest.
 
 After we read in the response, which is a 5D numpy array (.npz format), we can explore the shape of the data space to better understand the connections between the response matrix, the data set, and the background model. 
 
@@ -79,19 +79,19 @@ The shape of the response spans (Galactic latitude $b$, Galactic longitude $\ell
 
 Galactic latitude $b \in [-90^{\circ}, 90^{\circ}] \rightarrow$ 30 bins.\
 Galactic longitude $\ell \in [-180^{\circ}, 180^{\circ}] \rightarrow$ 60 bins.\
-Compton scattering angle $\phi \in [0^{\circ}, 180^{\circ}] \rightarrow$ 30 bins ("analysis1.dataset.phis.n_phi_bins").\
-See above for explanation of 1145 FISBEL bins ("rsp.rsp.n_fisbel_bins").\
+Compton scattering angle $\phi \in [0^{\circ}, 180^{\circ}] \rightarrow$ 30 bins (`analysis1.dataset.phis.n_phi_bins`).\
+See above for explanation of 1145 FISBEL bins (`rsp.rsp.n_fisbel_bins`).\
 The continuum response has 10 energy bins.
 
 The shape of the data and background objects span (time, energy, Compton scattering angle, FISBEL).
 
-Given the time bin size "Delta_T" which we defined at the beginning of the notebook, there are 2240 time bins.
+Given the time bin size `Delta_T` which we defined at the beginning of the notebook, there are 2240 time bins.
 
 The notebook will show you how to find these shapes and bin sizes.
 
 ## RL Imaging
 
-Up until this point, the analysis steps have been completely generic and parallel what is required for standard COSI analysis. The spectral fitting notebook is almost identical for the above steps. Everything that comes next is specific for the image deconvolution algorithims, and as you can see the RL algorithim and supporting functions are hard-coded in this notebook. These tools will be integrated into the COSIpy library for the next data challenge iteration.
+Up until this point, the analysis steps have been completely generic and parallel what is required for standard COSI analysis. The spectral fitting notebook almost identically follows the above steps. All subsequent explanations are specific to the image deconvolution algorithims, and as you can see the RL algorithim and supporting functions are hard-coded in this notebook. These tools will be integrated into the COSIpy library for the next data challenge iteration.
 
 
 ## Setup for imaging / Define the imaging response
@@ -106,7 +106,7 @@ Z = zenith (angle in instrument coordinates) \
 A = azimuth (angle in instrument coordinates) \
 $(\phi, \psi, \chi)$ are the CDS angles. 
 
-Z and A point to a location on the sky via a unique mapping of (Z, A) <-> $(\ell, b)$, i.e. Galactic longitude and latitude, that is changing with time. This mapping is calculated with "Great Circles," trigonometric functions, etc. See the "zenaziGrid()" function in COSIpy_tools_dc1.py. Note that the attitude is what defines the (Z, A) <-> $(\ell, b)$ transformation. The attitude is just a rotation matrix, which can be specified multiple ways. Currently the tra file contains the attitude for every event, specified by the orientation of the spacecraft axes (given in Galactic coordinates). In the future, this will be part of a separate “spacecraft file” that contains the spacecraft location/orientation information (i.e. Earth’s latitude/longitude + attitude quaternion) necessary for data analysis.
+Z and A point to a location on the sky via a unique mapping of (Z, A) $\leftrightarrow$ $(\ell, b)$, i.e. Galactic longitude and latitude, that is changing with time. This mapping is calculated with "Great Circles," trigonometric functions, etc. See the "zenaziGrid()" function in COSIpy_tools_dc1.py. Note that the attitude is what defines the (Z, A) $\leftrightarrow$ $(\ell, b)$ transformation. The attitude is just a rotation matrix, which can be specified multiple ways. Currently the .tra.gz file contains the attitude for every event, specified by the orientation of the spacecraft axes (given in Galactic coordinates). In the future, this will be part of a separate “spacecraft file” that contains the spacecraft location/orientation information (i.e. Earth’s latitude/longitude + attitude quaternion) necessary for data analysis.
 
 Here, we convert the sky grid to said zenith/azimuth pairs for later convolution with the response.
 
@@ -124,7 +124,7 @@ Here we plot the exposure map, which is the response multiplied by the actual ob
 
 ## Set up for RL Algorithim
 
-There are lots of defiitions that need to be included for the RL algorithim, including defining regions of the sky with poor exposure, defining the number of time bins, selecting the energy bin for imaging, defining an intial starting map (here defined to be an isotropic map), etc. See the details in the notebook for more information. Be aware that the stan model that is loaded often will print out a large warning, but the cell does run correctly.
+There are many definitions required for the RL algorithim, including defining regions of the sky with poor exposure, defining the number of time bins, selecting the energy bin for imaging, defining an intial starting map (here defined to be an isotropic map), etc. See the details in the notebook for more information. Be aware that the stan model that is loaded often will print out a large warning, but the cell does run correctly.
 
 ## Richardson-Lucy Algorithim
 
@@ -133,10 +133,10 @@ The steps follow the algorithm as outlined in [Knödlseder et al. 1999](https://
 The total memory used during these iterations is about 94 GB for the continuum response, 75 GB for the 511 keV, and 105 GB for the Al-26!! You might be limited on your personal computer, and at the very least, you might not be able to do much else with your machine while this is running. 
 
 #### Adjustable parameters
-There are three parameters at the beginning of this RL cell which we encourage you to adjust. In fact, it is often necessary to adjust these parameters depending on the data being studied.
+There are three parameters at the beginning of this RL cell which we encourage you to adjust. In fact, it is often necessary to adjust these parameters depending on the data being studied. A list of suggested paramters for different cases is provided [here](imaging_suggested_parameters.pdf).
 
 - map_init\
-This is the flux value of the initial, isotropic map. Typically, a value of 0.01 works well. For stronger sources, you can try increasing it to 0.1 or 1.0. As an example, running the algorithm on a source-only (no BG) simulation of the Crab, Cen A, Cygnus X-1, and Vela works well with map_init = 0.01. However, when imaging these sources each simulated with 10X their true flux values, the algorithm fails at 0.01 and works when map_init = 1.0.
+This is the flux value of the initial, isotropic map. Typically, a value of 0.01 works well. For stronger sources, you can try increasing it to 0.1 or 1.0. As an example, running the algorithm on a source-only (no background) simulation of the Crab, Cen A, Cygnus X-1, and Vela works well with map_init = 0.01. However, when imaging these sources each simulated with 10X their true flux values, the algorithm fails at 0.01 and works when map_init = 1.0.
 
 - iterations\
 This is the number of RL iterations. You can set this to a small value, say 50, as you get used to using the algorithm. In our testing, though, for fully converged images we usually let the algorithm run for 150 iterations. ***This can take anywhere from several hours (usually simulations without background) to overnight (simulations with background) to run.***
@@ -147,7 +147,7 @@ The default value here is 2000, though 1000 also works well. If you find that th
 
 Other parameters you can adjust:
 - mu_Abg, sigma_Abg\
-There is a prior in the background fit defined by mu_Abg +/- sigma_Abg. By default, mu_Abg and sigma_Abg are set to fitted_bg and most testing has been done with this setting. You can try constraining the fit by decreasing sigma_Abg, for example, to sigma_Abg/2., sigma_Abg/10., which would enable to fit to vary by 50%, 10% of the initial guess.
+There is a prior in the background fit defined by mu_Abg $\pm$ sigma_Abg. By default, mu_Abg and sigma_Abg are set to fitted_bg and most testing has been done with this setting. You can try constraining the fit by decreasing sigma_Abg, for example, to sigma_Abg/2., sigma_Abg/10., which would enable to fit to vary by 50%, 10% of the initial guess.
 
 - delta_map_tot_old\
 You can change the exponent of the denominator. By default, it is set to 0.25 to help avoid exposure edge effects. All testing has been done with this fourth root. However, you can try setting it to 0, 0.5, etc. to see what happens. You can also try smoothing delta_map_tot_old with a Gaussian filter.
@@ -176,7 +176,7 @@ You can also try running this notebook without including the Ling background. Ch
 
 As another suggestion, what happens if you run this notebook using the 511 keV response? The 1809 keV response? A different energy bin of the continuum response? 
 
-You can try combining these four point sources and Ling BG with the 10x 511 keV and 10x Al-26 simulations for a full combined imaging test, using all three response simulations too.
+You can try combining these four point sources and Ling background with the 10x 511 keV and 10x Al-26 simulations for a full combined imaging test, using all three response simulations too.
 
 **Positron Annihilation at 511 keV:** \
 We clearly see the "bulge" emission of positron-electron annihilation at the center of the Milky Way:
