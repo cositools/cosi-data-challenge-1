@@ -41,7 +41,7 @@ class SkyResponse:
 
         if from_saved_file:
             # read everything in (very large in many cases)
-            print('Reading complete continuum response.')
+            print('Reading response.')
             self.LoadRegularBinnedMEGAlibResponse()
             print('Done.\n')
 
