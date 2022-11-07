@@ -121,3 +121,7 @@ Now that you have a better understanding of the general approach to Compton tele
 
 As mentioned previously, please don't hesitate to reach out to the COSI Data Challenge team if you have any questions, concerns, issues, or suggestions. Email [Chris Karwin](mailto:christopher.m.karwin@nasa.gov).
 
+## Bug Report
+
+* COSIpy classic requires pystan version 2.19.1.1., which has compatibility issues with Ubuntu 22.04 and currently cannot be installed. This only impacts the imaging notebooks with the simulated data. They can still be ran without modification, and will produce qualitatively similar images for the point sources and 511; however, the Al26 notebook will not work without pytan. In order to install COSITools on Ubuntu 22.04 you must remove pystan from requirements.txt.  
+
