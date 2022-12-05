@@ -13,7 +13,7 @@ You will also need to add the [cosipy-classic](cosipy-classic) directory to your
 
 Some of the data products are large and we are using the Git Large File Server. You will need to install git-lfs: https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage. After Git LFS has been successfully installed, navigate to your local cosi-data-challenge-1 directory and `git lfs pull` to download all of the data products. If this step is not performed, the file names will appear locally, but they will only be placeholders and the size will be only a few hundred kB. The total size of the data products should be 4.6 GB.
 
-You should now be able to start a python session, or open one of the provided notebooks, and import the COSIpy_dc1 module, i.e. `from COSIpy_dc1.py import *`, without issue. If you have any issues with the initialization, please see **Getting Help** below.
+You should now be able to start a python session, or open one of the provided notebooks, and import the COSIpy_dc1 module, i.e. `from COSIpy_dc1 import *`, without issue. If you have any issues with the initialization, please see **Getting Help** below.
 
 ### New to COSItools:
 Head to the feature/initialsetup branch of the cosi-setup Git repository and follow the readme guide: https://github.com/cositools/cosi-setup/tree/feature/initialsetup. Note that when making the installation you must include the option "--extras=cosi-data-challenge-1". This installation will include MEGAlib, ROOT, Geant4, Git LFS, and all packages in the [requirements.txt](requirements.txt) file. After successful installation (this will take time), you will want to activate the cosi python environment by typing `cosi`. 
