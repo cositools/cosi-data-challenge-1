@@ -11,7 +11,7 @@ The three notebooks are almost identical in their execution, but different data 
 
 It's worth noting that the memory-intensive nature of this analysis is a consequence of using the original COSIpy-classic code, for which there wasn't a dedicated effort to reduce the computing requirements. Additionally, the Richardson-Lucy imaging is still being developed for COSI analysis, and the code is largely hard-coded in the notebooks. Future versions of Data Challenges will address these issues.
 
-**Note as of January 20, 2023**: The Al-26 notebook was tested and executes in its current form on Ubuntu 20.04. We're hearing reports that the image deconvolution fails at early iterations (~10) on Mac M1 and does not run on Ubuntu 22.04, the latter of which cannot support pystan. This is under investigation. Please attempt this notebook as you wish, try changing parameters in the algorithm, or refer to the 511 keV imaging notebook for another example of diffuse imaging.
+**Note as of January 20, 2023**: The Al-26 notebook was tested and executes in its current form on Ubuntu 20.04. We've heard reports that the image deconvolution fails at early iterations (~10) on Mac M1 and does not run on Ubuntu 22.04, the latter of which cannot support pystan. This is under investigation. Note that the other imaging notebooks should still be working ok. Please attempt the Al-26 notebook as you wish, try changing parameters in the algorithm, or refer to the 511 keV imaging notebook for another example of diffuse imaging.
 
 ## Intial Setup
 
