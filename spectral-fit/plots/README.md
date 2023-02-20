@@ -1,6 +1,0 @@
-- **Crab_combined.png**: spectrum of Crab extracted using combined simulation
-- **Crab_combined_compare.png**: spectrum of Crab extracted using combined simulation compared to expectation (in gray)
-- **CenA_combined.png**: spectrum of Cen A extracted using combined simulation
-- **CenA_combined_compare.png**: spectrum of Cen A extracted using combined simulation compared to expectation (in gray)
-- **CenA.png**: spectrum of Cen A extracted using simulation of only Cen A & background
-- **CenA_compare.png**: spectrum of Cen A extracted using simulation of only Cen A & background compared to expectation (in gray)
