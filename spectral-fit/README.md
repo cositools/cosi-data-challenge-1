@@ -112,6 +112,6 @@ We repeat the steps used in the Crab analysis: we read in a new data set, define
 
 With only Cen A in our data set and no contamination from the Crab, the extracted spectrum from the fit more closely matches expectations from simulations:
 
-<img width="500" alt="CenA_BG_10x_Spectrum" src="plots/CenA_compare.png">
+<img width="500" alt="CenA_BG_10x_Spectrum" src="https://user-images.githubusercontent.com/54562666/220174376-6d3cf999-ce3a-4d91-b597-1d8679746097.png">
 
 This is an important demonstration of the need for an accurate background model. Sophisticated background models which include contaminating bright sources and which encode time varaibility of the background level during flight are critical to obtaining trustworthy results. Developing robust background models will be explored in subsequent Data Challenges.
