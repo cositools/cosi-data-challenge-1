@@ -100,7 +100,7 @@ Let's take a look the spectral fit for the second brightest source: Cen A. Since
 
 After recomputing the point source response, you will see that the extracted Cen A spectrum does not adequately match expectations from simulations. You should find the following fit results:
 
-<img width="500" alt="CenA_DC1_combined_10x_Spectrum" src="plots/CenA_combined_compare.png">
+<img width="500" alt="CenA_DC1_combined_10x_Spectrum" src="https://user-images.githubusercontent.com/54562666/220175106-66fa7293-4f44-4388-838a-93a96044cc67.png">
 
 The upper limits indicate where the signal-to-noise ratio (SNR) < 3. The error bars for the Cen A spectrum are very large, and almost all energy bins have upper limits. 
 
