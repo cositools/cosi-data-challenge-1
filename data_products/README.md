@@ -19,7 +19,7 @@ Furthermore, the transmission probability of the source photons in the atmospher
 
 ## Simulation Tools:
 
-The tools that were used for the simulations (including the source library, orientation file, transmission probability file, etc.) are available in the feature/initialsetup branch of cositools/cosi-data-challenges ([link](https://github.com/cositools/cosi-data-challenges/tree/feature/initialsetup)). 
+The tools that were used for the simulations (including the source library, orientation file, transmission probability file, etc.) are available in the main branch of cositools/cosi-data-challenges ([link](https://github.com/cositools/cosi-data-challenges/tree/feature/initialsetup)). 
 
 ## Data Products:
 
